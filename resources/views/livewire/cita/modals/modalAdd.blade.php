@@ -88,11 +88,6 @@
         })
         window.addEventListener('data', event => {
 
-
-            $(".select2").select2("destroy");
-            // possible loop
-            $(".select2").append("<option value='" + event.detail.id_paciente + "'>'" + event.detail
-                .nombres_paciente + "'</option>");
         })
     </script>
 </div>
