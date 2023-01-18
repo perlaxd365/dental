@@ -88,6 +88,7 @@
         })
         window.addEventListener('data', event => {
 
+            alert(1);
         })
     </script>
 </div>
