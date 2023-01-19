@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_empresa')->nullable()->comment('id de empresa');
+            $table->unsignedBigInteger('id_tipo_usuario')->nullable()->comment('id de tipo_usuarios');
             $table->string('name');
             $table->string('dni');
             $table->string('email')->unique();
@@ -25,6 +26,7 @@ return new class extends Migration
             $table->boolean('estado');
             $table->timestamps();
             $table->foreign('id_empresa')->references('id_empresa')->on('empresas');
+            $table->foreign('id_tipo_usuario')->references('id_tipo_usuario')->on('tipo_usuarios');
         });
     }
 

@@ -37,8 +37,8 @@
             </thead>
             <tbody>
 
-                @if ($lista_usuarios->count())
-                    @foreach ($lista_usuarios as $usuario)
+                @if ($lista->count())
+                    @foreach ($lista as $usuario)
                         <tr>
                             <td class="border-top-0 px-2 py-4">
                                 <div class="d-flex no-block align-items-center">
@@ -98,7 +98,7 @@
                     @endforeach
 
                     <div class="card-footer text-right">
-                        {{ $lista_usuarios->links() }}
+                        {{ $lista->links() }}
                     </div>
                 @else
                     <div class="card-body">

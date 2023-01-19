@@ -18,6 +18,21 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
+                    <label>Tipo Usuario</label>
+                    <select wire:model="id_tipo_usuario" class="form-control">
+                        <option value="">Seleccionar</option>
+                        @foreach ($tipos_usuario as $tipos)
+                            <option value="{{ $tipos->id_tipo_usuario }}">{{ $tipos->nombre_tipo_usuario }}</option>
+                        @endforeach
+                    </select>
+
+                    @error('id_tipo_usuario')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
                     <label>Nombres Completos</label>
                     <input wire:model="name" type="text" class="form-control" placeholder="">
 
@@ -60,13 +75,15 @@
     </div>
     <div class="form-actions">
         <div class="text-right">
-            <button wire:click="agregar" wire:loading.attr="disabled" class="btn btn-primary" type="button"> <i
-                    class="fa fa-plus-circle"></i> <i wire:target="agregar" wire:loading.class="fa fa-spinner fa-spin"
-                    aria-hidden="true"></i> Agregar Usuario</button>
+            @can('admin.users.index')
+                <button wire:click="agregar" wire:loading.attr="disabled" class="btn btn-primary" type="button"> <i
+                        class="fa fa-plus-circle"></i> <i wire:target="agregar" wire:loading.class="fa fa-spinner fa-spin"
+                        aria-hidden="true"></i> Agregar Usuario</button>
 
-            <button wire:click="default" wire:loading.attr="disabled" class="btn btn-secondary" type="button"> <i
-                    wire:target="default" wire:loading.class="fa fa-spinner fa-spin"
-                    aria-hidden="true"></i>Limpiar</button>
+                <button wire:click="default" wire:loading.attr="disabled" class="btn btn-secondary" type="button"> <i
+                        wire:target="default" wire:loading.class="fa fa-spinner fa-spin"
+                        aria-hidden="true"></i>Limpiar</button>
+            @endcan
         </div>
     </div>
     <script>
@@ -83,10 +100,10 @@
         window.addEventListener('clear', event => {
             $('.select2').val(null).trigger('change.select2');
         })
-        
+
         window.addEventListener('datos', event => {
             $('.select2').val(event.detail.id_empresa).trigger('change.select2');
-            
+
             @this.set('id_empresa', event.detail.id_empresa);
         })
     </script>

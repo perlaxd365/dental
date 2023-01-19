@@ -24,7 +24,7 @@ class EmpresaSeeder extends Seeder
             "direccion_empresa"=>'Urb Garatea Mz H Lote 32',
             "logo_empresa"=>'images/rpi.png',
             "tipo_soap_empresa"=>'Demo',
-            "envio_soap_empresa"=>'Producción',
+            "envio_soap_empresa"=>'SOAP',
             "estado"=>true
         ]);
     }

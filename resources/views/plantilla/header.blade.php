@@ -148,7 +148,7 @@
             <!-- ============================================================== -->
             <!-- Search -->
             <!-- ============================================================== -->
-            <li class="nav-item d-none d-md-block">
+            <li class="nav-item dropdown">
 
                 @php
                     $empresas = DB::select('select * from empresas where id_empresa = ' . auth()->user()->id_empresa );

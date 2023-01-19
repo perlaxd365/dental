@@ -18,6 +18,22 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
+                    <label>Tipo Usuario</label>
+                    <select wire:model="id_tipo_usuario"  class="form-control" >
+                        <option value="">Seleccionar</option>
+                        @foreach ($tipos_usuario as $tipos)
+                            
+                        <option value="{{$tipos->id_tipo_usuario}}">{{$tipos->nombre_tipo_usuario}}</option>
+                        @endforeach
+                    </select>
+
+                    @error('id_tipo_usuario')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
                     <label>Nombres Completos</label>
                     <input wire:model="name" type="text" class="form-control" placeholder="">
 
