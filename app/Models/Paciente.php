@@ -30,6 +30,7 @@ class Paciente extends Model
         'departamento_paciente',
         'provincia_paciente',
         'distrito_paciente',
-        'estado'
+        'estado',
+        'id_empresa',
     ];
 }

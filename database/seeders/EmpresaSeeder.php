@@ -22,7 +22,7 @@ class EmpresaSeeder extends Seeder
             "ruc_empresa"=>'2000000023',
             "key_empresa"=>'1234',
             "direccion_empresa"=>'Urb Garatea Mz H Lote 32',
-            "logo_empresa"=>'storage/imagenes/rpi.png',
+            "logo_empresa"=>'images/rpi.png',
             "tipo_soap_empresa"=>'Demo',
             "envio_soap_empresa"=>'Producción',
             "estado"=>true

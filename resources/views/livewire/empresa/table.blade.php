@@ -43,7 +43,7 @@
                             <td class="border-top-0 px-2 py-4">
                                 <div class="d-flex no-block align-items-center">
                                     <div class="mr-3">
-                                        <img src="{{ $empresa->logo_empresa }}" alt="user" class="rounded-circle"
+                                        <img src="{{ asset( $empresa->logo_empresa) }}" alt="user" class="rounded-circle"
                                             width="45" height="45" />
                                     </div>
                                     <div class="">

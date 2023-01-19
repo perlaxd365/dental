@@ -126,6 +126,7 @@
             ,
             select: function (start, end) {
 
+                $('.select2').val(null).trigger('change.select2');
                 $('#ModalAdd #start').val(moment(start).format('YYYY-MM-DD HH:mm:ss'));
                 $('#ModalAdd #end').val(moment(end).format('YYYY-MM-DD HH:mm:ss'));
                 $('#ModalAdd').modal('show');

@@ -77,22 +77,23 @@ class IndexEmpresa extends Component
         ];
         $this->validate($rules, $messages);
 
+        $filename = time() . "." . $this->logo_empresa->getClientOriginalExtension();
+        //$imagen = $this->logo_empresa->store('public/imagenes');
+        $imagen =  $this->logo_empresa->storeAs('images', $filename, 'real_public');
 
-        $imagen = $this->logo_empresa->store('public/imagenes/');
 
-        $url = Storage::url($imagen);
         Empresa::create([
             'nombre_comercial_empresa' => $this->nombre_comercial_empresa,
             'razon_social_empresa' => $this->razon_social_empresa,
             'ruc_empresa'   => $this->ruc_empresa,
-            'logo_empresa' => $url,
+            'logo_empresa' => $imagen,
             'direccion_empresa' => $this->direccion_empresa,
             'key_empresa' => $this->key_empresa,
             'tipo_soap_empresa' => $this->tipo_soap_empresa,
             'envio_soap_empresa' => $this->envio_soap_empresa,
             'estado' => true,
-
         ]);
+
         // show alert
         $this->dispatchBrowserEvent(
             'alert',

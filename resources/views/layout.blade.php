@@ -3,7 +3,7 @@
 
 <head>
     @include('plantilla.link')
-
+    
 </head>
 
 <body>

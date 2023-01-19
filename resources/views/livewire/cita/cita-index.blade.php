@@ -37,7 +37,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-9">
+                        <div wire:ignore class="col-lg-9">
                             <div class="card-body b-l calender-sidebar">
                                 <div id="calendar"></div>
                             </div>

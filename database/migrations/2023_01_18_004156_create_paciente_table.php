@@ -35,6 +35,7 @@ return new class extends Migration
             $table->string('provincia_paciente')->nullable();
             $table->string('distrito_paciente')->nullable();
             $table->boolean('estado');
+            $table->string('id_empresa');
             $table->timestamps();
         });
     }

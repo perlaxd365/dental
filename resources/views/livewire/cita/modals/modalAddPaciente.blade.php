@@ -149,7 +149,8 @@
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="inputCity2">Grado de Instrucción</label>
-                            <select  wire:model="grado_instruccion_paciente"   class="form-control" name="" id="">
+                            <select  wire:model="grado_instruccion_paciente"  >
+                                <option value="">Seleccionar</option>
                                 <option value="Estudios Finalizados">Estudios Finalizados</option>
                                 <option value="Bachiller">Bachiller</option>
                                 <option value="Titulado">Titulado</option>

@@ -1,16 +1,17 @@
 <div wire:ignore.self class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-
+           
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Agregar Evento</h4>
+                
+                <h4 class="modal-title" id="myModalLabel"><i class="fa fa-calendar "></i> Agregar Cita</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
 
             </div>
             <div class="modal-body">
-                <div wire:ignore class="form-group">
-                    <label for="title" class="col-sm-10 control-label">
+                <div wire:ignore class="form-group" style="padding-left: 10px">
+                    <label for="title" class="col-sm-12 control-label">
                         Seleccionar paciente&nbsp;
                         <a data-toggle="modal" data-target=".bd-example-modal-lg"
                             href="javascript:void(0)">[Agregar]</a></label>
@@ -71,24 +72,35 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button wire:click="agregarCita" wire:loading.attr="disabled" class="btn btn-primary" type="button">
+                    <i class="fa fa-plus-circle"></i> <i wire:target="agregarCita"
+                        wire:loading.class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+                    Guardar Cita</button>
             </div>
         </div>
     </div>
     <script>
         window.addEventListener('livewire:load', event => {
             $(".select2").select2({
-                width: '390px',
+                width: '360px',
                 height: '60px',
                 class: 'form-control'
             });
+            
             $(".select2").on('change', function() {
                 @this.set('id_paciente', this.value);
             });
         })
         window.addEventListener('data', event => {
 
-            alert(1);
+            var newOption = new Option(event.detail.nombres_paciente, event.detail.id_paciente, true, true);
+
+
+            $('.select2').append(newOption).trigger('change'); //until this point, everything works
+
+            @this.set('id_paciente', event.detail.id_paciente);
+            
+
         })
     </script>
 </div>

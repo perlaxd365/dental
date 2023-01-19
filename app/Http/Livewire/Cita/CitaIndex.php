@@ -8,7 +8,7 @@ use Livewire\Component;
 class CitaIndex extends Component
 {
     public $pacientes = [];
-    public 
+    public
         $id_paciente,
         $dni_paciente,
         $nombres_paciente,
@@ -28,9 +28,18 @@ class CitaIndex extends Component
         $departamento_paciente,
         $provincia_paciente,
         $distrito_paciente;
+
+    //cita
+    public
+        $id_cita,
+        $nro_historia_clinica,
+        $fecha_inicio_cita,
+        $fecha_fin_cita,
+        $estado;
     public function mount()
     {
         $this->pacientes = Paciente::where('estado', true)->get();
+        $this->mayor_edad_paciente = true;
     }
     public function render()
     {
@@ -107,13 +116,14 @@ class CitaIndex extends Component
             'provincia_paciente'  => $this->provincia_paciente,
             'distrito_paciente'  => $this->distrito_paciente,
             'estado'  => true,
+            'id_empresa' => auth()->user()->id_empresa
 
         ]);
 
         // show alert
         $this->dispatchBrowserEvent(
             'alert',
-            ['type' => 'success', 'title' => 'Se guardó empresa correctamente', 'message' => 'Exito']
+            ['type' => 'success', 'title' => 'Se guardó al paciente correctamente', 'message' => 'Exito']
         );
         // show alert
         $this->dispatchBrowserEvent(
@@ -123,7 +133,7 @@ class CitaIndex extends Component
         // show alert
         $this->dispatchBrowserEvent(
             'data',
-            ['id_paciente' => $paciente->id_paciente , 'nombres_paciente' => $paciente->nombres_paciente  ]
+            ['id_paciente' => $paciente->id_paciente, 'nombres_paciente' => $paciente->nombres_paciente]
         );
         $this->default();
     }
@@ -138,7 +148,7 @@ class CitaIndex extends Component
         $this->fecha_nacimiento_paciente = "";
         $this->edad_paciente = "";
         $this->telefono_paciente = "";
-        $this->mayor_edad_paciente = "";
+        $this->mayor_edad_paciente = true;
         $this->grado_instruccion_paciente = "";
         $this->ocupacion_paciente = "";
         $this->dni_acompaniante_paciente = "";
@@ -148,5 +158,11 @@ class CitaIndex extends Component
         $this->departamento_paciente = "";
         $this->provincia_paciente = "";
         $this->distrito_paciente = "";
+    }
+
+    public function agregarCita()
+    {
+
+        //=(str_pad($acorrelativo->correlativo+1,6,'0',STR_PAD_LEFT));
     }
 }
