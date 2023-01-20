@@ -15,6 +15,10 @@ class Cita extends Model
         'nro_historia_clinica',
         'fecha_inicio_cita',
         'fecha_fin_cita',
+        'motivo_cita',
+        'descripcion_cita',
+        'color_cita',
         'estado',
+        'id_empresa',
     ];
 }

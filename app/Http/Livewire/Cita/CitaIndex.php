@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Cita;
 
+use App\Models\Cita;
 use App\Models\Paciente;
 use Livewire\Component;
 
@@ -31,11 +32,13 @@ class CitaIndex extends Component
 
     //cita
     public
-        $id_cita,
         $nro_historia_clinica,
         $fecha_inicio_cita,
         $fecha_fin_cita,
-        $estado;
+        $motivo_cita,
+        $descripcion_cita,
+        $color_cita,
+        $citas;
     public function mount()
     {
         $this->pacientes = Paciente::where('estado', true)->get();
@@ -50,12 +53,13 @@ class CitaIndex extends Component
     {
         $curl = curl_init();
         $dni = $this->dni_paciente;
-        $token = "d2617b5f616372dd5dc28f7df1b2647cbf6d7c698d2fa0bec4a169b4bbb97b0f";
+        //$headers = array("authorization: token d2617b5f616372dd5dc28f7df1b2647cbf6d7c698d2fa0bec4a169b4bbb97b0f");
+        $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InBlcmxheGQzNjVAZ21haWwuY29tIn0.3j6QnXgLgOToXNsBWCe-UTHyWl7IAHgIo-zZZGi_IaE";
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://apiperu.dev/api/dni/{$dni}?api_token={$token}",
+            CURLOPT_URL => "https://dniruc.apisperu.com/api/v1/dni/{$dni}?token={$token}",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_SSL_VERIFYPEER => false
+            CURLOPT_SSL_VERIFYPEER => false,
         ));
         $response = curl_exec($curl);
         $err = curl_error($curl);
@@ -64,16 +68,17 @@ class CitaIndex extends Component
             echo "cURL Error #:" . $err;
         } else {
             $datos = json_decode($response, true);
-            if ($datos["success"] != false) {
+            if ($datos != null) {
+                $nombres =  $datos["nombres"] . " " . $datos["apellidoPaterno"] . " " . $datos["apellidoMaterno"];
                 $this->dispatchBrowserEvent(
                     'alert',
-                    ['type' => 'success', 'title' => $datos["data"]["nombre_completo"], 'message' => 'Exito']
+                    ['type' => 'success', 'title' => $nombres, 'message' => 'Exito']
                 );
-                $this->nombres_paciente = $datos["data"]["nombre_completo"];
+                $this->nombres_paciente = $nombres;
             } else {
                 $this->dispatchBrowserEvent(
                     'alert',
-                    ['type' => 'error', 'title' => $datos["message"], 'message' => 'Error']
+                    ['type' => 'error', 'title' => 'No se encontraron resultados ', 'message' => 'Error']
                 );
             }
         }
@@ -130,11 +135,13 @@ class CitaIndex extends Component
             'close-modal-paciente',
             []
         );
+
         // show alert
         $this->dispatchBrowserEvent(
             'data',
             ['id_paciente' => $paciente->id_paciente, 'nombres_paciente' => $paciente->nombres_paciente]
         );
+
         $this->default();
     }
 
@@ -162,7 +169,51 @@ class CitaIndex extends Component
 
     public function agregarCita()
     {
+        $last_nro_historia_clinica = Cita::latest()->first();
+        $this->nro_historia_clinica = (str_pad($last_nro_historia_clinica->id_cita + 1, 6, '0', STR_PAD_LEFT));
 
-        //=(str_pad($acorrelativo->correlativo+1,6,'0',STR_PAD_LEFT));
+        $messages = [
+            'id_paciente.required' => 'Por favor selecciona un paciente',
+            'nro_historia_clinica.required' => 'Por favor generar un numero de historia clinica',
+            'motivo_cita.required' => 'Por favor ingresa el motivo de la cita',
+            'descripcion_cita.required' => 'Por favor ingresa la descripció de la cita',
+            'color_cita.required' => 'Por selecciona un color para poder agendar la cita',
+            'fecha_inicio_cita.required' => 'Por ingresa la fecha de inicio',
+            'fecha_fin_cita.required' => 'Por ingresa la fecha de fina',
+        ];
+
+        $rules = [
+            'id_paciente' => 'required',
+            'nro_historia_clinica' => 'required',
+            'motivo_cita' => 'required',
+            'descripcion_cita' => 'required',
+            'color_cita' => 'required',
+            'fecha_inicio_cita' => 'required',
+            'fecha_fin_cita' => 'required'
+
+        ];
+        $this->validate($rules, $messages);
+
+        $paciente = Cita::create([
+            'id_paciente' => $this->id_paciente,
+            'nro_historia_clinica' => $this->nro_historia_clinica,
+            'motivo_cita' => $this->motivo_cita,
+            'descripcion_cita' => $this->descripcion_cita,
+            'color_cita' => $this->color_cita,
+            'fecha_inicio_cita' => $this->fecha_inicio_cita,
+            'fecha_fin_cita' => $this->fecha_fin_cita,
+            'estado' => true,
+            'id_empresa' => auth()->user()->id_empresa,
+        ]);
+        // show alert
+        $this->dispatchBrowserEvent(
+            'alert',
+            ['type' => 'success', 'title' => 'Se agendó la cita correctamente', 'message' => 'Exito']
+        );
+        // show alert
+        $this->dispatchBrowserEvent(
+            'update-calendar',
+            []
+        );
     }
 }

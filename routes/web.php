@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\calendarController;
 use App\Http\Controllers\citaController;
 use App\Http\Controllers\empresaController;
 use App\Http\Controllers\indexController;
@@ -41,5 +42,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('logout', [logoutController::class, 'index'])->name('logout.perform');
     Route::get('empresa', [empresaController::class, 'index'])->name('empresa');
     Route::get('user', [userController::class, 'index'])->name('user');
+    Route::get('calendar/{id}', [calendarController::class, 'list'])->name('calendar');
 });
 

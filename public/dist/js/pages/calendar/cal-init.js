@@ -61,47 +61,9 @@
         var form = '';
         var today = new Date($.now());
 
-        var defaultEvents = [{
-            title: 'Meeting #3',
-            start: new Date($.now() + 506800000),
-            className: 'bg-info'
-        }, {
-            title: 'PEPEP #1',
-            start: today,
-            end: today,
-            className: 'bg-danger'
-        }, {
-            title: 'Meetup #00',
-            start: new Date($.now() + 848000000),
-            className: 'bg-info'
-        }, {
-            title: 'Seminar #4',
-            start: new Date($.now() - 1099000000),
-            end: new Date($.now() - 919000000),
-            className: 'bg-warning'
-        }, {
-            title: 'Event Conf.',
-            start: new Date($.now() - 1199000000),
-            end: new Date($.now() - 1199000000),
-            className: 'bg-purple'
-        }, {
-            title: 'Meeting #444',
-            start: new Date($.now() - 399000000),
-            end: new Date($.now() - 219000000),
-            className: 'bg-info'
-        },
-        {
-            title: 'Submission #2',
-            start: new Date($.now() + 868000000),
-            className: 'bg-danger'
-        }, {
-            title: 'Seminar #5',
-            start: new Date($.now() + 348000000),
-            className: 'bg-success'
-        }
-        ];
 
         var $this = this;
+        let id_empresa = $("#id_empresa").val();
         $this.$calendarObj = $this.$calendar.fullCalendar({
             slotDuration: '00:15:00',
             /* If we want to split day time each 15minutes */
@@ -115,7 +77,13 @@
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
             },
-            events: defaultEvents,
+            events: "/calendar/" + id_empresa,
+            data: {
+                title: title,
+                start: start,
+                end: end,
+                type: 'add'
+            },
             editable: true,
             droppable: true, // this allows things to be dropped onto the calendar !!!
             eventLimit: true, // allow "more" link when too many events
