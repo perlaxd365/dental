@@ -1,19 +1,31 @@
 <div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form class="form-horizontal" method="POST" action="editEventTitle.php">
+            <form class="form-horizontal" method="POST" name="updateCita" id="updateCita" >
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Modificar Evento</h4>
+                    <h4 class="modal-title" id="myModalLabel">Modificar Cita</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
-
+                    @csrf
+                    <div class="form-group">
+                        <div class="col-sm-10">
+                           <h3> <a href="#" class="text-decoration-none"><u>CESAR BACA GAMARRA</u></h3>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="title" class="col-sm-2 control-label">Titulo</label>
                         <div class="col-sm-10">
                             <input type="text" name="title" class="form-control" id="title"
                                 placeholder="Titulo">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcion_cita" class="col-sm-2 control-label">Descripción</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="descripcion_cita" class="form-control" id="descripcion_cita"
+                                placeholder="Desripción de Cita">
                         </div>
                     </div>
                     <div class="form-group">
@@ -37,6 +49,23 @@
                                 </option>
 
                             </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha_inicio_cita" class="col-sm-12 control-label">Fecha
+                            Inicial</label>
+                        <div class="col-sm-10">
+                            <input onkeydown="return false" type="datetime-local" name="fecha_inicio_cita"
+                                class="form-control" id="fecha_inicio_cita">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha_fin_cita" class="col-sm-12 control-label">Fecha
+                            Final</label>
+                        <div class="col-sm-10">
+                            <input onkeydown="return false" type="datetime-local" name="fecha_fin_cita"
+                                class="form-control" id="fecha_fin_cita">
                         </div>
                     </div>
                     <div class="form-group">

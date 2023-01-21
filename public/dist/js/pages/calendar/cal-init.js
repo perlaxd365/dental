@@ -101,10 +101,40 @@
             },
             eventRender: function (event, element) {
                 element.bind('click', function () {
-                    $('#ModalEdit #id').val(event.id);
-                    $('#ModalEdit #title').val(event.title);
-                    $('#ModalEdit #color').val(event.color);
+
                     $('#ModalEdit').modal('show');
+
+                    var formData = new FormData();
+                    //formData.append("dato", "valor");
+                    formData.append("id_cita", event.id);
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    $.ajax({
+                        url: "listCita",
+                        type: "post",
+                        dataType: "json",
+                        data: formData,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        beforeSend: function (data) {
+
+                        },
+                        success: function (data) {
+
+                            $('#ModalEdit #id').val(data[0]["id_cita"]);
+                            $('#ModalEdit #title').val(data[0]["motivo_cita"]);
+                            $('#ModalEdit #color').val(data[0]["color_cita"]);
+                            $('#ModalEdit #descripcion_cita').val(data[0]["descripcion_cita"]);
+                            $('#ModalEdit #fecha_inicio_cita').val(data[0]["fecha_inicio_cita"]);
+                            $('#ModalEdit #fecha_fin_cita').val(data[0]["fecha_fin_cita"]);
+                        }
+                    })
+
                 });
             },
             eventDrop: function (event, delta, revertFunc) { // si changement de position

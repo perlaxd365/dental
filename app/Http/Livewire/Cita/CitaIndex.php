@@ -31,17 +31,18 @@ class CitaIndex extends Component
         $distrito_paciente;
 
     //cita
-    public
+    /* public
         $nro_historia_clinica,
         $fecha_inicio_cita,
         $fecha_fin_cita,
         $motivo_cita,
         $descripcion_cita,
         $color_cita,
-        $citas;
+        $citas; */
     public function mount()
     {
-        $this->pacientes = Paciente::where('estado', true)->get();
+        $this->pacientes = Paciente::where('estado', true)
+        ->where('id_empresa', auth()->user()->id_empresa)->get();
         $this->mayor_edad_paciente = true;
     }
     public function render()
@@ -168,52 +169,5 @@ class CitaIndex extends Component
     }
 
     public function agregarCita()
-    {
-        $last_nro_historia_clinica = Cita::latest()->first();
-        $this->nro_historia_clinica = (str_pad($last_nro_historia_clinica->id_cita + 1, 6, '0', STR_PAD_LEFT));
-
-        $messages = [
-            'id_paciente.required' => 'Por favor selecciona un paciente',
-            'nro_historia_clinica.required' => 'Por favor generar un numero de historia clinica',
-            'motivo_cita.required' => 'Por favor ingresa el motivo de la cita',
-            'descripcion_cita.required' => 'Por favor ingresa la descripció de la cita',
-            'color_cita.required' => 'Por selecciona un color para poder agendar la cita',
-            'fecha_inicio_cita.required' => 'Por ingresa la fecha de inicio',
-            'fecha_fin_cita.required' => 'Por ingresa la fecha de fina',
-        ];
-
-        $rules = [
-            'id_paciente' => 'required',
-            'nro_historia_clinica' => 'required',
-            'motivo_cita' => 'required',
-            'descripcion_cita' => 'required',
-            'color_cita' => 'required',
-            'fecha_inicio_cita' => 'required',
-            'fecha_fin_cita' => 'required'
-
-        ];
-        $this->validate($rules, $messages);
-
-        $paciente = Cita::create([
-            'id_paciente' => $this->id_paciente,
-            'nro_historia_clinica' => $this->nro_historia_clinica,
-            'motivo_cita' => $this->motivo_cita,
-            'descripcion_cita' => $this->descripcion_cita,
-            'color_cita' => $this->color_cita,
-            'fecha_inicio_cita' => $this->fecha_inicio_cita,
-            'fecha_fin_cita' => $this->fecha_fin_cita,
-            'estado' => true,
-            'id_empresa' => auth()->user()->id_empresa,
-        ]);
-        // show alert
-        $this->dispatchBrowserEvent(
-            'alert',
-            ['type' => 'success', 'title' => 'Se agendó la cita correctamente', 'message' => 'Exito']
-        );
-        // show alert
-        $this->dispatchBrowserEvent(
-            'update-calendar',
-            []
-        );
-    }
+    {}
 }

@@ -43,5 +43,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('empresa', [empresaController::class, 'index'])->name('empresa');
     Route::get('user', [userController::class, 'index'])->name('user');
     Route::get('calendar/{id}', [calendarController::class, 'list'])->name('calendar');
+    Route::post('listCita', [citaController::class, 'list'])->name('listCita');
+    Route::post('storeCita', [citaController::class, 'store'])->name('storeCita');
+    Route::post('updateCita', [citaController::class, 'update'])->name('updateCita');
 });
-

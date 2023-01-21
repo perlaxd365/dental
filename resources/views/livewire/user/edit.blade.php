@@ -19,11 +19,10 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Tipo Usuario</label>
-                    <select wire:model="id_tipo_usuario"  class="form-control" >
+                    <select wire:model="id_tipo_usuario" class="form-control">
                         <option value="">Seleccionar</option>
                         @foreach ($tipos_usuario as $tipos)
-                            
-                        <option value="{{$tipos->id_tipo_usuario}}">{{$tipos->nombre_tipo_usuario}}</option>
+                            <option value="{{ $tipos->id_tipo_usuario }}">{{ $tipos->nombre_tipo_usuario }}</option>
                         @endforeach
                     </select>
 
@@ -83,15 +82,17 @@
             </div>
         </div>
     </div>
-    <div class="form-actions">
-        <div class="text-right">
-            <button wire:click="update" wire:loading.attr="disabled" class="btn btn-primary" type="button"> <i
-                    class="fa fa-refresh"></i> <i wire:target="update" wire:loading.class="fa fa-spinner fa-spin"
-                    aria-hidden="true"></i> Actualizar Usuario</button>
+    @can('admin.users.index')
+        <div class="form-actions">
+            <div class="text-right">
+                <button wire:click="update" wire:loading.attr="disabled" class="btn btn-primary" type="button"> <i
+                        class="fa fa-refresh"></i> <i wire:target="update" wire:loading.class="fa fa-spinner fa-spin"
+                        aria-hidden="true"></i> Actualizar Usuario</button>
 
-            <button wire:click="default" wire:loading.attr="disabled" class="btn btn-secondary" type="button"> <i
-                    wire:target="default" wire:loading.class="fa fa-spinner fa-spin"
-                    aria-hidden="true"></i>Cancelar</button>
+                <button wire:click="default" wire:loading.attr="disabled" class="btn btn-secondary" type="button"> <i
+                        wire:target="default" wire:loading.class="fa fa-spinner fa-spin"
+                        aria-hidden="true"></i>Cancelar</button>
+            </div>
         </div>
-    </div>
+    @endcan
 </div>

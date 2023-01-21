@@ -6,14 +6,19 @@
     <li class="list-divider"></li>
     <li class="nav-small-cap"><span class="hide-menu">Aplicaciones</span></li>
 
-    <li class="sidebar-item"> <a class="sidebar-link" href="{{ URL::route('empresa') }}" aria-expanded="false"><i
-                data-feather="users" class="feather-icon"></i><span class="hide-menu">Empresas
-            </span></a>
-    </li>
-    <li class="sidebar-item"> <a class="sidebar-link" href="{{ URL::route('user') }}" aria-expanded="false"><i
-                data-feather="user" class="feather-icon"></i><span class="hide-menu">Usuarios
-            </span></a>
-    </li>
+    @can('admin.users.index')
+        <li class="sidebar-item"> <a class="sidebar-link" href="{{ URL::route('empresa') }}" aria-expanded="false"><i
+                    data-feather="users" class="feather-icon"></i><span class="hide-menu">Empresas
+                </span></a>
+        </li>
+    @endcan
+
+    @can('admin.users.index')
+        <li class="sidebar-item"> <a class="sidebar-link" href="{{ URL::route('user') }}" aria-expanded="false"><i
+                    data-feather="user" class="feather-icon"></i><span class="hide-menu">Usuarios
+                </span></a>
+        </li>
+    @endcan
     <li class="sidebar-item"> <a class="sidebar-link" href="{{ URL::route('cita') }}" aria-expanded="false"><i
                 data-feather="calendar" class="feather-icon"></i><span class="hide-menu">Citas
             </span></a>

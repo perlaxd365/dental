@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    
 
 <head>
     @include('plantilla.link')

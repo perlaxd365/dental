@@ -10,7 +10,7 @@ class calendarController extends Controller
 {
     public function list($id_empresa)
     {
-        $citas =
+        $citas = 
             Cita::select(
                 DB::raw(
                     'id_cita as id,
@@ -19,7 +19,8 @@ class calendarController extends Controller
                     color_cita as color,
                     fecha_inicio_cita as start'
                 )
-            )->where('estado', true)->where('id_empresa', $id_empresa)->get();
+            )->where('estado', true)->where('id_empresa', $id_empresa)->get()
+        ;
 
         return  json_encode($citas);
     }

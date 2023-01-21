@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_paciente')->nullable()->comment('id del paciente');
             $table->string('nro_historia_clinica');
             $table->string('motivo_cita');
-            $table->string('descripcion_cita');
+            $table->string('descripcion_cita')->nullable();
             $table->string('color_cita');
             $table->string('fecha_inicio_cita');
             $table->string('fecha_fin_cita');
