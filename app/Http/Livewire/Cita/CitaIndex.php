@@ -10,6 +10,7 @@ class CitaIndex extends Component
 {
     public $pacientes = [];
     public
+    $idpaciente ,
         $id_paciente,
         $dni_paciente,
         $nombres_paciente,
@@ -52,6 +53,20 @@ class CitaIndex extends Component
 
     public function buscarDNI()
     {
+        
+
+        $messages = [
+            'dni_paciente.required' => 'Paciente ya existe.',
+        ];
+
+        $rules = [
+
+
+            'dni_paciente' => 'required|unique:pacientes,dni_paciente',
+
+        ];
+        $this->validate($rules, $messages);
+
         $curl = curl_init();
         $dni = $this->dni_paciente;
         //$headers = array("authorization: token d2617b5f616372dd5dc28f7df1b2647cbf6d7c698d2fa0bec4a169b4bbb97b0f");
@@ -96,7 +111,7 @@ class CitaIndex extends Component
         $rules = [
 
 
-            'dni_paciente' => 'required',
+            'dni_paciente' => 'required|unique:pacientes,dni_paciente',
             'nombres_paciente' => 'required',
 
         ];
@@ -168,6 +183,13 @@ class CitaIndex extends Component
         $this->distrito_paciente = "";
     }
 
-    public function agregarCita()
-    {}
+    public function printCita()
+    {
+        $this->dispatchBrowserEvent(
+            'get_id_paciente',
+            []
+        );
+        $this->emit("valorData");
+        dd($this->idpaciente);
+    }
 }

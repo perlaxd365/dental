@@ -35,7 +35,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="title" class="col-sm-12 control-label">Motivo</label>
+                        <label for="title" class="col-sm-12 control-label">Título</label>
                         <div class="col-sm-10">
                             <input type="text" name="motivo_cita" class="form-control" id="title"
                                 placeholder="Titulo de la cita">
@@ -45,7 +45,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="desc" class="col-sm-2 control-label">Descripcion</label>
+                        <label for="desc" class="col-sm-2 control-label">Descripción</label>
                         <div class="col-sm-10">
                             <input type="text" name="descripcion_cita" class="form-control" id="desc"
                                 placeholder="Descripción de la cita">
@@ -156,13 +156,6 @@
 
 
     <script>
-        window.addEventListener('update-calendar', event => {
-
-
-        });
-
-
-
         $("#formCita").on("submit", function(e) {
             // Cancelamos el evento si se requiere 
             e.preventDefault();
@@ -199,7 +192,7 @@
                         $('#enviarCita').prop('disabled', true);
                     },
                     success: function(data) {
-
+/* 
                         var title = $('#title').val();
                         var startTime = $('#start').val();
                         var endTime = $('#end').val();
@@ -214,7 +207,9 @@
                             true);
                         $('#ModalAdd').modal('hide');
                         toastr.options.positionClass = 'toast-bottom-right';
-                        toastr.success('Exito', 'Se creó la cita correcta.')
+                        toastr.success('Exito', 'Se creó la cita correcta.') */
+                        
+                location.reload();
                     }
                 })
 
@@ -224,6 +219,7 @@
                 .done(function(res) {
 
 
+                    $('#ModalAdd').modal('hide');
                     //$("#formCita").trigger("reset");
 
                 })

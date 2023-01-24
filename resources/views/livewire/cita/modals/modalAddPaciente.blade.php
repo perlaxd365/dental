@@ -85,10 +85,10 @@
                             </button>
 
                         </div>
-                        @error('dni_paciente')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
                     </div>
+                    @error('dni_paciente')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                     <div class="form-group">
                         <label for="inputAddress">Nombres y Apellidos</label>
                         <input type="text" wire:model="nombres_paciente" class="form-control" id="inputAddress">

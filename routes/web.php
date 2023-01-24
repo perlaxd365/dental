@@ -46,4 +46,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('listCita', [citaController::class, 'list'])->name('listCita');
     Route::post('storeCita', [citaController::class, 'store'])->name('storeCita');
     Route::post('updateCita', [citaController::class, 'update'])->name('updateCita');
+    Route::get('printCita/{id}', [citaController::class, 'print'])->name('printCita');
 });

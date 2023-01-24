@@ -34,21 +34,7 @@
     },
         CalendarApp.prototype.enableDrag = function () {
             //init events
-            $(this.$event).each(function () {
-                // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
-                // it doesn't need to have a start or end
-                var eventObject = {
-                    title: $.trim($(this).text()) // use the element's text as the event title
-                };
-                // store the Event Object in the DOM element so we can get to it later
-                $(this).data('eventObject', eventObject);
-                // make the event draggable using jQuery UI
-                $(this).draggable({
-                    zIndex: 999,
-                    revert: true, // will cause the event to go back to its
-                    revertDuration: 0 //  original position after the drag
-                });
-            });
+            
         }
     /* Initializing */
     CalendarApp.prototype.init = function () {
@@ -65,10 +51,10 @@
         var $this = this;
         let id_empresa = $("#id_empresa").val();
         $this.$calendarObj = $this.$calendar.fullCalendar({
-            slotDuration: '00:15:00',
+            slotDuration: '01:00:00',
             /* If we want to split day time each 15minutes */
             minTime: '08:00:00',
-            maxTime: '19:00:00',
+            maxTime: '25:00:00',
             defaultView: 'month',
             handleWindowResize: true,
 
@@ -77,6 +63,7 @@
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
             },
+            locale: 'es',
             events: "/calendar/" + id_empresa,
             data: {
                 title: title,
@@ -125,13 +112,13 @@
 
                         },
                         success: function (data) {
-
+                            $('#ModalEdit #nombre_paciente').html(data[0]["nombres_paciente"]);
                             $('#ModalEdit #id').val(data[0]["id_cita"]);
-                            $('#ModalEdit #title').val(data[0]["motivo_cita"]);
-                            $('#ModalEdit #color').val(data[0]["color_cita"]);
-                            $('#ModalEdit #descripcion_cita').val(data[0]["descripcion_cita"]);
-                            $('#ModalEdit #fecha_inicio_cita').val(data[0]["fecha_inicio_cita"]);
-                            $('#ModalEdit #fecha_fin_cita').val(data[0]["fecha_fin_cita"]);
+                            $('#ModalEdit #title_update').val(data[0]["motivo_cita"]);
+                            $('#ModalEdit #color_update').val(data[0]["color_cita"]);
+                            $('#ModalEdit #descripcion_cita_update').val(data[0]["descripcion_cita"]);
+                            $('#ModalEdit #fecha_inicio_cita_update').val(data[0]["fecha_inicio_cita"]);
+                            $('#ModalEdit #fecha_fin_cita_update').val(data[0]["fecha_fin_cita"]);
                         }
                     })
 
