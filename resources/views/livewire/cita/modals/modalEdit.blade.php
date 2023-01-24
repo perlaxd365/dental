@@ -5,16 +5,18 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form class="form-horizontal" name="updateCita" id="updateCita">
+                @csrf
                 <div class="modal-header">
                     <h4 class="modal-title" id="myModalLabel">Modificar Cita</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
-                    @csrf
                     <div class="form-group">
+                        <label for="title" class="col-sm-2 control-label">Paciente</label>
                         <div class="col-sm-10">
-                            <h3> <a href="#" class="text-decoration-none"><u id="nombre_paciente"></u></h3>
+                            <h5> <a href="#" class="text-decoration-none"><u id="nombre_paciente"></u></h5>
+                      
                         </div>
                     </div>
                     <div class="form-group">

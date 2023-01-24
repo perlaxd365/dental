@@ -5,6 +5,8 @@ namespace App\Http\Livewire\Cita;
 use App\Models\Cita;
 use App\Models\Paciente;
 use Livewire\Component;
+use Illuminate\Validation\ValidationException;
+
 
 class CitaIndex extends Component
 {
@@ -55,18 +57,6 @@ class CitaIndex extends Component
     {
         
 
-        $messages = [
-            'dni_paciente.required' => 'Paciente ya existe.',
-        ];
-
-        $rules = [
-
-
-            'dni_paciente' => 'required|unique:pacientes,dni_paciente',
-
-        ];
-        $this->validate($rules, $messages);
-
         $curl = curl_init();
         $dni = $this->dni_paciente;
         //$headers = array("authorization: token d2617b5f616372dd5dc28f7df1b2647cbf6d7c698d2fa0bec4a169b4bbb97b0f");
@@ -102,7 +92,14 @@ class CitaIndex extends Component
 
     public function agregarPaciente()
     {
-
+        $verificar_paciente = Paciente::where('dni_paciente',$this->dni_paciente)->where('id_empresa',auth()->user()->id_empresa)->first();
+        if ($verificar_paciente) {
+            $this->dispatchBrowserEvent(
+                'alert',
+                ['type' => 'error', 'title' => 'El paciente ya se encuentra registrado', 'message' => 'Error']
+            );
+            throw ValidationException::withMessages(['dni_paciente' => 'Dni ya se encuentra agregado.']);
+        }
         $messages = [
             'dni_paciente.required' => 'Por favor introduce el dni del paciente',
             'nombres_paciente.required' => 'Por favor introducir nombres del paciente',
@@ -110,8 +107,7 @@ class CitaIndex extends Component
 
         $rules = [
 
-
-            'dni_paciente' => 'required|unique:pacientes,dni_paciente',
+            'dni_paciente' => 'required',
             'nombres_paciente' => 'required',
 
         ];

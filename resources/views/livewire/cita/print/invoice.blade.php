@@ -37,7 +37,7 @@
                 </td>
                 <td style="text-align: center;" width="33%">
                     
-                    <b>FECHA: </b> <br>{{ date('d-m-Y H:i', strtotime($date)) }}
+                    <b>FECHA: </b> <br>{{ date('d-m-Y H:i ', strtotime($date)) }}
                     <h2>CITA MÉDICA N° {{ $data['nro_historia_clinica'] }}</h2>
                 </td>
             </tr>
@@ -67,7 +67,7 @@
                             <tr>
                                 <td style="text-align: center;" width="50%">HORA</td>
                                 <td style="text-align: center;" width="50%">
-                                    {{ date('H:i', strtotime($data['fecha_inicio_cita'])) }}</td>
+                                    {{ date('H:i A', strtotime($data['fecha_inicio_cita'])) }}</td>
                             </tr>
                             <tr>
                                 <td style="text-align: center;" width="50%">MOTIVO DE CITA</td>
@@ -83,7 +83,6 @@
             </tr>
         </tbody>
     </table>
-
 </body>
 
 </html>
