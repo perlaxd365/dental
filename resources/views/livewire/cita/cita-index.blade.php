@@ -1,6 +1,15 @@
 <div>
+    <style>
+        @media print {
+            .visible-print {
+                display: inherit !important;
+            }
 
-    <link href="assets/libs/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet" />
+            .hidden-print {
+                display: none !important;
+            }
+        }
+    </style>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -10,6 +19,7 @@
                         <input type="text" hidden id="id_empresa" value="{{ auth()->user()->id_empresa }}">
                         <div wire:ignore class="col-lg-12">
                             <div class="card-body b-l calender-sidebar">
+                                <button class="printBtn hidden-print float-center mb-12 btn btn-outline-danger"><i class="fa fa-print"></i> Print</button>
                                 <div id="calendar"></div>
                             </div>
                         </div>

@@ -36,4 +36,5 @@ integrity="sha512-XZEy8UQ9rngkxQVugAdOuBRDmJ5N4vCuNXCh8KlniZgDKTvf7zl75QBtaVG1lE
 crossorigin="anonymous"
 referrerpolicy="no-referrer"
 ></script>
+
 @livewireScripts

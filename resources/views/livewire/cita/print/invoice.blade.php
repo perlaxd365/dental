@@ -3,13 +3,10 @@
 
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Organismo - FM 1</title>
+    <title>Impresión de Cita #{{ $data['nro_historia_clinica'] }}</title>
     <link type="text/css" rel="stylesheet" href="{{ asset('dist/css/fotomultas.css') }}" />
     <link type="text/css" rel="stylesheet" href="{{ asset('assets/libs/bootstrap/dist/css/bootstrap.min.css') }}" />
 
-    <meta name="author" content="Andrés Herrera García">
-    <meta name="description" content="PDF de una fotomulta">
-    <meta name="keywords" content="fotomulta, comparendo">
 </head>
 
 @php
@@ -38,7 +35,8 @@
                 <td style="text-align: center;" width="33%">
                     
                     <b>FECHA: </b> <br>{{ date('d-m-Y H:i ', strtotime($date)) }}
-                    <h2>CITA MÉDICA N° {{ $data['nro_historia_clinica'] }}</h2>
+                    
+                    <h4>CITA MÉDICA <br> N° {{ $data['nro_historia_clinica'] }}</h4>
                 </td>
             </tr>
         </tbody>
@@ -49,32 +47,32 @@
             <tr>
                 <td style="text-align: center;" width="100%">
                     <table class="bordered" style="width: 100%;">
-                        <caption style="text-align: center; color: white; background: #6999FF"> DATOS DE CITA</caption>
+                        <caption style="text-align: center; color: white; background: #6999FF"><b> DATOS DE CITA</b></caption>
                         <tbody>
                             <tr>
-                                <td style="text-align: center;" width="50%">PACIENTE</td>
+                                <td style="text-align: center;" width="50%"><b>PACIENTE:</b></td>
                                 <td style="text-align: center;" width="50%">{{ $data['nombres_paciente'] }}</td>
                             </tr>
                             <tr>
-                                <td style="text-align: center;" width="50%">DNI</td>
+                                <td style="text-align: center;" width="50%"><b>DNI:</b></td>
                                 <td style="text-align: center;" width="50%">{{ $data['dni_paciente'] }}</td>
                             </tr>
                             <tr>
-                                <td style="text-align: center;" width="50%">FECHA</td>
+                                <td style="text-align: center;" width="50%"><b>FECHA</b></td>
                                 <td style="text-align: center;" width="50%">
                                     {{ date('d-m-Y', strtotime($data['fecha_inicio_cita'])) }}</td>
                             </tr>
                             <tr>
-                                <td style="text-align: center;" width="50%">HORA</td>
+                                <td style="text-align: center;" width="50%"><b>HORA:</b></td>
                                 <td style="text-align: center;" width="50%">
-                                    {{ date('H:i A', strtotime($data['fecha_inicio_cita'])) }}</td>
+                                    {{ date("g:i a",strtotime($data['fecha_inicio_cita']));  }}</td>
                             </tr>
                             <tr>
-                                <td style="text-align: center;" width="50%">MOTIVO DE CITA</td>
+                                <td style="text-align: center;" width="50%"><b>MOTIVO DE CITA:</b></td>
                                 <td style="text-align: center;" width="50%">{{ $data['motivo_cita'] }}</td>
                             </tr>
                             <tr>
-                                <td style="text-align: center;" width="50%">DESCRIPCIÓN </td>
+                                <td style="text-align: center;" width="50%"><b>DESCRIPCIÓN:</b> </td>
                                 <td style="text-align: center;" width="50%">{{ $data['descripcion_cita'] }}</td>
                             </tr>
                         </tbody>

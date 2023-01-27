@@ -23,4 +23,12 @@
                 data-feather="calendar" class="feather-icon"></i><span class="hide-menu">Citas
             </span></a>
     </li>
+    <li class="sidebar-item"> <a class="sidebar-link" href="{{ URL::route('productolab') }}" aria-expanded="false"><i
+                data-feather="codepen" class="feather-icon"></i><span class="hide-menu">Productos de Laboratorio
+            </span></a>
+    </li>
+    <li class="sidebar-item"> <a class="sidebar-link" href="{{ URL::route('laboratorio') }}" aria-expanded="false"><i
+                data-feather="triangle" class="feather-icon"></i><span class="hide-menu">Trabajos de Laboratorio
+            </span></a>
+    </li>
 </ul>

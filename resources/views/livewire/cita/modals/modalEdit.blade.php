@@ -1,7 +1,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 <div wire:ignore.self class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-
+   
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form class="form-horizontal" name="updateCita" id="updateCita">
@@ -16,7 +16,7 @@
                         <label for="title" class="col-sm-2 control-label">Paciente</label>
                         <div class="col-sm-10">
                             <h5> <a href="#" class="text-decoration-none"><u id="nombre_paciente"></u></h5>
-                      
+
                         </div>
                     </div>
                     <div class="form-group">
@@ -95,6 +95,12 @@
                             class="fas fa-window-close"></i> Cerrar</button>
                     <button type="submit" id="btn-update-cita" class="btn btn-primary"><i
                             class="fas fa-sync-alt"></i> Actualizar Cita</button>
+
+                    <script type="text/javascript">
+                        $('.printBtn').on('click', function() {
+                            window.print();
+                        });
+                    </script>
                 </div>
             </form>
         </div>
@@ -107,7 +113,7 @@
     //print cita
     $("#btn-print-cita").on("click", function(e) {
         let id_cita = $("#id").val();
-        window.open("/printCita/"+id_cita, "Diseño Web", "width=800, height=500")
+        window.open("/printCita/" + id_cita, "Diseño Web", "width=800, height=500")
     });
 
     //actualizar cita
