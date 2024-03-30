@@ -23,12 +23,18 @@
                 data-feather="calendar" class="feather-icon"></i><span class="hide-menu">Citas
             </span></a>
     </li>
+    @can('admin.users.index')
     <li class="sidebar-item"> <a class="sidebar-link" href="{{ URL::route('productolab') }}" aria-expanded="false"><i
                 data-feather="codepen" class="feather-icon"></i><span class="hide-menu">Productos de Laboratorio
             </span></a>
     </li>
+    @endcan
     <li class="sidebar-item"> <a class="sidebar-link" href="{{ URL::route('laboratorio') }}" aria-expanded="false"><i
                 data-feather="triangle" class="feather-icon"></i><span class="hide-menu">Trabajos de Laboratorio
+            </span></a>
+    </li>
+    <li class="sidebar-item"> <a class="sidebar-link" href="{{ URL::route('receta') }}" aria-expanded="false"><i
+                data-feather="edit" class="feather-icon"></i><span class="hide-menu">Recetas
             </span></a>
     </li>
 </ul>

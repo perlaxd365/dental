@@ -25,5 +25,27 @@ class UserSeeder extends Seeder
             "estado"=>true,
         ])->assignRole('Administrador');
         date_default_timezone_set('America/Lima');
+
+        User::create([
+            "id_empresa"=>'2',
+            "id_tipo_usuario"=>'1',
+            "name"=>'Perla Nelly Garcia',
+            "dni"=>'76432549', 
+            "email"=>'sheyla@gmail.com',
+            "password"=>bcrypt('123'),
+            "estado"=>true,
+        ])->assignRole('Administrador');
+        date_default_timezone_set('America/Lima');
+
+        User::create([
+            "id_empresa"=>'2',
+            "id_tipo_usuario"=>'2',
+            "name"=>'Steven Baca Escurra',
+            "dni"=>'89188985', 
+            "email"=>'steven@gmail.com',
+            "password"=>bcrypt('123'),
+            "estado"=>true,
+        ])->assignRole('Doctor');
+        date_default_timezone_set('America/Lima');
     }
 }

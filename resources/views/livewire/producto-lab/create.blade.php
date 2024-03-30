@@ -1,3 +1,4 @@
+@can('admin.users.index')
 <div class="card-body">
     <h4 class="card-title">Agregar Producto de Laboratorio</h4>
     <div class="form-body">
@@ -29,3 +30,4 @@
         </div>
     </div>
 </div>
+@endcan

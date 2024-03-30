@@ -18,6 +18,7 @@ class IndexEmpresa extends Component
         $logo_empresa,
         $key_empresa,
         $direccion_empresa,
+        $email_empresa,
         $tipo_soap_empresa,
         $envio_soap_empresa,
         $estado;
@@ -57,7 +58,8 @@ class IndexEmpresa extends Component
             'nombre_comercial_empresa.required' => 'Introduce nombre comercial de la empresa',
             'razon_social_empresa.required' => 'Por favor introducir razón social',
             'ruc_empresa.required' => 'Por favor ingresar el ruc de la empresa',
-            'logo_empresa.required' => 'Por añadir el logo a la empresa',
+            'logo_empresa.required' => 'Por añadir el logo de la empresa',
+            'email_empresa.required' => 'Por añadir el correp de la empresa',
             'tipo_soap_empresa.required' => 'Por favor seleccionar tipo de soap',
             'envio_soap_empresa.required' => 'Por favor seleccionar envío de soap',
             'direccion_empresa.required' => 'Por favor añadir la dirección de la empresa',
@@ -67,6 +69,7 @@ class IndexEmpresa extends Component
 
 
             'direccion_empresa' => 'required',
+            'email_empresa' => 'required',
             'tipo_soap_empresa' => 'required',
             'envio_soap_empresa' => 'required',
             'nombre_comercial_empresa' => 'required',
@@ -86,6 +89,7 @@ class IndexEmpresa extends Component
             'nombre_comercial_empresa' => $this->nombre_comercial_empresa,
             'razon_social_empresa' => $this->razon_social_empresa,
             'ruc_empresa'   => $this->ruc_empresa,
+            'email_empresa'   => $this->email_empresa,
             'logo_empresa' => $imagen,
             'direccion_empresa' => $this->direccion_empresa,
             'key_empresa' => $this->key_empresa,
@@ -111,6 +115,7 @@ class IndexEmpresa extends Component
         $this->razon_social_empresa = "";
         $this->ruc_empresa = "";
         $this->logo_empresa = "";
+        $this->email_empresa = "";
         $this->key_empresa = "";
         $this->direccion_empresa = "";
         $this->tipo_soap_empresa = "";
@@ -126,6 +131,7 @@ class IndexEmpresa extends Component
         $this->view = "edit";
         $this->nombre_comercial_empresa = $empresa->nombre_comercial_empresa;
         $this->razon_social_empresa = $empresa->razon_social_empresa;
+        $this->email_empresa = $empresa->email_empresa;
         $this->ruc_empresa = $empresa->ruc_empresa;
         $this->key_empresa = $empresa->key_empresa;
         $this->direccion_empresa = $empresa->direccion_empresa;
@@ -142,6 +148,7 @@ class IndexEmpresa extends Component
             'nombre_comercial_empresa' => $this->nombre_comercial_empresa,
             'razon_social_empresa' => $this->razon_social_empresa,
             'ruc_empresa' => $this->ruc_empresa,
+            'email_empresa' => $this->email_empresa,
             'key_empresa' => $this->key_empresa,
             'direccion_empresa' => $this->direccion_empresa,
             'tipo_soap_empresa' => $this->tipo_soap_empresa,

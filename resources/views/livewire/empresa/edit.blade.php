@@ -49,6 +49,16 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
+                    <label>Email</label>
+                    <input wire:model="email_empresa" type="text" class="form-control" placeholder="">
+
+                    @error('email_empresa')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
                     <label>Estado</label>
                     <select wire:model="estado" type="select" class="form-control">
                         <option value="1">Activo</option>

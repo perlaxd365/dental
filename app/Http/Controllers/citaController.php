@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\CitaMail;
 use App\Models\Cita;
+use App\Models\Empresa;
+use App\Models\Paciente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
+use Psy\Readline\Hoa\Console;
 
 class citaController extends Controller
 {
@@ -60,6 +65,7 @@ class citaController extends Controller
             'id_empresa' => auth()->user()->id_empresa,
         ]);
 
+        
 
         return $request;
     }
@@ -126,29 +132,24 @@ class citaController extends Controller
     public function print($id_cita)
     {
         $data = Cita::join('pacientes', 'pacientes.id_paciente', 'citas.id_paciente')->where('citas.id_cita', $id_cita)->where('citas.estado', true)->first();
-
+        $empresa = Empresa::find(auth()->user()->id_empresa);
         date_default_timezone_set('America/Lima');
         $date = Carbon::now();
-        $pdf = Pdf::loadView('livewire.cita.print.invoice', compact('data','date'));
+        $pdf = Pdf::loadView('livewire.cita.print.invoice', compact('data','date','empresa'));
         return $pdf->stream();
 
-
-
-        //perfil de pdf
-        /*  $pdfContent = Pdf::loadView('livewire.cita.print.invoice', compact('data'))
-            ->setPaper('A4', 'landscape')
-            ->output();
-
-        //fecha y hora 
-
-        date_default_timezone_set('America/Lima');
-        $date = Carbon::now();
-        $date = $date->format('Y_m_d_H_s_A');
-
-        //respuesta
-        return response()->streamDownload(
-            fn () => print($pdfContent),
-            "cita" . $date . ".pdf"
-        ); */
     }
+
+    
+    public function email(Request $request)
+    {
+       $email = Mail::to($request->email_paciente)->send( new CitaMail($request->id_cita));
+        if ($email) {
+            # code...
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
 }

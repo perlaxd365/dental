@@ -31,7 +31,7 @@ class Index extends Component
         //verificamos el permiso si es admin para listar
         $permiso = TipoUsuario::find(auth()->user()->id_tipo_usuario);
         if ($permiso->nombre_tipo_usuario != 'Administrador') {
-            $lista_productos_lab->where('id_empresa', auth()->user()->id_empresa);
+            $lista_productos_lab->where('empresas.id_empresa', auth()->user()->id_empresa);
         } 
         $lista_productos_lab->where(function ($query) {
             return $query

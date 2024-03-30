@@ -13,7 +13,7 @@
             </div>
         </div>
         <div wire:target="search" class="table-responsive">
-            <table class="table no-wrap v-middle mb-0">
+            <table class="table no-wrap v-middle mb-0  table-bordered table-sm table-striped">
                 <thead>
                     <tr class="border-0">
                         <th class="border-0 font-14 font-weight-medium text-muted">
@@ -52,6 +52,7 @@
                                                 {{ $usuario->name }}
                                             </h5>
                                             <span class="text-muted font-14 ">
+                                                {{ $usuario->dni }} <br>
                                                 {{ $usuario->razon_social_empresa }}
                                                 <i class="fa fa-circle  
                                                 @php if($usuario->empresa_estado==true)
@@ -66,8 +67,8 @@
                                         </div>
                                     </div>
                                 </td>
+                                <td class="border-top-0 text-muted px-2 py-4 font-14"><b>{{ $usuario->nombre_tipo_usuario }}</b></td>
                                 <td class="border-top-0 text-muted px-2 py-4 font-14">{{ $usuario->email }}</td>
-                                <td class="border-top-0 text-muted px-2 py-4 font-14">{{ $usuario->dni }}</td>
                                 <td class="border-top-0 text-muted px-2 py-4 font-14">{{ $usuario->updated_at }}</td>
                                 <td class="border-top-0 text-center px-2 py-4">
                                     <i class="fa fa-circle  

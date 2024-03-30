@@ -15,6 +15,7 @@ class Empresa extends Model
         'razon_social_empresa',
         'ruc_empresa',
         'key_empresa',
+        'email_empresa',
         'direccion_empresa',
         'logo_empresa',
         'tipo_soap_empresa',

@@ -48,15 +48,18 @@ class UserIndex extends Component
                 users.name,
                 users.email,
                 users.dni,
-                users.updated_at'
+                users.updated_at,
+                tipo_usuarios.nombre_tipo_usuario'
             )
-        )->join('empresas', 'users.id_empresa', 'empresas.id_empresa');
+        )
+            ->join('empresas', 'users.id_empresa', 'empresas.id_empresa')
+            ->join('tipo_usuarios', 'users.id_tipo_usuario', 'tipo_usuarios.id_tipo_usuario');
 
         //verificamos el permiso si es admin para listar
         $permiso = TipoUsuario::find(auth()->user()->id_tipo_usuario);
         if ($permiso->nombre_tipo_usuario != 'Administrador') {
             $lista_usuarios->where('users.id_empresa', auth()->user()->id_empresa);
-        } 
+        }
         $lista_usuarios->where(function ($query) {
             return $query
                 ->orwhere('name', 'LIKE', '%' . $this->search . '%')

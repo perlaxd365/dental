@@ -91,15 +91,19 @@
                     @enderror
                     <div class="form-group">
                         <label for="inputAddress">Nombres y Apellidos</label>
-                        <input type="text" wire:model="nombres_paciente" class="form-control" id="inputAddress">
+                        <input type="text" wire:model="nombres_paciente" class="form-control" id="inputAddress" placeholder="Ingresar nombres">
 
                         @error('nombres_paciente')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
+                        <label for="inputZip3">Email</label>
+                        <input  wire:model="email_paciente"   type="text" class="form-control" id="inputZip3" placeholder="Ingresar email">
+                    </div>
+                    <div class="form-group">
                         <label for="inputAddress">Dirección</label>
-                        <input wire:model="direccion_paciente"re type="text" class="form-control" id="inputAddress">
+                        <input wire:model="direccion_paciente"re type="text" class="form-control" id="inputAddress" placeholder="Ingresar dirección">
                         @error('direccion_paciente')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -151,6 +155,7 @@
                             <label for="inputCity2">Grado de Instrucción</label>
                             <select class="form-control"  wire:model="grado_instruccion_paciente"  >
                                 <option value="">Seleccionar</option>
+                                <option value="Libre">Libre</option>
                                 <option value="Estudios Finalizados">Estudios Finalizados</option>
                                 <option value="Bachiller">Bachiller</option>
                                 <option value="Titulado">Titulado</option>
@@ -169,10 +174,6 @@
                         <div class="form-group col-md-4">
                             <label for="inputCity2">Nombres y Apellidos de acompañante</label>
                             <input  wire:model="nombres_acompaniante_paciente"  type="text" class="form-control" id="inputCity2">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="inputZip3">Email</label>
-                            <input  wire:model="email_paciente"   type="text" class="form-control" id="inputZip3">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="inputZip3">Pais</label>

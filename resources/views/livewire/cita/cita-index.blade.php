@@ -19,7 +19,7 @@
                         <input type="text" hidden id="id_empresa" value="{{ auth()->user()->id_empresa }}">
                         <div wire:ignore class="col-lg-12">
                             <div class="card-body b-l calender-sidebar">
-                                <button class="printBtn hidden-print float-center mb-12 btn btn-outline-danger"><i class="fa fa-print"></i> Print</button>
+                                <button class="printBtn hidden-print float-center mb-12 btn btn-outline-danger"><i class="fa fa-print"></i> Imprimir</button>
                                 <div id="calendar"></div>
                             </div>
                         </div>

@@ -19,7 +19,7 @@
                         Empresa
                     </th>
                     <th class="border-0 font-14 font-weight-medium text-muted px-2">
-                        Ruc
+                        Email
                     </th>
                     <th class="border-0 font-14 font-weight-medium text-muted px-2">
                         SOAP
@@ -52,11 +52,14 @@
                                         </h5>
                                         <span class="text-muted font-14">
                                             {{ $empresa->razon_social_empresa }}
+                                        </span><br>
+                                        <span class="text-muted font-14">
+                                            {{ $empresa->ruc_empresa }}
                                         </span>
                                     </div>
                                 </div>
                             </td>
-                            <td class="border-top-0 text-muted px-2 py-4 font-14">{{ $empresa->ruc_empresa }}</td>
+                            <td class="border-top-0 text-muted px-2 py-4 font-14">{{ $empresa->email_empresa }}</td>
                             <td class="border-top-0 text-muted px-2 py-4 font-14">{{ $empresa->tipo_soap_empresa }}</td>
                             <td class="border-top-0 text-muted px-2 py-4 font-14">{{ $empresa->updated_at }}</td>
                             <td class="border-top-0 text-center px-2 py-4">

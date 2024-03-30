@@ -22,6 +22,7 @@
         var copiedEventObject = $.extend({}, originalEventObject);
         // assign it the date that was reported
         copiedEventObject.start = date;
+        alert(1)
         if ($categoryClass)
             copiedEventObject['className'] = [$categoryClass];
         // render the event on the calendar
@@ -76,9 +77,7 @@
             eventLimit: true, // allow "more" link when too many events
             selectable: true,
             drop: function (date) { $this.onDrop($(this), date); },
-            select: function (start, end, allDay) { $this.onSelect(start, end, allDay); },
-            eventClick: function (calEvent, jsEvent, view) { $this.onEventClick(calEvent, jsEvent, view); }
-            ,
+          
             select: function (start, end) {
 
                 $('.select2').val(null).trigger('change.select2');
@@ -116,6 +115,7 @@
                             $('#ModalEdit #id').val(data[0]["id_cita"]);
                             $('#ModalEdit #title_update').val(data[0]["motivo_cita"]);
                             $('#ModalEdit #color_update').val(data[0]["color_cita"]);
+                            $('#ModalEdit #email_paciente').val(data[0]["email_paciente"]);
                             $('#ModalEdit #descripcion_cita_update').val(data[0]["descripcion_cita"]);
                             $('#ModalEdit #fecha_inicio_cita_update').val(data[0]["fecha_inicio_cita"]);
                             $('#ModalEdit #fecha_fin_cita_update').val(data[0]["fecha_fin_cita"]);

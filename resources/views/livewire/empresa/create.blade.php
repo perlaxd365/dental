@@ -44,6 +44,16 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
+                    <label>Email</label>
+                    <input wire:model="email_empresa" type="text" class="form-control" placeholder="">
+
+                    @error('email_empresa')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
                     <label>Logo</label>
                     <input wire:model="logo_empresa" accept="image/*" type="file" class="form-control"
                         placeholder="">

@@ -8,6 +8,7 @@ use App\Http\Controllers\laboratorioController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\logoutController;
 use App\Http\Controllers\productolabController;
+use App\Http\Controllers\recetaController;
 use App\Http\Controllers\userController;
 use App\Http\Livewire\Admin\Cita;
 use App\Models\ProductoLaboratorio;
@@ -56,11 +57,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('listCita', [citaController::class, 'list'])->name('listCita');
     Route::post('storeCita', [citaController::class, 'store'])->name('storeCita');
     Route::post('updateCita', [citaController::class, 'update'])->name('updateCita');
+    Route::post('emailCita', [citaController::class, 'email'])->name('emailCita');
     Route::get('printCita/{id}', [citaController::class, 'print'])->name('printCita');
 
     //LABORATORIO
     Route::get('laboratorio', [laboratorioController::class, 'index'])->name('laboratorio');
     Route::get('productolab', [productolabController::class, 'index'])->name('productolab');
 
+    //RECETA
 
+    Route::get('receta', [recetaController::class, 'index'])->name('receta');
 });

@@ -13,9 +13,28 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('laboratorio', function (Blueprint $table) {
-            $table->id();
+        Schema::create('laboratorios', function (Blueprint $table) {
+            
+            $table->bigIncrements('id_laboratorio');
+            $table->unsignedBigInteger('id_producto_lab')->nullable()->comment('id del producto');
+            $table->unsignedBigInteger('id_doctor')->nullable()->comment('id del doctor');
+            $table->unsignedBigInteger('id_paciente')->nullable()->comment('id del paciente');
+            //datos
+            $table->string('fecha_registro_lab');
+            $table->string('fecha_recojo_lab');
+            $table->decimal('costo_lab',10,2);
+            $table->integer('cantidad_lab');
+            $table->string('area_lab');
+            $table->string('observaciones_lab')->nullable();
+            $table->string('estado_lab');
+
+            $table->string('id_empresa');
             $table->timestamps();
+
+            //foreign keys
+            $table->foreign('id_paciente')->references('id_paciente')->on('pacientes');
+            $table->foreign('id_producto_lab')->references('id_producto_lab')->on('producto_laboratorios');
+            $table->foreign('id_doctor')->references('id')->on('users');
         });
     }
 
@@ -26,6 +45,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('laboratorio');
+        Schema::dropIfExists('laboratorios');
     }
 };

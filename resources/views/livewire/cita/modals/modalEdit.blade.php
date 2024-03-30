@@ -1,7 +1,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 <div wire:ignore.self class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-   
+
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form class="form-horizontal" name="updateCita" id="updateCita">
@@ -73,6 +73,22 @@
                                 class="form-control" id="fecha_fin_cita_update">
                         </div>
                     </div>
+                    <div class="card">
+                        <div class="card-header">
+                            Enviar <b>Cita</b> a correo
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Ingresar correo electrónico</h5>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id="email_paciente"
+                                    placeholder="Ingresar email" aria-label="Recipient's username"
+                                    aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <button id="btn-send-cita" class="btn btn-primary" type="button">Enviar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <label class="text-danger">
@@ -83,7 +99,6 @@
 
                         </div>
                     </div>
-
                     <input hidden name="id" class="form-control" id="id">
 
 
@@ -205,6 +220,70 @@
                     'Actualizar Cita'
                 );
             });
+
+    });
+
+
+
+    //email  cita
+    $("#btn-send-cita").on("click", function(e) {
+        let id_cita = $("#id").val();
+        let email_paciente = $("#email_paciente").val();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var _token = $('input#_token').val();
+        var formData = new FormData(document.getElementById("updateCita"));
+        formData.append("_token", _token);
+        formData.append("id_cita", id_cita);
+        formData.append("email_paciente", email_paciente);
+        $.ajax({
+                url: "emailCita",
+                type: "post",
+                dataType: "json",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend: function(data) {
+                    $('#btn-send-cita').html(
+                        '<i id="loading" class="fa fa-spinner fa-spin" aria-hidden="true"></i>'
+                    );
+
+                    $('#btn-send-cita').prop('disabled', true);
+                },
+                success: function(data) {
+
+                    toastr.options.positionClass = 'toast-bottom-right';
+                    toastr.success('Exito', 'se envió correctamente')
+                    $("#btn-send-cita").prop('disabled', false);
+                    $('#btn-send-cita').html(
+                        'Enviar'
+                    );
+
+                }
+            })
+            .done(function(res) {
+
+                $('#btn-send-cita').prop('disabled', false);
+
+            })
+
+            // Mensaje de error al enviar el formulario 
+            .fail(function(xhr) {
+
+                $("#btn-send-cita").prop('disabled', false);
+                $('#btn-send-cita').html(
+                    'Enviar'
+                );
+
+            });
+
+
 
     });
 </script>
