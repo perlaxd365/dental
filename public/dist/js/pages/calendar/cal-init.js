@@ -52,10 +52,10 @@
         var $this = this;
         let id_empresa = $("#id_empresa").val();
         $this.$calendarObj = $this.$calendar.fullCalendar({
-            slotDuration: '01:00:00',
+            slotDuration: '00:01:00',
             /* If we want to split day time each 15minutes */
             minTime: '08:00:00',
-            maxTime: '25:00:00',
+            maxTime: '20:00:00',
             defaultView: 'month',
             handleWindowResize: true,
 
@@ -64,7 +64,7 @@
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
             },
-            locale: 'es',
+            locale: 'ES',
             events: "/calendar/" + id_empresa,
             data: {
                 title: title,
@@ -82,7 +82,7 @@
 
                 $('.select2').val(null).trigger('change.select2');
                 $('#ModalAdd #start').val(moment(start).format('YYYY-MM-DD HH:mm:ss'));
-                $('#ModalAdd #end').val(moment(end).format('YYYY-MM-DD HH:mm:ss'));
+                $('#ModalAdd #end').val(moment(start).format('YYYY-MM-DD HH:mm:ss'));
                 $('#ModalAdd').modal('show');
             },
             eventRender: function (event, element) {

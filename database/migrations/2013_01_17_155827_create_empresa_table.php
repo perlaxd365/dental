@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('razon_social_empresa');
             $table->string('ruc_empresa');
             $table->string('email_empresa');
+            $table->string('telefono_empresa');
             $table->string('direccion_empresa');
             $table->string('key_empresa')->nullable();
             $table->string('logo_empresa');

@@ -18,14 +18,14 @@ class citaController extends Controller
     //
     public function index()
     {
-        return view('admin.cita.index');
+        $carbon = new Carbon();
+        return view('admin.cita.index', compact('carbon'));
     }
 
     public function store(Request $request)
     {
         $nro_historia_clinica = '';
-
-        $last_nro_historia_clinica = Cita::latest()->first();
+        $last_nro_historia_clinica = Cita::latest()->where('id_empresa', auth()->user()->id_empresa)->first();
         if (isset($last_nro_historia_clinica->id_cita)) {
             $nro_historia_clinica = (str_pad($last_nro_historia_clinica->id_cita + 1, 6, '0', STR_PAD_LEFT));
         } else {

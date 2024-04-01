@@ -1,3 +1,5 @@
+
+@can('admin.users.index')
 <div class="card-body">
     <div class="card-header">
         <h3>
@@ -43,8 +45,8 @@
                             <td class="border-top-0 px-2 py-4">
                                 <div class="d-flex no-block align-items-center">
                                     <div class="mr-3">
-                                        <img src="{{ asset( $empresa->logo_empresa) }}" alt="user" class="rounded-circle"
-                                            width="45" height="45" />
+                                        <img src="{{ asset($empresa->logo_empresa) }}" alt="user"
+                                            class="rounded-circle" width="45" height="45" />
                                     </div>
                                     <div class="">
                                         <h5 class="text-dark mb-0 font-16 font-weight-medium">
@@ -61,7 +63,8 @@
                             </td>
                             <td class="border-top-0 text-muted px-2 py-4 font-14">{{ $empresa->email_empresa }}</td>
                             <td class="border-top-0 text-muted px-2 py-4 font-14">{{ $empresa->tipo_soap_empresa }}</td>
-                            <td class="border-top-0 text-muted px-2 py-4 font-14">{{ $empresa->updated_at }}</td>
+                            <td class="border-top-0 text-muted px-2 py-4 font-14">
+                                {{ DateUtil::getFechaCompleta($empresa->updated_at) }}</td>
                             <td class="border-top-0 text-center px-2 py-4">
                                 <i class="fa fa-circle  
                                 @php if($empresa->estado==true)
@@ -104,3 +107,4 @@
         </table>
     </div>
 </div>
+@endcan

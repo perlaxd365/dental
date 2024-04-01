@@ -16,6 +16,7 @@ class Empresa extends Model
         'ruc_empresa',
         'key_empresa',
         'email_empresa',
+        'telefono_empresa',
         'direccion_empresa',
         'logo_empresa',
         'tipo_soap_empresa',

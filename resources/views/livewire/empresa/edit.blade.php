@@ -6,16 +6,17 @@
                 <div class="form-group">
                     <label>Nombre Comercial</label>
                     <input wire:model="nombre_comercial_empresa" type="text" class="form-control" placeholder="">
-                
+
                     @error('nombre_comercial_empresa')
                         <span class="text-danger">{{ $message }}</span>
-                    @enderror</div>
+                    @enderror
+                </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Razón Social</label>
                     <input wire:model="razon_social_empresa" type="text" class="form-control" placeholder="">
-                    
+
                     @error('razon_social_empresa')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -59,12 +60,52 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
+                    <label>Teléfono</label>
+                    <input wire:model="telefono_empresa" type="text" class="form-control" placeholder="">
+
+                    @error('telefono_empresa')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
                     <label>Estado</label>
                     <select wire:model="estado" type="select" class="form-control">
                         <option value="1">Activo</option>
                         <option value="0">Inactivo</option>
                     </select>
                 </div>
+            </div>
+            <div class="col-md-6">
+
+
+
+
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            @if ($logo_temporal)
+                                <div class="card-body col-md-12">
+                                    <img class="img-fluid rounded-start" src="{{ $logo_temporal }}" alt="">
+                                </div>
+                            @endif
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Logo de empresa</h5>
+                                <input wire:model="logo_empresa" accept="image/*" type="file" class="form-control"
+                                    alt="Actualizar">
+                                @error('logo_empresa')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         </div>
     </div>

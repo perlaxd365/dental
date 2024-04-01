@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 use Livewire\WithPagination;
+use PersonaUtil;
 
 class Index extends Component
 {
@@ -103,23 +104,15 @@ class Index extends Component
 
     public function buscarDNI()
     {
-        $curl = curl_init();
-        $dni = $this->dni_paciente;
-        //$headers = array("authorization: token d2617b5f616372dd5dc28f7df1b2647cbf6d7c698d2fa0bec4a169b4bbb97b0f");
-        $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InBlcmxheGQzNjVAZ21haWwuY29tIn0.3j6QnXgLgOToXNsBWCe-UTHyWl7IAHgIo-zZZGi_IaE";
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://dniruc.apisperu.com/api/v1/dni/{$dni}?token={$token}",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_SSL_VERIFYPEER => false,
-        ));
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-        curl_close($curl);
-        if ($err) {
-            echo "cURL Error #:" . $err;
+        $data_dni = PersonaUtil::getDni($this->dni_paciente);
+
+        if ($data_dni["error"]) {
+            $this->dispatchBrowserEvent(
+                'alert',
+                ['type' => 'error', 'title' => $data_dni["error"], 'message' => 'Error']
+            );
         } else {
-            $datos = json_decode($response, true);
+            $datos = json_decode($data_dni["response"], true);
             if ($datos != null) {
                 $nombres =  $datos["nombres"] . " " . $datos["apellidoPaterno"] . " " . $datos["apellidoMaterno"];
                 $this->dispatchBrowserEvent(
@@ -134,6 +127,7 @@ class Index extends Component
                 );
             }
         }
+
     }
 
     public function agregarPaciente()

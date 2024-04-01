@@ -7,30 +7,26 @@
     <li class="nav-small-cap"><span class="hide-menu">Aplicaciones</span></li>
 
     @can('admin.users.index')
-        <li class="sidebar-item"> <a class="sidebar-link" href="{{ URL::route('empresa') }}" aria-expanded="false"><i
-                    data-feather="users" class="feather-icon"></i><span class="hide-menu">Empresas
-                </span></a>
-        </li>
+    <li class="sidebar-item"> <a class="sidebar-link" href="{{ URL::route('empresa') }}" aria-expanded="false"><i
+                data-feather="briefcase" class="feather-icon"></i><span class="hide-menu">Empresas
+            </span></a>
+    </li>
+    <li class="sidebar-item"> <a class="sidebar-link" href="{{ URL::route('contrato') }}" aria-expanded="false"><i
+                data-feather="file-text" class="feather-icon"></i><span class="hide-menu">Contratos
+            </span></a>
+    </li>
     @endcan
 
-    @can('admin.users.index')
-        <li class="sidebar-item"> <a class="sidebar-link" href="{{ URL::route('user') }}" aria-expanded="false"><i
-                    data-feather="user" class="feather-icon"></i><span class="hide-menu">Usuarios
-                </span></a>
-        </li>
-    @endcan
+    <li class="sidebar-item"> <a class="sidebar-link" href="{{ URL::route('user') }}" aria-expanded="false"><i
+                data-feather="user" class="feather-icon"></i><span class="hide-menu">Usuarios
+            </span></a>
+    </li>
+    <li class="sidebar-item"> <a class="sidebar-link" href="{{ URL::route('paciente') }}" aria-expanded="false"><i
+                data-feather="users" class="feather-icon"></i><span class="hide-menu">Pacientes
+            </span></a>
+    </li>
     <li class="sidebar-item"> <a class="sidebar-link" href="{{ URL::route('cita') }}" aria-expanded="false"><i
                 data-feather="calendar" class="feather-icon"></i><span class="hide-menu">Citas
-            </span></a>
-    </li>
-    @can('admin.users.index')
-    <li class="sidebar-item"> <a class="sidebar-link" href="{{ URL::route('productolab') }}" aria-expanded="false"><i
-                data-feather="codepen" class="feather-icon"></i><span class="hide-menu">Productos de Laboratorio
-            </span></a>
-    </li>
-    @endcan
-    <li class="sidebar-item"> <a class="sidebar-link" href="{{ URL::route('laboratorio') }}" aria-expanded="false"><i
-                data-feather="triangle" class="feather-icon"></i><span class="hide-menu">Trabajos de Laboratorio
             </span></a>
     </li>
     <li class="sidebar-item"> <a class="sidebar-link" href="{{ URL::route('receta') }}" aria-expanded="false"><i

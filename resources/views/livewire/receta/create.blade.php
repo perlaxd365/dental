@@ -216,7 +216,7 @@
         <div class="text-right">
             <button wire:click="agregar" wire:loading.attr="disabled" class="btn btn-primary" type="button"> <i
                     class="fa fa-plus-circle"></i> <i wire:target="agregar"
-                    wire:loading.class="fa fa-spinner fa-spin" aria-hidden="true"></i> Agregar Receta</button>
+                    wire:loading.class="fa fa-spinner fa-spin" aria-hidden="true"></i> Agregar receta</button>
 
             <button wire:click="default" wire:loading.attr="disabled" class="btn btn-secondary" type="button"> <i
                     wire:target="default" wire:loading.class="fa fa-spinner fa-spin"

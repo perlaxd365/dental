@@ -1,3 +1,5 @@
+
+@can('admin.users.index')
 <div class="card-body">
     <h4 class="card-title">Agregar Usuario al Sistema</h4>
     <div class="form-body">
@@ -108,3 +110,4 @@
         })
     </script>
 </div>
+@endcan

@@ -3,7 +3,7 @@
 @section('title', 'Trabajos de Laboratorio')
 @section('view', Route::current()->getName())
 @section('icon', 'triangle')
-@section('date', Date::now())
+@section('date', DateUtil::getFecha($carbon::parse(Date::now())))
 
 @section('content')
 

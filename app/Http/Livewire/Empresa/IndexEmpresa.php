@@ -16,14 +16,16 @@ class IndexEmpresa extends Component
         $razon_social_empresa,
         $ruc_empresa,
         $logo_empresa,
+        $logo_temporal,
         $key_empresa,
+        $telefono_empresa,
         $direccion_empresa,
         $email_empresa,
         $tipo_soap_empresa,
         $envio_soap_empresa,
         $estado;
-    use WithPagination;
     use WithFileUploads;
+    use WithPagination;
     protected $paginationTheme = "bootstrap";
     public $search;
     public $view = "create";
@@ -59,7 +61,8 @@ class IndexEmpresa extends Component
             'razon_social_empresa.required' => 'Por favor introducir razón social',
             'ruc_empresa.required' => 'Por favor ingresar el ruc de la empresa',
             'logo_empresa.required' => 'Por añadir el logo de la empresa',
-            'email_empresa.required' => 'Por añadir el correp de la empresa',
+            'email_empresa.required' => 'Por añadir el correo de la empresa',
+            'telefono_empresa.required' => 'Por añadir el teléfono de la empresa',
             'tipo_soap_empresa.required' => 'Por favor seleccionar tipo de soap',
             'envio_soap_empresa.required' => 'Por favor seleccionar envío de soap',
             'direccion_empresa.required' => 'Por favor añadir la dirección de la empresa',
@@ -70,6 +73,7 @@ class IndexEmpresa extends Component
 
             'direccion_empresa' => 'required',
             'email_empresa' => 'required',
+            'telefono_empresa' => 'required',
             'tipo_soap_empresa' => 'required',
             'envio_soap_empresa' => 'required',
             'nombre_comercial_empresa' => 'required',
@@ -90,6 +94,7 @@ class IndexEmpresa extends Component
             'razon_social_empresa' => $this->razon_social_empresa,
             'ruc_empresa'   => $this->ruc_empresa,
             'email_empresa'   => $this->email_empresa,
+            'telefono_empresa' => $this->telefono_empresa,
             'logo_empresa' => $imagen,
             'direccion_empresa' => $this->direccion_empresa,
             'key_empresa' => $this->key_empresa,
@@ -116,10 +121,14 @@ class IndexEmpresa extends Component
         $this->ruc_empresa = "";
         $this->logo_empresa = "";
         $this->email_empresa = "";
+        $this->telefono_empresa = "";
         $this->key_empresa = "";
         $this->direccion_empresa = "";
         $this->tipo_soap_empresa = "";
         $this->envio_soap_empresa = "";
+
+        $this->resetErrorBag();
+        $this->resetValidation();
     }
 
     public function edit($id)
@@ -129,32 +138,85 @@ class IndexEmpresa extends Component
         $empresa = Empresa::find($id);
 
         $this->view = "edit";
+        $this->logo_temporal = $empresa->logo_empresa;
+
         $this->nombre_comercial_empresa = $empresa->nombre_comercial_empresa;
         $this->razon_social_empresa = $empresa->razon_social_empresa;
         $this->email_empresa = $empresa->email_empresa;
+        $this->telefono_empresa = $empresa->telefono_empresa;
         $this->ruc_empresa = $empresa->ruc_empresa;
         $this->key_empresa = $empresa->key_empresa;
         $this->direccion_empresa = $empresa->direccion_empresa;
         $this->tipo_soap_empresa = $empresa->tipo_soap_empresa;
         $this->envio_soap_empresa = $empresa->envio_soap_empresa;
         $this->estado = $empresa->estado;
+        $this->resetErrorBag();
+        $this->resetValidation();
     }
 
     public function update()
     {
+        $messages = [
+            'nombre_comercial_empresa.required' => 'Introduce nombre comercial de la empresa',
+            'razon_social_empresa.required' => 'Por favor introducir razón social',
+            'ruc_empresa.required' => 'Por favor ingresar el ruc de la empresa',
+            'email_empresa.required' => 'Por añadir el correo de la empresa',
+            'telefono_empresa.required' => 'Por añadir el teléfono de la empresa',
+            'tipo_soap_empresa.required' => 'Por favor seleccionar tipo de soap',
+            'envio_soap_empresa.required' => 'Por favor seleccionar envío de soap',
+            'direccion_empresa.required' => 'Por favor añadir la dirección de la empresa',
+        ];
+
+        $rules = [
+
+
+            'direccion_empresa' => 'required',
+            'email_empresa' => 'required',
+            'telefono_empresa' => 'required',
+            'tipo_soap_empresa' => 'required',
+            'envio_soap_empresa' => 'required',
+            'nombre_comercial_empresa' => 'required',
+            'ruc_empresa' => 'required',
+            'razon_social_empresa' => 'required',
+
+        ];
+        $this->validate($rules, $messages);
 
         $empresa = Empresa::find($this->id_empresa);
-        $empresa->update([
-            'nombre_comercial_empresa' => $this->nombre_comercial_empresa,
-            'razon_social_empresa' => $this->razon_social_empresa,
-            'ruc_empresa' => $this->ruc_empresa,
-            'email_empresa' => $this->email_empresa,
-            'key_empresa' => $this->key_empresa,
-            'direccion_empresa' => $this->direccion_empresa,
-            'tipo_soap_empresa' => $this->tipo_soap_empresa,
-            'envio_soap_empresa' => $this->envio_soap_empresa,
-            'estado' => $this->estado
-        ]);
+        if ($this->logo_empresa) {
+            # code...
+
+            $filename = time() . "." . $this->logo_empresa->getClientOriginalExtension();
+            //$imagen = $this->logo_empresa->store('public/imagenes');
+            $imagen =  $this->logo_empresa->storeAs('images', $filename, 'real_public');
+    
+            $empresa->update([
+                'nombre_comercial_empresa' => $this->nombre_comercial_empresa,
+                'razon_social_empresa' => $this->razon_social_empresa,
+                'ruc_empresa' => $this->ruc_empresa,
+                'email_empresa' => $this->email_empresa,
+                'telefono_empresa' => $this->telefono_empresa,
+                'key_empresa' => $this->key_empresa,
+                'logo_empresa' => $imagen,
+                'direccion_empresa' => $this->direccion_empresa,
+                'tipo_soap_empresa' => $this->tipo_soap_empresa,
+                'envio_soap_empresa' => $this->envio_soap_empresa,
+                'estado' => $this->estado
+            ]);
+        } else {
+            $empresa->update([
+                'nombre_comercial_empresa' => $this->nombre_comercial_empresa,
+                'razon_social_empresa' => $this->razon_social_empresa,
+                'ruc_empresa' => $this->ruc_empresa,
+                'email_empresa' => $this->email_empresa,
+                'telefono_empresa' => $this->telefono_empresa,
+                'key_empresa' => $this->key_empresa,
+                'direccion_empresa' => $this->direccion_empresa,
+                'tipo_soap_empresa' => $this->tipo_soap_empresa,
+                'envio_soap_empresa' => $this->envio_soap_empresa,
+                'estado' => $this->estado
+            ]);
+        }
         $this->view = "create";
         $this->table = true;
         $this->default();

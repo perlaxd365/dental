@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\calendarController;
 use App\Http\Controllers\citaController;
+use App\Http\Controllers\contratoController;
 use App\Http\Controllers\empresaController;
 use App\Http\Controllers\indexController;
 use App\Http\Controllers\laboratorioController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\logoutController;
+use App\Http\Controllers\pacienteController;
 use App\Http\Controllers\productolabController;
 use App\Http\Controllers\recetaController;
 use App\Http\Controllers\userController;
@@ -65,6 +67,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('productolab', [productolabController::class, 'index'])->name('productolab');
 
     //RECETA
-
     Route::get('receta', [recetaController::class, 'index'])->name('receta');
+
+    //PACIENTE
+    Route::get('paciente', [pacienteController::class, 'index'])->name('paciente');
+
+    //PACIENTE
+    Route::get('contrato', [contratoController::class, 'index'])->name('contrato');
 });

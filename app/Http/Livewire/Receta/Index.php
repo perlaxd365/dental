@@ -11,7 +11,7 @@ use App\Models\TipoUsuario;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Validation\ValidationException;
-
+use PersonaUtil;
 
 class Index extends Component
 {
@@ -67,7 +67,6 @@ class Index extends Component
     }
     public function render()
     {
-        
         $lista_receta = Receta::select('*', 'recetas.created_at as fecha_receta')
             ->join('ojo_derechos', 'recetas.id_ojo_derecho', 'ojo_derechos.id_ojo_derecho')
             ->join('ojo_izquierdos', 'recetas.id_ojo_izquierdo', 'ojo_izquierdos.id_ojo_izquierdo')
@@ -91,28 +90,15 @@ class Index extends Component
 
     public function buscarDNI()
     {
-        $curl = curl_init();
-        $dni = $this->dni_paciente;
-        //$headers = array("authorization: token d2617b5f616372dd5dc28f7df1b2647cbf6d7c698d2fa0bec4a169b4bbb97b0f");
-        $token = "apis-token-5906.0tndw8xCpoUHY9zfB1GeYGCmlcrIlhtJ";
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.apis.net.pe/v2/reniec/dni?numero={$dni}",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_SSL_VERIFYPEER => false,
-            CURLOPT_HTTPHEADER => array(
-                'Referer: https://apis.net.pe/consulta-dni-api',
-                'Authorization: Bearer ' . $token
-            ),
-        ));
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-        curl_close($curl);
+        $data_dni = PersonaUtil::getDni($this->dni_paciente);
 
-        if ($err) {
-            echo "cURL Error #:" . $err;
+        if ($data_dni["error"]) {
+            $this->dispatchBrowserEvent(
+                'alert',
+                ['type' => 'error', 'title' => $data_dni["error"], 'message' => 'Error']
+            );
         } else {
-            $datos = json_decode($response, true);
+            $datos = json_decode($data_dni["response"], true);
             if ($datos != null) {
                 $nombres =  $datos["nombres"] . " " . $datos["apellidoPaterno"] . " " . $datos["apellidoMaterno"];
                 $this->dispatchBrowserEvent(
@@ -127,7 +113,8 @@ class Index extends Component
                 );
             }
         }
-    }
+
+     }
     public function agregarPaciente()
     {
         $verificar_paciente = Paciente::where('dni_paciente', $this->dni_paciente)->where('id_empresa', auth()->user()->id_empresa)->first();
@@ -382,6 +369,8 @@ class Index extends Component
         $this->oi_rec                   = $receta->oi_rec;
         $this->recomendacion_rec        = $receta->recomendacion_rec;
 
+        $this->resetErrorBag();
+        $this->resetValidation();
         // show paciente
         $this->dispatchBrowserEvent(
             'data',

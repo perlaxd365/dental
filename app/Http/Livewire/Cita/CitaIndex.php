@@ -6,13 +6,13 @@ use App\Models\Cita;
 use App\Models\Paciente;
 use Livewire\Component;
 use Illuminate\Validation\ValidationException;
-
+use PersonaUtil;
 
 class CitaIndex extends Component
 {
     public $pacientes = [];
     public
-    $idpaciente ,
+        $idpaciente,
         $id_paciente,
         $dni_paciente,
         $nombres_paciente,
@@ -45,7 +45,7 @@ class CitaIndex extends Component
     public function mount()
     {
         $this->pacientes = Paciente::where('estado', true)
-        ->where('id_empresa', auth()->user()->id_empresa)->get();
+            ->where('id_empresa', auth()->user()->id_empresa)->get();
         $this->mayor_edad_paciente = true;
     }
     public function render()
@@ -55,25 +55,15 @@ class CitaIndex extends Component
 
     public function buscarDNI()
     {
-        
+        $data_dni = PersonaUtil::getDni($this->dni_paciente);
 
-        $curl = curl_init();
-        $dni = $this->dni_paciente;
-        //$headers = array("authorization: token d2617b5f616372dd5dc28f7df1b2647cbf6d7c698d2fa0bec4a169b4bbb97b0f");
-        $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InBlcmxheGQzNjVAZ21haWwuY29tIn0.3j6QnXgLgOToXNsBWCe-UTHyWl7IAHgIo-zZZGi_IaE";
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://dniruc.apisperu.com/api/v1/dni/{$dni}?token={$token}",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_SSL_VERIFYPEER => false,
-        ));
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-        curl_close($curl);
-        if ($err) {
-            echo "cURL Error #:" . $err;
+        if ($data_dni["error"]) {
+            $this->dispatchBrowserEvent(
+                'alert',
+                ['type' => 'error', 'title' => $data_dni["error"], 'message' => 'Error']
+            );
         } else {
-            $datos = json_decode($response, true);
+            $datos = json_decode($data_dni["response"], true);
             if ($datos != null) {
                 $nombres =  $datos["nombres"] . " " . $datos["apellidoPaterno"] . " " . $datos["apellidoMaterno"];
                 $this->dispatchBrowserEvent(
@@ -92,7 +82,7 @@ class CitaIndex extends Component
 
     public function agregarPaciente()
     {
-        $verificar_paciente = Paciente::where('dni_paciente',$this->dni_paciente)->where('id_empresa',auth()->user()->id_empresa)->first();
+        $verificar_paciente = Paciente::where('dni_paciente', $this->dni_paciente)->where('id_empresa', auth()->user()->id_empresa)->first();
         if ($verificar_paciente) {
             $this->dispatchBrowserEvent(
                 'alert',

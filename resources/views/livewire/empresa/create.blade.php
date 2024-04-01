@@ -1,3 +1,5 @@
+
+@can('admin.users.index')
 <div class="card-body">
     <h4 class="card-title">Agregar Datos de Empresa</h4>
     <div class="form-body">
@@ -48,6 +50,16 @@
                     <input wire:model="email_empresa" type="text" class="form-control" placeholder="">
 
                     @error('email_empresa')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Teléfono</label>
+                    <input wire:model="telefono_empresa" type="text" class="form-control" placeholder="">
+
+                    @error('telefono_empresa')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
@@ -113,3 +125,4 @@
         </div>
     </div>
 </div>
+@endcan

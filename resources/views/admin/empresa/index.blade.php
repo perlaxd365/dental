@@ -3,7 +3,7 @@
 @section('title', 'Empresas')
 @section('view', Route::current()->getName())
 @section('icon', 'users')
-@section('date', Date::now())
+@section('date', DateUtil::getFecha($carbon::parse(Date::now())))
 
 @section('content')
 

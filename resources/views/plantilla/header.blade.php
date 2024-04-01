@@ -151,27 +151,26 @@
             <li class="nav-item dropdown">
 
                 @php
-                    $empresas = DB::select('select * from empresas where id_empresa = ' . auth()->user()->id_empresa );
+                    $empresas = DB::select('select * from empresas where id_empresa = ' . auth()->user()->id_empresa);
                     
                 @endphp
                 @foreach ($empresas as $empresa)
-                    
-                <div class="border-top-0 px-2 py-4">
-                    <div class="d-flex no-block align-items-center">
-                        <div class="mr-3">
-                            <img src="{{$empresa->logo_empresa}}" alt="user" class="rounded-circle" width="45"
-                                height="45" />
-                        </div>
-                        <div class="">
-                            <h5 class="text-dark mb-0 font-16 font-weight-medium">
-                                {{$empresa->nombre_comercial_empresa}}
-                            </h5>
-                            <span class="text-muted font-14">
-                                {{$empresa->razon_social_empresa}}
-                            </span>
+                    <div class="border-top-0 px-2 py-4">
+                        <div class="d-flex no-block align-items-center">
+                            <div class="mr-3">
+                                <img src="{{ $empresa->logo_empresa }}" alt="user" class="rounded-circle"
+                                    width="45" height="45" />
+                            </div>
+                            <div class="">
+                                <h5 class="text-dark mb-0 font-16 font-weight-medium">
+                                    {{ $empresa->nombre_comercial_empresa }}
+                                </h5>
+                                <span class="text-muted font-14">
+                                    {{ $empresa->razon_social_empresa }}
+                                </span>
+                            </div>
                         </div>
                     </div>
-                </div>
                 @endforeach
 
             </li>
@@ -204,12 +203,8 @@
                             class="svg-icon mr-2 ml-1"></i>
                         Account Setting</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ route('logout') }}"><i data-feather="power"
-                            class="svg-icon mr-2 ml-1"></i>
-                        Logout</a>
-                    <div class="dropdown-divider"></div>
-                    <div class="pl-4 p-3"><a href="javascript:void(0)" class="btn btn-sm btn-info">View
-                            Profile</a></div>
+                    <div class="pl-4 p-3"><a href="{{ route('logout') }}" class="btn btn-sm btn-info">
+                            <i data-feather="power" class="svg-icon mr-2 ml-1"></i>Cerrar Sesión</a></div>
                 </div>
             </li>
             <!-- ============================================================== -->
