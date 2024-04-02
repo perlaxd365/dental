@@ -18,11 +18,13 @@ return new class extends Migration
             $table->bigIncrements('id_contrato');
             $table->unsignedBigInteger('id_empresa')->comment('id de la empresa');
             $table->unsignedBigInteger('id_pago')->nullable()->comment('id de la empresa');
+            $table->unsignedBigInteger('id_promo')->nullable()->comment('id de la promocion');
             //datos
             $table->string('fecha_inicio_contrato');
             $table->string('fecha_fin_contrato');
             $table->string('cantidad_sucursales_contrato');
             $table->string('pdf_contrato_ruta_contrato');
+            $table->string('promocion_contrato');
             $table->integer('estado_contrato');
 
             

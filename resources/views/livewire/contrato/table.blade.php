@@ -1,16 +1,54 @@
-
 <div class="card-body">
     <div class="card-header">
         <h3>
             Lista de contratos
         </h3>
-        <div class="input-group col-md-4">
-            <input wire:model='search' type="text" class="form-control" placeholder="Buscar"
-                aria-label="Recipient's username" aria-describedby="basic-addon2">
-            <div class="input-group-append">
-                <i wire:target="search" wire:loading.class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+        @can('admin.users.index')
+            <div class="input-group col-md-12">
+                <input wire:model='search' type="text" class="form-control" placeholder="Buscar"
+                    aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <i wire:target="search" wire:loading.class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+                </div>
             </div>
-        </div>
+        @endcan
+        <br>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="start" class="col-sm-12 control-label">Fecha
+                            inicio de contrato</label>
+                        <div class="col-sm-10">
+                            <input wire:model="fecha_inicio_contrato_search" type="date" name="fecha_inicio_contrato_search"
+                                class="form-control">
+                        </div>
+                        @error('fecha_inicio_contrato_search')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="input-group-append col-md-1">
+                    <i wire:target="fecha_inicio_contrato_search" wire:loading.class="fa fa-spinner fa-spin"
+                        aria-hidden="true"></i>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="start" class="col-sm-12 control-label">Fecha
+                            fin de contrato</label>
+                        <div class="col-sm-10">
+                            <input wire:model="fecha_fin_contrato_search" type="date" name="fecha_fin_contrato_search"
+                                class="form-control">
+                        </div>
+                        @error('fecha_fin_contrato_search')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="input-group-append col-md-1">
+                    <i wire:target="fecha_fin_contrato_search" wire:loading.class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+                </div>
+
+            </div>
     </div>
 
     @if ($lista->count())
@@ -58,20 +96,52 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="border-top-0 text-muted px-2 py-4 font-14">{{ DateUtil::getFecha($carbon::parse($datos->fecha_inicio_contrato)) }}</td>
-                            <td class="border-top-0 text-muted px-2 py-4 font-14">{{ DateUtil::getFecha($carbon::parse($datos->fecha_fin_contrato)) }}</td>
-                            <td class="border-top-0 text-muted px-2 py-4 font-14"><b>{{ ParametroUtil::getParametro($datos->estado_contrato, 'ESTADO_CONTRATO')}}</b></td>
+                            <td class="border-top-0 text-muted px-2 py-4 font-14">
+                                {{ DateUtil::getFecha($carbon::parse($datos->fecha_inicio_contrato)) }}</td>
+                            <td class="border-top-0 text-muted px-2 py-4 font-14">
+                                {{ DateUtil::getFecha($carbon::parse($datos->fecha_fin_contrato)) }}</td>
+                            <td class="border-top-0 text-muted px-2 py-4 font-14">
+                                @switch($datos->estado_contrato)
+                                    @case(config('constants.ESTADO_CONTRATO_INACTIVO'))
+                                        <?php $color = 'text-danger'; ?>
+                                    @break
+
+                                    @case(config('constants.ESTADO_CONTRATO_ACTIVO'))
+                                        <?php $color = 'text-success'; ?>
+                                    @break
+
+                                    @case(config('constants.ESTADO_CONTRATO_ESPERA_PAGO'))
+                                        <?php $color = 'text-warning'; ?>
+                                    @break
+
+                                    @case(config('constants.ESTADO_CONTRATO_FINALIZADO'))
+                                        <?php $color = 'text-secondary'; ?>
+                                    @break
+
+                                    @default
+                                @endswitch
+
+                                <i class="fa fa-circle {{ $color }} font-12" data-toggle="tooltip"
+                                    data-placement="top" title="In Testing"></i>
+                                <b>{{ ParametroUtil::getParametro($datos->estado_contrato, 'ESTADO_CONTRATO') }}</b>
+                            </td>
 
                             <td class="border-top-0 text-muted px-2 py-4 font-14 text-center">
                                 <div class="col text-center">
                                     <div class="ml-auto">
                                         <div class="btn-group mr-4" role="group" aria-label="First group">
-                                            <button title="Editar" wire:click='edit({{ $datos->id_contrato }})'
-                                                type="button" class="btn btn-outline-primary "><i
-                                                    class="ti-pencil"></i></button>
-                                            <button wire:click='delete({{ $datos->id_contrato }})' title="Eliminar"
-                                                type="button" class="btn btn-outline-danger "><i
-                                                    class="ti-trash"></i></button>
+                                            <a class="btn btn-outline-danger" target="_blank"
+                                                href="{{ $datos->pdf_contrato_ruta_contrato }}"><i
+                                                    class="fa fa-download"></i>
+                                            </a>
+                                            @can('admin.users.index')
+                                                <button title="Editar" wire:click='edit({{ $datos->id_contrato }})'
+                                                    type="button" class="btn btn-outline-primary "><i
+                                                        class="ti-pencil"></i></button>
+                                                <button wire:click='delete({{ $datos->id_contrato }})' title="Eliminar"
+                                                    type="button" class="btn btn-outline-secondary "><i
+                                                        class="ti-trash"></i></button>
+                                            @endcan
                                         </div>
                                     </div>
                                 </div>

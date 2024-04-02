@@ -17,6 +17,7 @@ class Contrato extends Model
         'fecha_fin_contrato',
         'pdf_contrato_ruta_contrato',
         'cantidad_sucursales_contrato',
+        'promocion_contrato',
         'estado_contrato',
         'estado'
     ];

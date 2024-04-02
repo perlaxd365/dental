@@ -11,11 +11,11 @@
                 data-feather="briefcase" class="feather-icon"></i><span class="hide-menu">Empresas
             </span></a>
     </li>
+    @endcan
     <li class="sidebar-item"> <a class="sidebar-link" href="{{ URL::route('contrato') }}" aria-expanded="false"><i
                 data-feather="file-text" class="feather-icon"></i><span class="hide-menu">Contratos
             </span></a>
     </li>
-    @endcan
 
     <li class="sidebar-item"> <a class="sidebar-link" href="{{ URL::route('user') }}" aria-expanded="false"><i
                 data-feather="user" class="feather-icon"></i><span class="hide-menu">Usuarios

@@ -37,7 +37,7 @@
                         <label for="start" class="col-sm-12 control-label">Fecha
                             inicio de contrato</label>
                         <div class="col-sm-10">
-                            <input wire:model="fecha_inicio_contrato" type="datetime-local" name="fecha_inicio_contrato"
+                            <input wire:model="fecha_inicio_contrato" type="date" name="fecha_inicio_contrato"
                                 class="form-control">
                         </div>
                         @error('fecha_inicio_contrato')
@@ -50,10 +50,24 @@
                         <label for="start" class="col-sm-12 control-label">Fecha
                             fin de contrato</label>
                         <div class="col-sm-10">
-                            <input wire:model="fecha_fin_contrato" type="datetime-local" name="fecha_fin_contrato"
+                            <input wire:model="fecha_fin_contrato" type="date" name="fecha_fin_contrato"
                                 class="form-control">
                         </div>
                         @error('fecha_fin_contrato')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Promocion de Contrato</label>
+                        <select wire:model="promocion_contrato" class="form-control" placeholder="">
+                            <option value="">Seleccionar</option>
+                            <option value="Sistema Optica Web">Sistema Optica Web</option>
+                            <option value="Sistema Optica Web + Ticketera">Sistema Optica Web + Ticketera</option>
+                        </select>
+
+                        @error('promocion_contrato')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
