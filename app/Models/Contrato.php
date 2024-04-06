@@ -13,11 +13,13 @@ class Contrato extends Model
     protected $fillable = [
         'id_empresa',
         'id_pago',
+        'id_promo',
         'fecha_inicio_contrato',
+        'meses_contrato',
         'fecha_fin_contrato',
+        'monto_total_contrato',
         'pdf_contrato_ruta_contrato',
         'cantidad_sucursales_contrato',
-        'promocion_contrato',
         'estado_contrato',
         'estado'
     ];

@@ -31,6 +31,7 @@ return new class extends Migration
             $table->string('naso_pupilar_od_rec')->nullable();
             $table->string('oi_rec')->nullable();
             $table->string('recomendacion_rec')->nullable();
+            $table->string('pdf_rec')->nullable();
             $table->boolean('estado_rec');
 
             $table->string('id_empresa');

@@ -78,4 +78,6 @@
         </div>
     </div>
 
+    <!--  Modal add cita -->
+    @include('livewire.contrato.modals.modal-pago')
 </div>

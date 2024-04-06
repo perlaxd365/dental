@@ -28,6 +28,7 @@ class Receta extends Model
         'oi_rec',
 
         'recomendacion_rec',
+        'pdf_rec',
         'estado_rec',
         'id_empresa',
     ];

@@ -2,12 +2,18 @@
 
 namespace App\Http\Livewire\Receta;
 
+use App\Mail\CitaMail;
+use App\Mail\RecetaMail;
 use App\Models\Empresa;
 use App\Models\OjoDerecho;
 use App\Models\OjoIzquierdo;
 use App\Models\Paciente;
 use App\Models\Receta;
 use App\Models\TipoUsuario;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Validation\ValidationException;
@@ -113,8 +119,7 @@ class Index extends Component
                 );
             }
         }
-
-     }
+    }
     public function agregarPaciente()
     {
         $verificar_paciente = Paciente::where('dni_paciente', $this->dni_paciente)->where('id_empresa', auth()->user()->id_empresa)->first();
@@ -483,6 +488,64 @@ class Index extends Component
         $this->dispatchBrowserEvent(
             'alert',
             ['type' => 'warning', 'title' => 'Se eliminó la receta correctamente ', 'message' => 'Exito']
+        );
+    }
+
+    public function printReceta($id_receta)
+    {
+
+        $receta = Receta::select('*', 'recetas.created_at as fecha_receta')
+            ->join('ojo_derechos', 'recetas.id_ojo_derecho', 'ojo_derechos.id_ojo_derecho')
+            ->join('ojo_izquierdos', 'recetas.id_ojo_izquierdo', 'ojo_izquierdos.id_ojo_izquierdo')
+            ->join('pacientes', 'recetas.id_paciente', 'pacientes.id_paciente')
+            ->join('empresas', 'empresas.id_empresa', 'recetas.id_empresa')
+            ->where('recetas.estado_rec', true)
+            ->where('recetas.id_receta', $id_receta)
+            ->first();
+
+
+
+        $empresa = Empresa::find(auth()->user()->id_empresa);
+        date_default_timezone_set('America/Lima');
+        $date = Carbon::now();
+
+        $pdfContent = Pdf::loadView('livewire.receta.print.invoice',  compact('receta', 'date', 'empresa'))
+            ->setPaper('a4', 'landscape')->output();
+        return $pdf = response()->streamDownload(
+            fn () => print($pdfContent),
+            "receta_" . $receta->dni_paciente . ".pdf"
+        );
+    }
+
+    public function emailReceta($id_receta)
+    {
+        $receta = Receta::select('*', 'recetas.created_at as fecha_receta')
+            ->join('ojo_derechos', 'recetas.id_ojo_derecho', 'ojo_derechos.id_ojo_derecho')
+            ->join('ojo_izquierdos', 'recetas.id_ojo_izquierdo', 'ojo_izquierdos.id_ojo_izquierdo')
+            ->join('pacientes', 'recetas.id_paciente', 'pacientes.id_paciente')
+            ->join('empresas', 'empresas.id_empresa', 'recetas.id_empresa')
+            ->where('recetas.estado_rec', true)
+            ->where('recetas.id_receta', $id_receta)
+            ->first();
+
+        $empresa = Empresa::find(auth()->user()->id_empresa);
+        date_default_timezone_set('America/Lima');
+        $date = Carbon::now();
+        $pdfContent = Pdf::loadView('livewire.receta.print.invoice',  compact('receta', 'date', 'empresa'))
+            ->setPaper('a4', 'landscape')
+            ->output();
+
+        $path = "recetas/" . $receta->id_empresa . "/" . $receta->dni_paciente . '_' . time() . '.pdf';
+        Storage::disk('public')->put($path, $pdfContent);
+        $receta_up = Receta::find($id_receta);
+        $receta_up->update([
+            "pdf_rec" => $path
+        ]);
+        Mail::to($receta->email_paciente)->send(new RecetaMail($receta->id_receta));
+        // show alert
+        $this->dispatchBrowserEvent(
+            'alert',
+            ['type' => 'success', 'title' => 'Se envíó a correo correctamente', 'message' => 'Exito']
         );
     }
 }

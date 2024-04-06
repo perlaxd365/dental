@@ -33,7 +33,8 @@
         "files": [
             "app/Util/PersonaUtil.php",
             "app/Util/DateUtil.php",
-            "app/Util/ParametroUtil.php"
+            "app/Util/ParametroUtil.php",
+            "app/Util/ContratoUtil.php"
 
         ]
     },

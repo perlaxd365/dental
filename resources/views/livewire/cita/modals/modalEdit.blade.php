@@ -15,8 +15,7 @@
                     <div class="form-group">
                         <label for="title" class="col-sm-2 control-label">Paciente</label>
                         <div class="col-sm-10">
-                            <h5> <a href="#" class="text-decoration-none"><u id="nombre_paciente"></u></h5>
-
+                            <input type="text" readonly name="" class="form-control" id="nombre_paciente">
                         </div>
                     </div>
                     <div class="form-group">
@@ -75,10 +74,37 @@
                     </div>
                     <div class="card">
                         <div class="card-header">
-                            Enviar <b>Cita</b> a correo
+                            <div class="row">
+                                Enviar Cita a Whatsapp
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png"
+                                    width="30" height="30" alt="wsp">
+                            </div>
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">Ingresar correo electrónico</h5>
+                            <div class="input-group col-md-12">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <select name="" class="input-group-text" id="prefijo_telefono">
+                                            <option value="+51">+51</option>
+                                        </select>
+                                    </div>
+                                    <input type="text" class="form-control" name="telefono_paciente"
+                                        id="telefono_paciente" placeholder="Ingresar teléfono">
+                                    <button id="btn-send-whatsapp" class="btn btn-primary"
+                                        type="button">Enviar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                Enviar Cita por correo &nbsp
+                                <img src="https://static.vecteezy.com/system/resources/previews/020/964/377/non_2x/gmail-mail-icon-for-web-design-free-png.png"
+                                    width="20" height="20" alt="mail">
+                            </div>
+                        </div>
+                        <div class="card-body">
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" id="email_paciente"
                                     placeholder="Ingresar email" aria-label="Recipient's username"
@@ -130,6 +156,46 @@
         let id_cita = $("#id").val();
         window.open("/printCita/" + id_cita, "Diseño Web", "width=800, height=500")
     });
+
+
+    //actualizar cita
+    $("#btn-send-whatsapp").on("click", function(e) {
+        // Cancelamos el evento si se requiere 
+        e.preventDefault();
+
+        let prefijo = $("#prefijo_telefono").val();
+        let telefono = $("#telefono_paciente").val();
+        let nombre_paciente = $("#nombre_paciente").val();
+        let fecha_inicio_cita_update = $("#fecha_inicio_cita_update").val();
+        let fecha = moment(fecha_inicio_cita_update).format('YYYY-MM-DD HH:mm');
+        let hora = moment(fecha_inicio_cita_update).format('HH:mm');
+        let telefono_completo = prefijo + telefono;
+        const fechaActual = new Date(fecha);
+        const horaActual = new Date(hora);
+
+        const opciones = {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+        };
+        const opcioneshora = {
+            hours: 'numeric'
+        };
+
+        let text = 'Hola ' + nombre_paciente +
+            ', hemos recibido tu solicitud para la citación registrada con éxito para el día ' +
+            fechaActual.toLocaleString('es-PE', opciones) +
+            ', agradecer llegar minutos antes de las ' +
+            fechaActual.getHours('es-PE') +':'+ fechaActual.getMinutes('es-PE') +
+            ' para no perder la cita, que tengas un excelente día!';
+        window.open("https://wa.me/" + telefono_completo +
+            "?text=" + text, 'mywindow').focus()
+
+
+    });
+
+
 
     //actualizar cita
     $("#updateCita").on("submit", function(e) {

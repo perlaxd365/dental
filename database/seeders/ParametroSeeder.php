@@ -21,14 +21,14 @@ class ParametroSeeder extends Seeder
         //MONEDA
         Parametro::create([
             'parametro'         => 'MONEDA',
-            'parametro_nombre'  => 'SOLES',
+            'parametro_nombre'  => 'MONEDA SOLES',
             'valor'             => 1,
             'estado'            => true
         ]);
 
         Parametro::create([
             'parametro'         => 'MONEDA',
-            'parametro_nombre'  => 'DOLARES',
+            'parametro_nombre'  => 'MONEDA DOLARES',
             'valor'             => 2,
             'estado'            => true
         ]);
@@ -36,25 +36,25 @@ class ParametroSeeder extends Seeder
         //ESTADOS DE CONTRATO
         Parametro::create([
             'parametro'         => 'ESTADO_CONTRATO',
-            'parametro_nombre'  => 'INACTIVO',
+            'parametro_nombre'  => 'CONTRATO INACTIVO',
             'valor'             => 1,
             'estado'            => true
         ]);
         Parametro::create([
             'parametro'         => 'ESTADO_CONTRATO',
-            'parametro_nombre'  => 'ACTIVO',
+            'parametro_nombre'  => 'CONTRATO ACTIVO',
             'valor'             => 2,
             'estado'            => true
         ]);
         Parametro::create([
             'parametro'         => 'ESTADO_CONTRATO',
-            'parametro_nombre'  => 'ESPERA DE PAGO',
+            'parametro_nombre'  => 'CONTRATO A ESPERA DE PAGO',
             'valor'             => 3,
             'estado'            => true
         ]);
         Parametro::create([
             'parametro'         => 'ESTADO_CONTRATO',
-            'parametro_nombre'  => 'PAGO FINALIZADO',
+            'parametro_nombre'  => 'CONTRATO FINALIZADO',
             'valor'             => 4,
             'estado'            => true
         ]);

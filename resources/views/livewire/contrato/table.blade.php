@@ -13,42 +13,43 @@
             </div>
         @endcan
         <br>
-            <div class="row">
-                <div class="col-md-5">
-                    <div class="form-group">
-                        <label for="start" class="col-sm-12 control-label">Fecha
-                            inicio de contrato</label>
-                        <div class="col-sm-10">
-                            <input wire:model="fecha_inicio_contrato_search" type="date" name="fecha_inicio_contrato_search"
-                                class="form-control">
-                        </div>
-                        @error('fecha_inicio_contrato_search')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
+        <div class="row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="start" class="col-sm-12 control-label">Fecha
+                        inicio de contrato</label>
+                    <div class="col-sm-10">
+                        <input wire:model="fecha_inicio_contrato_search" type="date"
+                            name="fecha_inicio_contrato_search" class="form-control">
                     </div>
+                    @error('fecha_inicio_contrato_search')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
-                <div class="input-group-append col-md-1">
-                    <i wire:target="fecha_inicio_contrato_search" wire:loading.class="fa fa-spinner fa-spin"
-                        aria-hidden="true"></i>
-                </div>
-                <div class="col-md-5">
-                    <div class="form-group">
-                        <label for="start" class="col-sm-12 control-label">Fecha
-                            fin de contrato</label>
-                        <div class="col-sm-10">
-                            <input wire:model="fecha_fin_contrato_search" type="date" name="fecha_fin_contrato_search"
-                                class="form-control">
-                        </div>
-                        @error('fecha_fin_contrato_search')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-                <div class="input-group-append col-md-1">
-                    <i wire:target="fecha_fin_contrato_search" wire:loading.class="fa fa-spinner fa-spin" aria-hidden="true"></i>
-                </div>
-
             </div>
+            <div class="input-group-append col-md-1">
+                <i wire:target="fecha_inicio_contrato_search" wire:loading.class="fa fa-spinner fa-spin"
+                    aria-hidden="true"></i>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="start" class="col-sm-12 control-label">Fecha
+                        fin de contrato</label>
+                    <div class="col-sm-10">
+                        <input wire:model="fecha_fin_contrato_search" type="date" name="fecha_fin_contrato_search"
+                            class="form-control">
+                    </div>
+                    @error('fecha_fin_contrato_search')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+            <div class="input-group-append col-md-1">
+                <i wire:target="fecha_fin_contrato_search" wire:loading.class="fa fa-spinner fa-spin"
+                    aria-hidden="true"></i>
+            </div>
+
+        </div>
     </div>
 
     @if ($lista->count())
@@ -58,6 +59,9 @@
                     <tr class="border-0">
                         <th class="border-0 font-14 font-weight-medium text-muted">
                             Empresa
+                        </th>
+                        <th class="border-0 font-14 font-weight-medium text-muted px-2">
+                            Promoción
                         </th>
                         <th class="border-0 font-14 font-weight-medium text-muted px-2">
                             Fecha de inicio de contrato
@@ -97,7 +101,11 @@
                                 </div>
                             </td>
                             <td class="border-top-0 text-muted px-2 py-4 font-14">
-                                {{ DateUtil::getFecha($carbon::parse($datos->fecha_inicio_contrato)) }}</td>
+                                <b>{{ $datos->promocion_contrato }}</b>
+                            </td>
+                            <td class="border-top-0 text-muted px-2 py-4 font-14">
+                                {{ DateUtil::getFecha($carbon::parse($datos->fecha_inicio_contrato)) }}
+                            </td>
                             <td class="border-top-0 text-muted px-2 py-4 font-14">
                                 {{ DateUtil::getFecha($carbon::parse($datos->fecha_fin_contrato)) }}</td>
                             <td class="border-top-0 text-muted px-2 py-4 font-14">
@@ -136,10 +144,13 @@
                                             </a>
                                             @can('admin.users.index')
                                                 <button title="Editar" wire:click='edit({{ $datos->id_contrato }})'
-                                                    type="button" class="btn btn-outline-primary "><i
+                                                    type="button" class="btn btn-outline-info"><i
                                                         class="ti-pencil"></i></button>
+                                                <button wire:click='showPago({{ $datos->id_contrato }})' title="Pagos"
+                                                    type="button" class="btn btn-outline-dark"><i
+                                                        class="ti-money"></i></button>
                                                 <button wire:click='delete({{ $datos->id_contrato }})' title="Eliminar"
-                                                    type="button" class="btn btn-outline-secondary "><i
+                                                    type="button" class="btn btn-outline-secondary"><i
                                                         class="ti-trash"></i></button>
                                             @endcan
                                         </div>

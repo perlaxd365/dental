@@ -280,25 +280,34 @@
             }
         }
     </style>
-    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/612187/mc-logo-white.svg" class="logo" width="192">
 
     <div class="browser">
+        
         <div class="controls">
             <i></i>
             <i></i>
             <i></i>
         </div>
+        
 
         <div class="eye"></div>
         <div class="eye"></div>
-        
+
     </div>
 
+    @php
+        $empresas = DB::select('select * from empresas where id_empresa = ' . auth()->user()->id_empresa);
+
+    @endphp
+    @foreach ($empresas as $empresa)
+        <img src="{{ $empresa->logo_empresa }}" class="logo" width="40">
+    @endforeach
     <h1>Fuiste dado de baja :(</h1>
     <p>Sentimos mucho no seguir contando contigo dentro de nuestro equipo, extrañamos que seas parte de nosotros.
-        Nunca es tarde para volver... 
+        Nunca es tarde para volver...
         <br>
-        <a href="http://mcause.us/supportticket"><u>Contactar con equipo de soporte</u></a>.</p>
+        <a href="http://mcause.us/supportticket"><u>Contactar con equipo de soporte</u></a>.
+    </p>
     <a href="{{ route('logout') }}" class="btn btn-outline btn-light text-dark">
         <i data-feather="power" class="fa fa-close"></i>Volver a iniciar sesión</a>
     <!-- 404 text -->

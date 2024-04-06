@@ -6,12 +6,15 @@
                 <div class="col-md-6">
                     <div wire:ignore class="form-group">
                         <label>Seleccionar empresa</label><br>
-                        <select wire:model="id_empresa" class="form-control select2" id="select2">
-                            <option value="">Seleccionar</option>
-                            @foreach ($empresas as $empresa)
-                                <option value="{{ $empresa->id_empresa }}">{{ $empresa->razon_social_empresa }}</option>
-                            @endforeach
-                        </select>
+
+                        <div class="col-sm-12">
+                            <select wire:model="id_empresa" class="form-control select2" id="select2">
+                                <option value="">Seleccionar</option>
+                                @foreach ($empresas as $empresa)
+                                    <option value="{{ $empresa->id_empresa }}">{{ $empresa->razon_social_empresa }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         @error('id_empresa')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -21,7 +24,7 @@
                     <div class="form-group">
                         <label for="start" class="col-sm-12 control-label">
                             Cantidad de Sucursales</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-12">
                             <input wire:model="cantidad_sucursales_contrato" type="number"
                                 name="cantidad_sucursales_contrato" class="form-control">
                         </div>
@@ -30,13 +33,11 @@
                         @enderror
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="start" class="col-sm-12 control-label">Fecha
                             inicio de contrato</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-12">
                             <input wire:model="fecha_inicio_contrato" type="date" name="fecha_inicio_contrato"
                                 class="form-control">
                         </div>
@@ -47,9 +48,21 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
+                        <label for="start" class="col-sm-12 control-label">
+                            Meses contrato</label>
+                        <div class="col-sm-12">
+                            <input wire:model="meses_contrato" type="number" name="meses_contrato" class="form-control">
+                        </div>
+                        @error('meses_contrato')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
                         <label for="start" class="col-sm-12 control-label">Fecha
                             fin de contrato</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-12">
                             <input wire:model="fecha_fin_contrato" type="date" name="fecha_fin_contrato"
                                 class="form-control">
                         </div>
@@ -60,13 +73,30 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="">Promocion de Contrato</label>
-                        <select wire:model="promocion_contrato" class="form-control" placeholder="">
-                            <option value="">Seleccionar</option>
-                            <option value="Sistema Optica Web">Sistema Optica Web</option>
-                            <option value="Sistema Optica Web + Ticketera">Sistema Optica Web + Ticketera</option>
-                        </select>
+                        <label for="start" class="col-sm-12 control-label">
+                            Monto Total</label>
+                        <div class="col-sm-12">
+                            <input wire:model="monto_total_contrato" type="number" name="monto_total_contrato"
+                                class="form-control">
+                        </div>
+                        @error('monto_total_contrato')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for=""class="col-sm-12 control-label">Promocion de Contrato</label>
 
+                        <div class="col-sm-12">
+                            <select wire:model="id_promo" class="form-control" placeholder="">
+                                <option value="">Seleccionar</option>
+                                @foreach ($promos as $promo)
+                                    <option value="{{ $promo->id_promo }}">{{ $promo->nombre_promo }} -
+                                        {{ $promo->descripcion_promo }} ({{ $promo->precio_promo }})</option>
+                                @endforeach
+                            </select>
+                        </div>
                         @error('promocion_contrato')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -74,34 +104,30 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="">Estado de Contrato</label>
-                        <select wire:model="estado_contrato" class="form-control" placeholder="">
-                            <option value="">Seleccionar</option>
-                            <option value="1">Contrato Inactivo</option>
-                            <option value="2">Contrato Activo</option>
-                            <option value="3">Contrato Espera de pago</option>
-                            <option value="4">Contrato Finalizado</option>
-                        </select>
+                        <label for=""class="col-sm-12 control-label">Estado de Contrato</label>
 
+                        <div class="col-sm-12">
+                            <select wire:model="estado_contrato" class="form-control" placeholder="">
+                                <option value="">Seleccionar</option>
+                                <option value="1">Contrato Inactivo</option>
+                                <option value="2">Contrato Activo</option>
+                                <option value="3">Contrato Espera de pago</option>
+                                <option value="4">Contrato Finalizado</option>
+                            </select>
+                        </div>
                         @error('estado_contrato')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Estado</label>
-                        <select wire:model="estado" type="select" class="form-control">
-                            <option value="1">Activo</option>
-                            <option value="0">Inactivo</option>
-                        </select>
-                    </div>
-                </div>
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Actualizar PDF de contrato</label>
-                        <input wire:model="pdf_contrato_ruta_contrato" accept="pdf/*" type="file" class="form-control"
-                            placeholder="">
+
+                        <div class="col-sm-12">
+                            <input wire:model="pdf_contrato_ruta_contrato" accept="pdf/*" type="file"
+                                class="form-control" placeholder="">
+                        </div>
                         <br>
                         @if ($pdf_temporal)
                             <div class="card col-md-12">
@@ -124,7 +150,6 @@
             </div>
         </div>
         <br>
-
         <div class="form-actions">
             <div class="text-right">
                 <button wire:click="update" wire:loading.attr="disabled" class="btn btn-primary" type="button"> <i

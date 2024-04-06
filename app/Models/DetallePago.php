@@ -12,15 +12,21 @@ class DetallePago extends Model
     protected $primaryKey = 'id_detalle_pago';
     protected $fillable = [
         'id_pago',
+        'id_tipo_pago',
         'monto_detalle',
         'moneda_detalle',
         'tipo_cambio_detalle',
+        'nombre_completo_detalle',
+        'numero_cuota_detalle',
         'numero_telefono_detalle',
         'numero_transferencia_detalle',
-        'numero_operación_pago',
+        'numero_operacion_detalle',
+        'fecha_fin_detalle',
         'observaciones_detalle',
+        'notificacion_detalle',
+        'adjunto_detalle',
+        'fecha_notificacion_detalle',
         'estado_detalle',
         'estado'
     ];
-    
 }

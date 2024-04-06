@@ -13,6 +13,7 @@ class Pago extends Model
     protected $fillable = [
         'id_empresa',
         'id_paciente',
+        'numero_cuotas_pago',
         'monto_total_pago',
         'monto_abonado_pago',
         'estado_pago',

@@ -19,4 +19,17 @@ return
         //ESTADOS DE DETALLE DE PAGO
         'ESTADO_DETALLE_PAGO_COMPLETADO'=> 1,
         'ESTADO_DETALLE_PAGO_INCOMPLETO'=> 2,
+
+        //ESTADOS DE DETALLE DE PAGO
+        'PROMOCION_SISTEMA_OPTICA_MAS_FACTURACION'=> 1,
+        'PROMOCION_SISTEMA_OPTICA'=> 2,
+        'PROMOCION_SISTEMA_FACTURACION'=> 3,
+        
+        //ESTADOS DE TIPO DE PAGO
+        'TIPO_PAGO_EFECTIVO'          => 1,
+        'TIPO_PAGO_YAPE'              => 2,
+        'TIPO_PAGO_PLIN'              => 3,
+        'TIPO_PAGO_TRANSFERENCIA'     => 4
+
+        
     ];

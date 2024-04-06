@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_empresa')->comment('id de la empresa');
             $table->unsignedBigInteger('id_paciente')->nullable()->comment('id del paciente empresa');
             //datos
+            $table->integer('numero_cuotas_pago')->nullable();
             $table->decimal('monto_total_pago', 8, 2)->nullable();
             $table->decimal('monto_abonado_pago', 8, 2)->nullable();
             $table->boolean('estado_pago');

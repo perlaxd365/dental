@@ -47,7 +47,7 @@
                                     <tr>
                                         <td style="padding:0 0 36px 0;color:#153643;">
                                             <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">
-                                                Citación electrónica</h1>
+                                                CITACIÓN ELECTRÓNICA</h1>
 
 
                                             <table width="100%">

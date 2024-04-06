@@ -2,20 +2,23 @@
     <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ URL::route('index') }}" aria-expanded="false">
             <i data-feather="home" class="feather-icon"></i>
             <span class="hide-menu">Inicio</span>
-        </a></li>
-    <li class="list-divider"></li>
-    <li class="nav-small-cap"><span class="hide-menu">Aplicaciones</span></li>
-
-    @can('admin.users.index')
-    <li class="sidebar-item"> <a class="sidebar-link" href="{{ URL::route('empresa') }}" aria-expanded="false"><i
-                data-feather="briefcase" class="feather-icon"></i><span class="hide-menu">Empresas
-            </span></a>
+        </a>
     </li>
-    @endcan
+
     <li class="sidebar-item"> <a class="sidebar-link" href="{{ URL::route('contrato') }}" aria-expanded="false"><i
                 data-feather="file-text" class="feather-icon"></i><span class="hide-menu">Contratos
             </span></a>
     </li>
+    @if (Contratoutil::getContrato(auth()->user()->id_empresa))
+    <li class="list-divider"></li>
+    <li class="nav-small-cap"><span class="hide-menu">Aplicaciones</span></li>
+
+    @can('admin.users.index')
+        <li class="sidebar-item"> <a class="sidebar-link" href="{{ URL::route('empresa') }}" aria-expanded="false"><i
+                    data-feather="briefcase" class="feather-icon"></i><span class="hide-menu">Empresas
+                </span></a>
+        </li>
+    @endcan
 
     <li class="sidebar-item"> <a class="sidebar-link" href="{{ URL::route('user') }}" aria-expanded="false"><i
                 data-feather="user" class="feather-icon"></i><span class="hide-menu">Usuarios
@@ -33,4 +36,6 @@
                 data-feather="edit" class="feather-icon"></i><span class="hide-menu">Recetas
             </span></a>
     </li>
+    @endif
+   
 </ul>
