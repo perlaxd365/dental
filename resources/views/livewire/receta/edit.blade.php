@@ -128,7 +128,7 @@
                             <th scope="col">Cilindro</th>
                             <th scope="col">Eje</th>
                             <th scope="col">Adición</th>
-                            <th scope="col">Agudeza Visual</th>
+                            <th scope="col">Agudeza visual</th>
                             <th scope="col">DP</th>
                         </tr>
                     </thead>
