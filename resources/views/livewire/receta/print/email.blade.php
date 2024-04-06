@@ -93,6 +93,7 @@
                                                                         <td style="text-align: center;" width="50%">
                                                                             <b>PACIENTE:</b>
                                                                         </td>
+                                                                        
                                                                         <td style="text-align: center;" width="50%">
                                                                             {{ $data['nombres_paciente'] }}</td>
                                                                     </tr>
