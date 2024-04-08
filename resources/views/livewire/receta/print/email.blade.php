@@ -34,10 +34,10 @@
                             <td align="center" style="padding:30px 0 30px 0;background:#6999FF;">
                                 <img src="https://cdn4.iconfinder.com/data/icons/social-media-logos-6/512/112-gmail_email_mail-512.png"
                                     alt="" width="50" style="height:auto;display:block;" />
-                                    <p
-                                                style="margin:0;font-size:16px;line-height:16px;font-family:Arial,sans-serif;color:#ffffff;">
-                                             {{ $empresa->razon_social_empresa }} <?= date('Y') ?><br />
-                                            </p>
+                                <p
+                                    style="margin:0;font-size:16px;line-height:16px;font-family:Arial,sans-serif;color:#ffffff;">
+                                    {{ $empresa->razon_social_empresa }} <?= date('Y') ?><br />
+                                </p>
                             </td>
                         </tr>
                         <tr>
@@ -72,7 +72,7 @@
                                                             <b>FECHA: </b>
                                                             <br>{{ date('d-m-Y H:i ', strtotime($date)) }}
 
-                                                            <h4>RECETA MÉDICA <br> N° {{ $data['id_receta'] }}
+                                                            <h4>RECETA MÉDICA <br> N° 0000{{ $data['id_receta'] }}
                                                             </h4>
                                                         </td>
                                                     </tr>
@@ -93,7 +93,6 @@
                                                                         <td style="text-align: center;" width="50%">
                                                                             <b>PACIENTE:</b>
                                                                         </td>
-                                                                        
                                                                         <td style="text-align: center;" width="50%">
                                                                             {{ $data['nombres_paciente'] }}</td>
                                                                     </tr>
@@ -104,7 +103,7 @@
                                                                         <td style="text-align: center;" width="50%">
                                                                             {{ $data['dni_paciente'] }}</td>
                                                                     </tr>
-                                                              
+
                                                                 </tbody>
                                                             </table>
                                                             <hr>
@@ -122,7 +121,8 @@
                                                                     Gracias por visitar a
                                                                     <b>{{ $empresa->razon_social_empresa }}</b>, favor
                                                                     de descargar el archivo adjunto al correo.
-                                                                    Para cualquier consulta puedes llamar al <b>{{ $empresa->telefono_empresa }}</b>
+                                                                    Para cualquier consulta puedes llamar al
+                                                                    <b>{{ $empresa->telefono_empresa }}</b>
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -131,42 +131,43 @@
                                             </table>
                                         </td>
                                     </tr>
-                                    
-                        <tr>
-                            <td style="padding:30px;background:#ee4c50;">
-                                <table role="presentation"
-                                    style="width:100%;border-collapse:collapse;border:0;border-spacing:0;font-size:9px;font-family:Arial,sans-serif;">
+
                                     <tr>
-                                        <td style="padding:0;width:50%;" align="left">
-                                            <p
-                                                style="margin:0;font-size:14px;line-height:16px;font-family:Arial,sans-serif;color:#ffffff;">
-                                                &reg; Raul Baca Systems © <?= date('Y') ?><br /><a href="www.google.com"
-                                                    style="color:#ffffff;text-decoration:underline;">Cancelar Cita</a>
-                                            </p>
-                                        </td>
-                                        <td style="padding:0;width:50%;" align="right">
+                                        <td style="padding:30px;background:#ee4c50;">
                                             <table role="presentation"
-                                                style="border-collapse:collapse;border:0;border-spacing:0;">
+                                                style="width:100%;border-collapse:collapse;border:0;border-spacing:0;font-size:9px;font-family:Arial,sans-serif;">
                                                 <tr>
-                                                    <td style="padding:0 0 0 10px;width:38px;">
-                                                        <a href="http://www.twitter.com/" style="color:#ffffff;"><img
-                                                                src="https://assets.codepen.io/210284/tw_1.png"
-                                                                alt="Twitter" width="38"
-                                                                style="height:auto;display:block;border:0;" /></a>
+                                                    <td style="padding:0;width:50%;" align="left">
+                                                        <p
+                                                            style="margin:0;font-size:14px;line-height:16px;font-family:Arial,sans-serif;color:#ffffff;">
+                                                            &reg; Raul Baca Systems © <?= date('Y') ?><br />
+                                                        </p>
                                                     </td>
-                                                    <td style="padding:0 0 0 10px;width:38px;">
-                                                        <a href="http://www.facebook.com/" style="color:#ffffff;"><img
-                                                                src="https://assets.codepen.io/210284/fb_1.png"
-                                                                alt="Facebook" width="38"
-                                                                style="height:auto;display:block;border:0;" /></a>
+                                                    <td style="padding:0;width:50%;" align="right">
+                                                        <table role="presentation"
+                                                            style="border-collapse:collapse;border:0;border-spacing:0;">
+                                                            <tr>
+                                                                <td style="padding:0 0 0 10px;width:38px;">
+                                                                    <a href="http://www.twitter.com/"
+                                                                        style="color:#ffffff;"><img
+                                                                            src="https://assets.codepen.io/210284/tw_1.png"
+                                                                            alt="Twitter" width="38"
+                                                                            style="height:auto;display:block;border:0;" /></a>
+                                                                </td>
+                                                                <td style="padding:0 0 0 10px;width:38px;">
+                                                                    <a href="http://www.facebook.com/"
+                                                                        style="color:#ffffff;"><img
+                                                                            src="https://assets.codepen.io/210284/fb_1.png"
+                                                                            alt="Facebook" width="38"
+                                                                            style="height:auto;display:block;border:0;" /></a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
                                                     </td>
                                                 </tr>
                                             </table>
                                         </td>
                                     </tr>
-                                </table>
-                            </td>
-                        </tr>
                                 </table>
                             </td>
                         </tr>

@@ -93,5 +93,32 @@ class ParametroSeeder extends Seeder
             'valor'             => 1,
             'estado'            => true
         ]);
+
+
+        //NOMBREDS DE TIPO DE PRODUCTOS
+        Parametro::create([
+            'parametro'         => 'NOMBRE_TIPO_PRODUCTO_VENTA',
+            'parametro_nombre'  => 'VARIOS',
+            'valor'             => 1,
+            'estado'            => true
+        ]);
+        Parametro::create([
+            'parametro'         => 'NOMBRE_TIPO_PRODUCTO_VENTA',
+            'parametro_nombre'  => 'ARMAZON',
+            'valor'             => 2,
+            'estado'            => true
+        ]);
+        Parametro::create([
+            'parametro'         => 'NOMBRE_TIPO_PRODUCTO_VENTA',
+            'parametro_nombre'  => 'LENTE',
+            'valor'             => 3,
+            'estado'            => true
+        ]);
+        Parametro::create([
+            'parametro'         => 'NOMBRE_TIPO_PRODUCTO_VENTA',
+            'parametro_nombre'  => 'MONTURA',
+            'valor'             => 4,
+            'estado'            => true
+        ]);
     }
 }

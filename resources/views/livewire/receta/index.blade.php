@@ -78,6 +78,7 @@
         </div>
         <!--  Modal add paciente-->
         @include('livewire.cita.modals.modalAddPaciente')
+        @include('livewire.receta.modals.modal-email')
     </div>
 
 </div>

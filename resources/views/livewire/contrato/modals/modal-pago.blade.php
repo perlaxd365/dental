@@ -5,7 +5,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel"> <b>Pagos</b></h4>
+                <h4 class="modal-title" id="myModalLabel"> <b>Pagos </b>(TOTAL : S/{{ $monto_total_contrato }})</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;
                     </span>
@@ -20,9 +20,11 @@
                                     echo 'active';
                                 } else {
                                     echo '';
-                                } ?>" href="javascript:void()">Cuota
-                                {{ $cuota->numero_cuota_detalle }}
-
+                                } ?>" href="javascript:void()">
+                                Cuota {{ $cuota->numero_cuota_detalle }}
+                                @if ($cuota->monto_detalle)
+                                    <b> (S/ {{ $cuota->monto_detalle }}) </b>
+                                @endif
                                 @if ($cuota->estado_detalle == config('constants.ESTADO_DETALLE_PAGO_COMPLETADO'))
                                     <i class="fa fa-check-circle text-success" aria-hidden="true"></i>
                                 @else
@@ -43,9 +45,9 @@
                         </div>
                     @endif
 
-                    <div class="alert alert-warning" role="alert">
-                        <i class="fa fa-clock text-dark" aria-hidden="true"></i>
-                        Límite de pago: {{ $fecha_fin_detalle }}
+                    <div class="alert alert-warning " role="alert">
+                        <small><i class="fa fa-clock text-dark" aria-hidden="true"></i> Límite de pago:
+                            {{ $fecha_fin_detalle }}</small>
                     </div>
                     <div class="form-group">
                         <label for="title" class="col-sm-12 control-label">Nombres Completos</label>
@@ -163,7 +165,19 @@
                                 </div>
                             </div>
                         @endif
-
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="title" class="col-sm-12 control-label">Fecha límite de pago</label>
+                            <div class="col-sm-12">
+                                <input wire:model="fecha_fin_detalle" type="date" name="fecha_inicio_contrato"
+                                    class="form-control">
+                            </div>
+                            @error('fecha_fin_detalle')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -183,22 +197,41 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="title" class="col-sm-12 control-label">Adjunto de pago</label>
-                        <div class="col-sm-12">
-                            <input type="file" wire:model="adjunto_detalle" class="form-control" id="title"
-                                placeholder="Ingresar adjunto">
-                        </div>
-                        @if ($adjunto_detalle)
-                            <div class="container">
-                                <a class="form-control"
-                                    onclick="window.open('{{ $adjunto_detalle }}', 'hello', 'width=400,height=400')">
-                                    <u><i class="fa fa-eye text-primary"></i> Ver adjunto</u>
-                                </a>
+
+                        @if ($adjunto_detalle_temporal)
+                            <td class="border-top-0 px-2 py-4">
+                                <div class="d-flex no-block align-items-center">
+                                    <div class="mr-3">
+
+                                        <h5 class="text-dark mb-0">
+                                            <label for="title" class="col-sm-12 control-label">Adjunto de
+                                                pago</label>
+                                            <div class="col-sm-12">
+                                                <input type="file" wire:model="adjunto_detalle"
+                                                    class="form-control" id="title"
+                                                    placeholder="Ingresar adjunto">
+                                            </div>
+                                        </h5>
+                                    </div>
+                                    <div class="">
+
+                                        <a class=""
+                                            onclick="window.open('{{ $adjunto_detalle_temporal }}', 'hello', 'width=400,height=400')">
+                                            <u><i class="fa fa-eye text-primary"></i> Ver adjunto</u>
+                                            <img width="40" src="{{ $adjunto_detalle_temporal }}"
+                                                alt="">
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                        @else
+                            <label for="title" class="col-sm-12 control-label">Adjunto de
+                                pago</label>
+                            <div class="col-sm-12">
+                                <input type="file" wire:model="adjunto_detalle" class="form-control"
+                                    id="title" placeholder="Ingresar adjunto">
                             </div>
                         @endif
-                        @error('adjunto_detalle')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
                     </div>
 
 
@@ -223,17 +256,17 @@
                         @if ($showPago)
                             @if ($estado_detalle == config('constants.ESTADO_DETALLE_PAGO_INCOMPLETO'))
                                 <button wire:click="updateDetalle" wire:loading.attr="disabled"
-                                    class="btn btn-primary" type="button"> <i class="fa fa-edit"></i> <i
-                                        wire:target="updateDetalle" wire:loading.class="fa fa-spinner fa-spin"
-                                        aria-hidden="true"></i>
-                                    Actualizar</button>
-                            @else
-                                <button wire:click="updateDetalle" wire:loading.attr="disabled"
                                     class="btn btn-primary" type="button"> <i class="fa fa-plus-circle"></i> <i
                                         wire:target="updateDetalle" wire:loading.class="fa fa-spinner fa-spin"
                                         aria-hidden="true">
                                     </i>
                                     Guardar</button>
+                            @else
+                                <button wire:click="updateDetalle" wire:loading.attr="disabled"
+                                    class="btn btn-primary" type="button"> <i class="fa fa-edit"></i> <i
+                                        wire:target="updateDetalle" wire:loading.class="fa fa-spinner fa-spin"
+                                        aria-hidden="true"></i>
+                                    Actualizar</button>
                             @endif
                         @endif
                         <button wire:click="closeModal" wire:loading.attr="disabled" class="btn btn-secondary"

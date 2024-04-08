@@ -63,6 +63,8 @@ class Index extends Component
 
     public $permiso;
 
+    public $correo_receta_send;
+
     public function mount()
     {
         $this->pacientes = Paciente::where('estado', true)
@@ -517,7 +519,37 @@ class Index extends Component
         );
     }
 
-    public function emailReceta($id_receta)
+    public function showModalEmail($id_receta)
+    {
+        $this->id_receta = $id_receta;
+        $receta = Receta::select('*', 'recetas.created_at as fecha_receta')
+            ->join('ojo_derechos', 'recetas.id_ojo_derecho', 'ojo_derechos.id_ojo_derecho')
+            ->join('ojo_izquierdos', 'recetas.id_ojo_izquierdo', 'ojo_izquierdos.id_ojo_izquierdo')
+            ->join('pacientes', 'recetas.id_paciente', 'pacientes.id_paciente')
+            ->join('empresas', 'empresas.id_empresa', 'recetas.id_empresa')
+            ->where('recetas.estado_rec', true)
+            ->where('recetas.id_receta', $this->id_receta)
+            ->first();
+        $this->correo_receta_send = $receta->email_paciente;
+        // show alert
+        $this->dispatchBrowserEvent(
+            'open-modal-email',
+            []
+        );
+    }
+
+    public function closeModalEmail()
+    {
+        $this->correo_receta_send = '';
+        // show alert
+        $this->dispatchBrowserEvent(
+            'close-modal-email',
+            []
+        );
+    }
+
+
+    public function sendEmailReceta()
     {
         $receta = Receta::select('*', 'recetas.created_at as fecha_receta')
             ->join('ojo_derechos', 'recetas.id_ojo_derecho', 'ojo_derechos.id_ojo_derecho')
@@ -525,7 +557,7 @@ class Index extends Component
             ->join('pacientes', 'recetas.id_paciente', 'pacientes.id_paciente')
             ->join('empresas', 'empresas.id_empresa', 'recetas.id_empresa')
             ->where('recetas.estado_rec', true)
-            ->where('recetas.id_receta', $id_receta)
+            ->where('recetas.id_receta', $this->id_receta)
             ->first();
 
         $empresa = Empresa::find(auth()->user()->id_empresa);
@@ -537,10 +569,18 @@ class Index extends Component
 
         $path = "recetas/" . $receta->id_empresa . "/" . $receta->dni_paciente . '_' . time() . '.pdf';
         Storage::disk('public')->put($path, $pdfContent);
-        $receta_up = Receta::find($id_receta);
+        $receta_up = Receta::find($this->id_receta);
         $receta_up->update([
             "pdf_rec" => $path
         ]);
+        if (!$this->correo_receta_send) {
+            # code...
+            $this->dispatchBrowserEvent(
+                'alert',
+                ['type' => 'error', 'title' => 'Por favor ingresar un correo para enviar la receta.', 'message' => 'Error']
+            );
+            throw ValidationException::withMessages(['correo_receta_send' => 'Dni ya se encuentra agregado.']);
+        }
         Mail::to($receta->email_paciente)->send(new RecetaMail($receta->id_receta));
         // show alert
         $this->dispatchBrowserEvent(

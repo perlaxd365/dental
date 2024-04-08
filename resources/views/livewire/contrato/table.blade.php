@@ -138,16 +138,16 @@
                                 <div class="col text-center">
                                     <div class="ml-auto">
                                         <div class="btn-group mr-4" role="group" aria-label="First group">
-                                            <a class="btn btn-outline-danger" target="_blank"
+                                            <a class="btn btn-outline-secondary" target="_blank"
                                                 href="{{ $datos->pdf_contrato_ruta_contrato }}"><i
                                                     class="fa fa-download"></i>
                                             </a>
                                             @can('admin.users.index')
                                                 <button title="Editar" wire:click='edit({{ $datos->id_contrato }})'
-                                                    type="button" class="btn btn-outline-info"><i
+                                                    type="button" class="btn btn-outline-secondary"><i
                                                         class="ti-pencil"></i></button>
                                                 <button wire:click='showPago({{ $datos->id_contrato }})' title="Pagos"
-                                                    type="button" class="btn btn-outline-dark"><i
+                                                    type="button" class="btn btn-outline-secondary"><i
                                                         class="ti-money"></i></button>
                                                 <button wire:click='delete({{ $datos->id_contrato }})' title="Eliminar"
                                                     type="button" class="btn btn-outline-secondary"><i

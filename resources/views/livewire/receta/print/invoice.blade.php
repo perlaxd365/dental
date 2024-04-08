@@ -24,13 +24,6 @@
 <body>
     <div class="card">
         <div class="card-body">
-
-            <div class="col-md-12">
-                <div class="text-center">
-                    <p class="pt-0">{{ $empresa->razon_social_empresa }}</p>
-                </div>
-
-            </div>
             <table width="100%">
                 <tbody>
                     <tr>
@@ -135,7 +128,7 @@
                     </tbody>
                 </table>
 
-<hr>
+                <hr>
                 <table width="100%">
                     <tbody>
                         <tr>
@@ -164,11 +157,8 @@
                                     <footer class="blockquote-footer">OI: <cite
                                             title="Source Title">{{ $receta->oi_rec }}</cite></footer>
                                 </blockquote>
-
                             </td>
-
                             <td style="text-align: center;" width="70%">
-
                                 <blockquote class="blockquote">
                                     <p class="mb-0">Recomendación:</p>
                                     <footer class="blockquote-footer"> <cite

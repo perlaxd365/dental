@@ -68,6 +68,7 @@ class Index extends Component
         $fecha_fin_detalle,
         $observaciones_detalle,
         $adjunto_detalle,
+        $adjunto_detalle_temporal,
         $notificacion_detalle,
         $fecha_notificacion_detalle,
         $estado_detalle;
@@ -85,7 +86,7 @@ class Index extends Component
 
     public function mount()
     {
-        
+
         $this->carbon = new Carbon();
         $this->table = true;
         $this->empresas = Empresa::where('estado', true)->get();
@@ -372,7 +373,7 @@ class Index extends Component
         $this->id_contrato = $id;
         $contrato = Contrato::find($id);
 
-
+        $this->monto_total_contrato = $contrato->monto_total_contrato;
         $this->cuotas = DetallePago::where('id_pago', $contrato->id_pago)->where('estado', true)->get();
 
         // show alert
@@ -412,7 +413,7 @@ class Index extends Component
         $this->numero_operacion_detalle = $detalle_pago->numero_operacion_detalle;
         $this->numero_transferencia_detalle = $detalle_pago->numero_transferencia_detalle;
         $this->fecha_fin_detalle = $detalle_pago->fecha_fin_detalle;
-        $this->adjunto_detalle = $detalle_pago->adjunto_detalle;
+        $this->adjunto_detalle_temporal = $detalle_pago->adjunto_detalle;
         $this->observaciones_detalle = $detalle_pago->observaciones_detalle;
         $this->notificacion_detalle = $detalle_pago->notificacion_detalle;
         $this->fecha_notificacion_detalle = $detalle_pago->fecha_notificacion_detalle;
@@ -485,25 +486,44 @@ class Index extends Component
         $this->validate($rules, $messages);
         $detalle_pago = DetallePago::find($this->id_detalle_pago);
 
-        //datos de adjunto
-        $filename = time() . "." . $this->adjunto_detalle->getClientOriginalExtension();
-        //$imagen = $this->logo_empresa->store('public/imagenes');
-        $archivo =  $this->adjunto_detalle->storeAs('detallePagos/' . $this->id_empresa, $filename, 'real_public');
+        if ($this->adjunto_detalle) {
+            # code...
+            //datos de adjunto
+            $filename = time() . "." . $this->adjunto_detalle->getClientOriginalExtension();
+            //$imagen = $this->logo_empresa->store('public/imagenes');
+            $archivo =  $this->adjunto_detalle->storeAs('detallePagos/' . $this->id_empresa, $filename, 'real_public');
 
-        $detalle_pago->update([
-            'id_tipo_pago'                  => $this->id_tipo_pago,
-            'nombre_completo_detalle'       => $this->nombre_completo_detalle,
-            'monto_detalle'                 => $this->monto_detalle,
-            'moneda_detalle'                => $this->moneda_detalle,
-            'tipo_cambio_detalle'           => $this->tipo_cambio_detalle,
-            'numero_telefono_detalle'       => $this->numero_telefono_detalle,
-            'numero_operacion_detalle'      => $this->numero_operacion_detalle,
-            'numero_transferencia_detalle'  => $this->numero_transferencia_detalle,
-            'adjunto_detalle'               => $archivo,
-            'fecha_fin_detalle'             => $this->fecha_fin_detalle,
-            'observaciones_detalle'         => $this->observaciones_detalle,
-            'estado_detalle'                => $this->estado_detalle
-        ]);
+            $detalle_pago->update([
+                'id_tipo_pago'                  => $this->id_tipo_pago,
+                'nombre_completo_detalle'       => $this->nombre_completo_detalle,
+                'monto_detalle'                 => $this->monto_detalle,
+                'moneda_detalle'                => $this->moneda_detalle,
+                'tipo_cambio_detalle'           => $this->tipo_cambio_detalle,
+                'numero_telefono_detalle'       => $this->numero_telefono_detalle,
+                'numero_operacion_detalle'      => $this->numero_operacion_detalle,
+                'numero_transferencia_detalle'  => $this->numero_transferencia_detalle,
+                'adjunto_detalle'               => $archivo,
+                'fecha_fin_detalle'             => $this->fecha_fin_detalle,
+                'observaciones_detalle'         => $this->observaciones_detalle,
+                'estado_detalle'                => $this->estado_detalle
+            ]);
+        } else {
+
+            $detalle_pago->update([
+                'id_tipo_pago'                  => $this->id_tipo_pago,
+                'nombre_completo_detalle'       => $this->nombre_completo_detalle,
+                'monto_detalle'                 => $this->monto_detalle,
+                'moneda_detalle'                => $this->moneda_detalle,
+                'tipo_cambio_detalle'           => $this->tipo_cambio_detalle,
+                'numero_telefono_detalle'       => $this->numero_telefono_detalle,
+                'numero_operacion_detalle'      => $this->numero_operacion_detalle,
+                'numero_transferencia_detalle'  => $this->numero_transferencia_detalle,
+                'fecha_fin_detalle'             => $this->fecha_fin_detalle,
+                'observaciones_detalle'         => $this->observaciones_detalle,
+                'estado_detalle'                => $this->estado_detalle
+            ]);
+        }
+
 
         ContratoUtil::updateContrato($this->id_contrato, config('constants.ESTADO_CONTRATO_ACTIVO'));
         // show alert

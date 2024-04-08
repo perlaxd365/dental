@@ -36,6 +36,10 @@
                 data-feather="edit" class="feather-icon"></i><span class="hide-menu">Recetas
             </span></a>
     </li>
+    <li class="sidebar-item"> <a class="sidebar-link" href="{{ URL::route('venta') }}" aria-expanded="false"><i
+                data-feather="shopping-cart" class="feather-icon"></i><span class="hide-menu">Ventas
+            </span></a>
+    </li>
     @endif
    
 </ul>

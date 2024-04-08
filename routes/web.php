@@ -12,6 +12,7 @@ use App\Http\Controllers\pacienteController;
 use App\Http\Controllers\productolabController;
 use App\Http\Controllers\recetaController;
 use App\Http\Controllers\userController;
+use App\Http\Controllers\ventaController;
 use App\Http\Livewire\Admin\Cita;
 use App\Models\ProductoLaboratorio;
 
@@ -74,4 +75,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     //PACIENTE
     Route::get('contrato', [contratoController::class, 'index'])->name('contrato');
+
+    //VENTAS
+    Route::get('venta', [ventaController::class, 'index'])->name('venta');
 });

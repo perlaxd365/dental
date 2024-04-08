@@ -109,7 +109,7 @@
                     <b>Recomendación</b>
                 </label>
                 <br>
-                <textarea wire:model='recomendacion_rec' rows="2" placeholder="Ingresar recomendación" type="text" class="form-control"></textarea>
+                <textarea wire:model='recomendacion_rec' rows="4" placeholder="Ingresar recomendación" type="text" class="form-control"></textarea>
             </div>
         </div>
 
