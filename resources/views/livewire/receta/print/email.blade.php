@@ -20,6 +20,7 @@
         font-size: 13px;
     }
 </style>
+<link type="text/css" rel="stylesheet" href="{{ asset('assets/libs/bootstrap/dist/css/bootstrap.min.css') }}" />
 
 <body>
     <div style="overflow-x:auto;">

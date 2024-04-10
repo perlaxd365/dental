@@ -6,13 +6,17 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "bacon/bacon-qr-code": "^2.0",
         "barryvdh/laravel-dompdf": "^2.0",
+        "calcinai/php-imagick": "^0.1.2",
+        "chillerlan/php-qrcode": "^5.0",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
         "laravel/jetstream": "^2.14",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.5",
+        "simplesoftwareio/simple-qrcode": "~4",
         "spatie/laravel-permission": "^5.8"
     },
     "require-dev": {
@@ -34,7 +38,8 @@
             "app/Util/PersonaUtil.php",
             "app/Util/DateUtil.php",
             "app/Util/ParametroUtil.php",
-            "app/Util/ContratoUtil.php"
+            "app/Util/ContratoUtil.php",
+            "app/Util/QRUtil.php"
 
         ]
     },

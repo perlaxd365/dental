@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_paciente')->comment('id del paciente');
             $table->unsignedBigInteger('id_receta')->nullable()->comment('id de la receta');
             $table->decimal('sub_total_venta', 6, 2);
-            $table->decimal('igv_venta', 6, 2);
+            $table->decimal('igv_venta', 6, 2)->nullable();
             $table->decimal('total_venta', 6, 2);
 
             $table->boolean('estado');

@@ -62,38 +62,19 @@
                             <!-- Row start -->
                             <div class="row gutters">
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                                    
+
                                     <img src="{{ $empresa->logo_empresa }}" alt="user" class="rounded-circle"
-                                    width="100" height="100" />
+                                        width="100" height="100" />
                                 </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 pt-2">
                                     <address class="text-right">
-                                        Maxwell admin Inc, 45 NorthWest Street.<br>
-                                        Sunrise Blvd, San Francisco.<br>
-                                        00000 00000
+                                        {{ $empresa->razon_social_empresa }} <br>
+                                        {{ $empresa->direccion_empresa }}<br>
+                                        {{ $empresa->ruc_empresa }}.<br>
                                     </address>
                                 </div>
                             </div>
-                            <!-- Row end -->
-                            <!-- Row start -->
-                            <div class="row gutters">
-                                <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-                                    <div class="invoice-details">
-                                        <address>
-                                            Alex Maxwell<br>
-                                            150-600 Church Street, Florida, USA
-                                        </address>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-                                    <div class="invoice-details">
-                                        <div class="invoice-num">
-                                            <div>Invoice - #009</div>
-                                            <div>January 10th 2020</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            
                             <!-- Row end -->
                         </div>
                         <div class="invoice-body">
@@ -101,7 +82,7 @@
                             <div class="row gutters">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="table-responsive">
-                                        <table class="table custom-table m-0 table-sm">
+                                        <table class="table custom-table m-0 table-sm table-stripped">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
@@ -126,7 +107,8 @@
                                                     @foreach ($lista_detalle as $key => $item)
                                                         <tr>
                                                             <td class="text-center">
-                                                                <button wire:click='deleteProducto({{ $key }})'
+                                                                <button
+                                                                    wire:click='deleteProducto({{ $key }})'
                                                                     class="btn btn-outline-secondary btn-sm rounded-circle">
                                                                     <i class="fa fa-times" aria-hidden="true"></i>
 
@@ -170,7 +152,7 @@
                                                         <td>
                                                             <p>
                                                                 <b>S/ {{ $sub_total_venta }}</b><br>
-                                                                <b> % {{ $igv_venta }}</b><br>
+                                                                <b> % &nbsp;{{ $igv_venta }}</b><br>
                                                                 <b>S/ {{ $subtotal_afectado }}</b><br>
                                                             </p>
                                                             <h5 class="text-success"><strong>S/
@@ -187,17 +169,22 @@
                             <!-- Row end -->
                         </div>
                         <div class="invoice-footer">
-                            Thank you for your Business.
+                            Venta simple
                         </div>
                     </div>
-                    <div class="custom-actions-btns mb-5">
-                        <a href="#" class="btn btn-primary">
-                            <i class="icon-download"></i> Download
-                        </a>
-                        <a href="#" class="btn btn-secondary">
-                            <i class="icon-printer"></i> Print
-                        </a>
-                    </div>
+
+                    @if ($lista_detalle)
+                        <div class="custom-actions-btns mb-5">
+                            <button wire:click="store" wire:loading.attr="disabled" class="btn btn-primary"
+                                type="button"> <i class="fa fa-plus-circle"></i> <i wire:target="store"
+                                    wire:loading.class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+                                Guardar Venta</button>
+
+                            <button wire:click="store_print" wire:loading.attr="disabled" class="btn btn-secondary"
+                                type="button"><i class="fa fa-print"></i>  <i wire:target="store_print" wire:loading.class="fa fa-spinner fa-spin"
+                                    aria-hidden="true"></i> Guardar e imprimir</button>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

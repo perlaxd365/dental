@@ -14,7 +14,8 @@
                 <div class="form-row container">
                     <div class="form-group col-md-12">
                         <label for="inputZip3">Nombre de producto</label>
-                        <input wire:model="nombre_detalle" type="text" class="form-control" id="inputZip3"
+                        <input wire:model="nombre_detalle" type="text" autocomplete="on" 
+                        class="form-control" id="inputZip3"
                             placeholder="Ingresar nombre de producto">
                         @error('nombre_detalle')
                             <small class="text-danger">{{ $message }}</small>
@@ -73,14 +74,13 @@
                 <div class="form-actions">
                     <div class="text-right">
                         <button wire:click="addListaDetalle" wire:loading.attr="disabled" class="btn btn-primary btn-sm"
-                            type="button"> <i class="fa fa-plus" aria-hidden="true"></i><i
+                            type="button"> <i class="fa fa-plus" aria-hidden="true"></i> <i
                                 wire:target="addListaDetalle" wire:loading.class="fa fa-spinner fa-spin"
                                 aria-hidden="true">
-                            </i>
-                            Agregar Producto</button>
+                            </i> Agregar Producto</button>
                         <button wire:click="closeModalDetalle" wire:loading.attr="disabled"
                             class="btn btn-secondary btn-sm" type="button"> <i wire:target="closeModalDetalle"
-                                wire:loading.class="fa fa-spinner fa-spin" aria-hidden="true"></i>Cancelar</button>
+                                wire:loading.class="fa fa-spinner fa-spin" aria-hidden="true"></i> Cancelar</button>
                     </div>
                 </div>
             </div>

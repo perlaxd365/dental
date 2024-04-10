@@ -2,16 +2,20 @@
 
 namespace App\Http\Livewire\Venta;
 
+use App\Models\DetalleVenta;
 use App\Models\Empresa;
 use App\Models\Paciente;
 use App\Models\Receta;
 use App\Models\TipoProducto;
 use App\Models\TipoUsuario;
+use App\Models\Venta;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 use Livewire\WithPagination;
 use PersonaUtil;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class Index extends Component
 {
@@ -68,15 +72,23 @@ class Index extends Component
     //DATOS DE VENTA
     public $id_paciente,
         $id_venta,
+        $id_receta,
         $igv_venta,
         $sub_total_venta,
         $total_venta,
         $subtotal_afectado;
 
+    public $paciente_delete,
+        $subtotal_delete,
+        $igv_delete,
+        $total_delete,
+        $detalle_delete;
+
     public function mount()
     {
         $this->carbon = new Carbon();
         $this->table = true;
+        $this->show = 4;
         $this->tipo_productos = TipoProducto::where('estado', true)->get();
         $this->empresa = Empresa::find(auth()->user()->id_empresa);
     }
@@ -86,7 +98,33 @@ class Index extends Component
             ->where('id_empresa', auth()->user()->id_empresa)->get();
 
         $this->permiso = TipoUsuario::find(auth()->user()->id_tipo_usuario);
-        return view('livewire.venta.index');
+
+        $lista_ventas = Venta::select('*')
+            ->join('pacientes', 'ventas.id_paciente', 'pacientes.id_paciente')
+            ->join('empresas', 'empresas.id_empresa', 'ventas.id_empresa')
+            ->where('ventas.estado', true)
+            ->orderby('id_venta', 'desc');
+
+        //verificamos el permiso si es admin para listar
+        if ($this->permiso->nombre_tipo_usuario != 'Administrador') {
+            $lista_ventas->where('empresas.id_empresa', auth()->user()->id_empresa);
+        }
+        $lista_ventas->where(function ($query) {
+            return $query
+                ->orwhere('nombres_paciente', 'LIKE', '%' . $this->search . '%')
+                ->orwhere('dni_paciente', 'LIKE', '%' . $this->search . '%');
+        });
+        $lista =  $lista_ventas->paginate($this->show);
+
+
+
+
+        return view('livewire.venta.index', compact('lista'));
+    }
+
+    public function listaDetalle($id_venta)
+    {
+        return DetalleVenta::where("id_venta", $id_venta)->where("estado", true)->get();
     }
 
     public function buscarDNI()
@@ -252,6 +290,11 @@ class Index extends Component
         $this->precio_unitario_detalle = "";
         $this->precio_total_detalle = "";
     }
+    public function defaultVenta()
+    {
+        $this->id_receta = "";
+        $this->igv_venta = "";
+    }
 
     public function addListaDetalle()
     {
@@ -298,7 +341,7 @@ class Index extends Component
         foreach ($this->lista_detalle as $detalle) {
             # code...
             $this->sub_total_venta =  number_format($this->sub_total_venta + $detalle["precio_total_detalle"], 2, '.', '');
-            $igv = $this->igv_venta / 100;
+            $igv = ($this->igv_venta) ? $this->igv_venta / 100 : 0;
             $this->subtotal_afectado = $this->sub_total_venta * $igv;
             $subtotal = $this->sub_total_venta + $this->subtotal_afectado;
             $this->total_venta = number_format($subtotal, 2, '.', '');
@@ -307,16 +350,164 @@ class Index extends Component
 
     public function deleteProducto($id)
     {
-        unset($this->lista_detalle[$id]);// show alert
+        unset($this->lista_detalle[$id]); // show alert
         $this->dispatchBrowserEvent(
             'alert',
-            ['type' => 'error', 'title' => 'Se removió el producto correctamente', 'message' => 'Exito']
+            ['type' => 'info', 'title' => 'Se removió el producto correctamente', 'message' => 'Exito']
         );
     }
 
-    public function updatingIgvventa()
+    public function updatingIgvventa($igv)
+    {
+        if ($igv != '') {
+
+            $this->igv_venta = $igv;
+            $this->calcularTotal();
+        }
+    }
+
+    public function guardar_venta()
+    {
+        $messages = [
+            'id_paciente.required' => 'Por favor seleccionar el paciente para la venta',
+        ];
+
+        $rules = [
+
+            'id_paciente' => 'required',
+
+        ];
+        $this->validate($rules, $messages);
+
+        $venta = Venta::create([
+
+            'id_paciente' => $this->id_paciente,
+            'id_receta' => ($this->id_receta) ? $this->id_receta : null,
+            'sub_total_venta' => $this->sub_total_venta,
+            'igv_venta' => ($this->igv_venta) ? $this->igv_venta : null,
+            'total_venta' => $this->total_venta,
+            'estado' => true,
+            'id_empresa' => auth()->user()->id_empresa,
+        ]);
+        $this->id_venta = $venta->id_venta;
+        foreach ($this->lista_detalle as $detalle) {
+            # code...
+
+            DetalleVenta::create([
+                'id_venta' => $venta->id_venta,
+                'id_tipo_producto' => $detalle["id_tipo_producto"],
+                'nombre_detalle' => $detalle["nombre_detalle"],
+                'unidad_detalle' => $detalle["unidad_detalle"],
+                'cantidad_detalle' => $detalle["cantidad_detalle"],
+                'precio_unitario_detalle' => $detalle["precio_unitario_detalle"],
+                'precio_total_detalle' => $detalle["precio_total_detalle"],
+                'id_empresa' => auth()->user()->id_empresa,
+                'estado' => true,
+            ]);
+        }
+    }
+    public function store()
+    {
+        if (!$this->lista_detalle) {
+            # code...
+            $this->dispatchBrowserEvent(
+                'alert',
+                ['type' => 'error', 'title' => 'Por favor, ingresar 1 producto', 'message' => 'Exito']
+            );
+        }
+
+        $this->guardar_venta();
+        $this->lista_detalle = [];
+        $this->defaultDetalle();
+        $this->defaultVenta();
+        // show alert
+        $this->dispatchBrowserEvent(
+            'alert',
+            ['type' => 'success', 'title' => 'Se guardó al paciente correctamente', 'message' => 'Exito']
+        );
+    }
+
+    public function store_print()
     {
 
-        $this->calcularTotal();
+        $this->guardar_venta();
+
+        $data_venta = [
+            'id_venta'  => $this->id_venta,
+            'sub_total_venta' => $this->sub_total_venta,
+            'igv_venta' => $this->igv_venta,
+            'total_venta' => $this->total_venta,
+        ];
+
+        $data_detalle_venta = $this->lista_detalle;
+        $empresa = Empresa::find(auth()->user()->id_empresa);
+        $paciente = Paciente::find($this->id_paciente);
+        date_default_timezone_set('America/Lima');
+        $date = Carbon::now();
+        $customPaper = array(0, 0, 204, 650);
+        $writer = base64_encode(QrCode::format('svg')->size(70)->generate($empresa->pagina_empresa));
+        $pdfContent = Pdf::loadView('livewire.venta.print.invoice',  compact('date', 'empresa', 'data_venta', 'data_detalle_venta', 'writer', 'paciente'))
+            ->setPaper($customPaper)->output();
+
+
+        $this->lista_detalle = [];
+        $this->defaultDetalle();
+        $this->defaultVenta();
+        // show alert
+        $this->dispatchBrowserEvent(
+            'alert',
+            ['type' => 'success', 'title' => 'Se registró la venta correctamente', 'message' => 'Exito']
+        );
+
+        return response()->streamDownload(
+            fn () => print($pdfContent),
+            "venta_" .  time() . ".pdf"
+        );
+    }
+    public function delete_venta($id_venta)
+    {
+        $this->id_venta = $id_venta;
+        $venta = Venta::select('*')
+            ->join('pacientes', 'ventas.id_paciente', 'pacientes.id_paciente')
+            ->where('ventas.estado', true)
+            ->where('id_venta', $id_venta)
+            ->first();
+
+        $this->paciente_delete = $venta->nombres_paciente;
+        $this->subtotal_delete = $venta->sub_total_venta;
+        $this->igv_delete = $venta->igv_venta;
+        $this->total_delete = $venta->total_venta;
+
+        $this->detalle_delete = $this->listaDetalle($id_venta);
+
+        // show alert
+        $this->dispatchBrowserEvent(
+            'open-modal-delete',
+            []
+        );
+    }
+    public function delete_detalle_venta()
+    {
+
+        $venta = Venta::find($this->id_venta);
+        $venta->update([
+            "estado" => false
+        ]);
+        $this->dispatchBrowserEvent(
+            'alert',
+            ['type' => 'success', 'title' => 'Se eliminó la venta correctamente', 'message' => 'Exito']
+        );
+
+        $this->close_modal_delete();
+    }
+
+    public function close_modal_delete()
+    {
+        $this->id_venta = null;
+        // show alert
+        $this->dispatchBrowserEvent(
+            'close-modal-delete',
+            []
+        );
     }
 }

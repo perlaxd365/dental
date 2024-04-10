@@ -20,6 +20,7 @@ class IndexEmpresa extends Component
         $key_empresa,
         $telefono_empresa,
         $direccion_empresa,
+        $pagina_empresa,
         $email_empresa,
         $tipo_soap_empresa,
         $envio_soap_empresa,
@@ -66,12 +67,14 @@ class IndexEmpresa extends Component
             'tipo_soap_empresa.required' => 'Por favor seleccionar tipo de soap',
             'envio_soap_empresa.required' => 'Por favor seleccionar envío de soap',
             'direccion_empresa.required' => 'Por favor añadir la dirección de la empresa',
+            'pagina_empresa.required' => 'Por favor añadir la página de la empresa',
         ];
 
         $rules = [
 
 
             'direccion_empresa' => 'required',
+            'pagina_empresa' => 'required',
             'email_empresa' => 'required',
             'telefono_empresa' => 'required',
             'tipo_soap_empresa' => 'required',
@@ -97,6 +100,7 @@ class IndexEmpresa extends Component
             'telefono_empresa' => $this->telefono_empresa,
             'logo_empresa' => $imagen,
             'direccion_empresa' => $this->direccion_empresa,
+            'pagina_empresa' => $this->pagina_empresa,
             'key_empresa' => $this->key_empresa,
             'tipo_soap_empresa' => $this->tipo_soap_empresa,
             'envio_soap_empresa' => $this->envio_soap_empresa,
@@ -124,6 +128,7 @@ class IndexEmpresa extends Component
         $this->telefono_empresa = "";
         $this->key_empresa = "";
         $this->direccion_empresa = "";
+        $this->pagina_empresa = "";
         $this->tipo_soap_empresa = "";
         $this->envio_soap_empresa = "";
 
@@ -147,6 +152,7 @@ class IndexEmpresa extends Component
         $this->ruc_empresa = $empresa->ruc_empresa;
         $this->key_empresa = $empresa->key_empresa;
         $this->direccion_empresa = $empresa->direccion_empresa;
+        $this->pagina_empresa = $empresa->pagina_empresa;
         $this->tipo_soap_empresa = $empresa->tipo_soap_empresa;
         $this->envio_soap_empresa = $empresa->envio_soap_empresa;
         $this->estado = $empresa->estado;
@@ -165,12 +171,14 @@ class IndexEmpresa extends Component
             'tipo_soap_empresa.required' => 'Por favor seleccionar tipo de soap',
             'envio_soap_empresa.required' => 'Por favor seleccionar envío de soap',
             'direccion_empresa.required' => 'Por favor añadir la dirección de la empresa',
+            'pagina_empresa.required' => 'Por favor añadir la página de la empresa',
         ];
 
         $rules = [
 
 
             'direccion_empresa' => 'required',
+            'pagina_empresa' => 'required',
             'email_empresa' => 'required',
             'telefono_empresa' => 'required',
             'tipo_soap_empresa' => 'required',
@@ -199,6 +207,7 @@ class IndexEmpresa extends Component
                 'key_empresa' => $this->key_empresa,
                 'logo_empresa' => $imagen,
                 'direccion_empresa' => $this->direccion_empresa,
+                'pagina_empresa' => $this->pagina_empresa,
                 'tipo_soap_empresa' => $this->tipo_soap_empresa,
                 'envio_soap_empresa' => $this->envio_soap_empresa,
                 'estado' => $this->estado
@@ -212,6 +221,7 @@ class IndexEmpresa extends Component
                 'telefono_empresa' => $this->telefono_empresa,
                 'key_empresa' => $this->key_empresa,
                 'direccion_empresa' => $this->direccion_empresa,
+                'pagina_empresa' => $this->pagina_empresa,
                 'tipo_soap_empresa' => $this->tipo_soap_empresa,
                 'envio_soap_empresa' => $this->envio_soap_empresa,
                 'estado' => $this->estado

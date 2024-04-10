@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Empresa extends Model
 {
     use HasFactory;
-    protected $name="empresas";
+    protected $name = "empresas";
     protected $primaryKey = 'id_empresa';
     protected $fillable = [
         'nombre_comercial_empresa',
@@ -18,6 +18,7 @@ class Empresa extends Model
         'email_empresa',
         'telefono_empresa',
         'direccion_empresa',
+        'pagina_empresa',
         'logo_empresa',
         'tipo_soap_empresa',
         'envio_soap_empresa',

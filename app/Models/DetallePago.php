@@ -27,6 +27,7 @@ class DetallePago extends Model
         'adjunto_detalle',
         'fecha_notificacion_detalle',
         'estado_detalle',
-        'estado'
+        'estado',
+        'id_empresa'
     ];
 }

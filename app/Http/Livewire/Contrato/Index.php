@@ -95,6 +95,10 @@ class Index extends Component
     }
     public function render()
     {
+
+
+
+        
         $lista_contratos = Contrato::select('*')
             ->join('empresas', 'contratos.id_empresa', 'empresas.id_empresa')
             ->where('contratos.estado', true);
@@ -229,6 +233,7 @@ class Index extends Component
                 'fecha_fin_detalle'             => $fecha_inicio->addMonth(1)->format("Y-m-d"),
                 'estado_detalle'                => config('constants.ESTADO_DETALLE_PAGO_INCOMPLETO'),
                 'estado'                        => true,
+                'id_empresa'                    => auth()->user()->id_empresa
             ]);
         }
         // show alert

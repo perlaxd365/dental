@@ -35,6 +35,7 @@ return new class extends Migration
             $table->boolean('notificacion_detalle')->nullable();
             $table->boolean('estado_detalle');
             $table->boolean('estado');
+            $table->string('id_empresa');
 
 
             $table->timestamps();

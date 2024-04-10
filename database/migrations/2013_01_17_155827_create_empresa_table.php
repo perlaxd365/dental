@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('email_empresa');
             $table->string('telefono_empresa');
             $table->string('direccion_empresa');
+            $table->string('pagina_empresa');
             $table->string('key_empresa')->nullable();
             $table->string('logo_empresa');
             $table->string('tipo_soap_empresa');

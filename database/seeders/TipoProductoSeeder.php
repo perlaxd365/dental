@@ -37,5 +37,10 @@ class TipoProductoSeeder extends Seeder
             'estado' => true
         ]);
         
+        TipoProducto::create([
+            'nombre_tipo_producto' => 'Refracción',
+            'estado' => true
+        ]);
+        
     }
 }

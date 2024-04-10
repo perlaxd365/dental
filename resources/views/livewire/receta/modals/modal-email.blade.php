@@ -26,7 +26,7 @@
                 <div class="form-actions">
                     <div class="text-right">
                         <button wire:click="sendEmailReceta" wire:loading.attr="disabled" class="btn btn-primary"
-                            type="button"> <i class="fa fa-paper-plane" aria-hidden="true"></i><i wire:target="sendEmailReceta"
+                            type="button"> <i class="fa fa-paper-plane" aria-hidden="true"></i> <i wire:target="sendEmailReceta"
                                 wire:loading.class="fa fa-spinner fa-spin" aria-hidden="true">
                             </i>
                             Enviar receta</button>

@@ -70,16 +70,16 @@
                                             <button title="Descargar" wire:click='printReceta({{ $datos->id_receta }})'
                                                 type="button" class="btn btn-outline-secondary "><i
                                                     class="ti-download"></i></button>
-                                            <button title="Enviar por correo" wire:click='showModalEmail({{ $datos->id_receta }})'
-                                                type="button" class="btn btn-outline-secondary "><i
-                                                    class="ti-email"></i></button>
+                                            <button title="Enviar por correo"
+                                                wire:click='showModalEmail({{ $datos->id_receta }})' type="button"
+                                                class="btn btn-outline-secondary "><i class="ti-email"></i></button>
                                             <button title="Editar" wire:click='edit({{ $datos->id_receta }})'
                                                 type="button" class="btn btn-outline-secondary "><i
                                                     class="ti-pencil"></i></button>
                                             <button wire:click='delete({{ $datos->id_receta }})' title="Eliminar"
                                                 type="button" class="btn btn-outline-secondary "><i
                                                     class="ti-trash"></i></button>
-                                                    
+
                                         </div>
                                     </div>
                                 </div>

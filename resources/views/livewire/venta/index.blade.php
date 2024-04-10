@@ -172,6 +172,7 @@
         <!--  Modal add paciente-->
         @include('livewire.cita.modals.modalAddPaciente')
         @include('livewire.venta.modals.modal-detalle')
+        @include('livewire.venta.modals.modal-delete')
         
 
     </div>
