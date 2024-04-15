@@ -14,6 +14,34 @@
                 <i wire:target="search" wire:loading.class="fa fa-spinner fa-spin" aria-hidden="true"></i>
             </div>
         </div>
+        <div class="row pt-2">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="start" class="col-sm-12 control-label">Fecha
+                        inicio de contrato</label>
+                    <div class="col-sm-10">
+                        <input wire:model="fecha_inicio_venta_search" type="date" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="input-group-append col-md-1">
+                <i wire:target="fecha_inicio_venta_search" wire:loading.class="fa fa-spinner fa-spin"
+                    aria-hidden="true"></i>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="start" class="col-sm-12 control-label">Fecha
+                        fin de contrato</label>
+                    <div class="col-sm-10">
+                        <input wire:model="fecha_fin_venta_search" type="date" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="input-group-append col-md-1">
+                <i wire:target="fecha_fin_venta_search" wire:loading.class="fa fa-spinner fa-spin"
+                    aria-hidden="true"></i>
+            </div>
+        </div>
     </div>
     @if ($lista->count())
         <card class="card-body table-responsive">
@@ -41,14 +69,14 @@
                             <td class="border-top-0 px-2 py-2">
                                 <div class="d-flex no-block align-items-center">
                                     <div class="mr-3">
-                                        <i  class="fa fa-shopping-cart"></i>
+                                        <i class="fa fa-shopping-cart"></i>
                                     </div>
                                     <div class="">
                                         <h5 class="text-dark mb-0 font-12 font-weight-medium">
-                                            {{$venta->dni_paciente}}
+                                            {{ $venta->dni_paciente }}
                                         </h5>
                                         <span class="text-muted font-1">
-                                            {{$venta->nombres_paciente}}
+                                            {{ $venta->nombres_paciente }}
                                             <i class="fa fa-circle font-12 text-success" data-toggle="tooltip"
                                                 data-placement="top" title="In Testing"></i>
                                         </span>
@@ -56,17 +84,24 @@
                                 </div>
                             </td>
                             <td>
-                                <select class="form-control form-control-sm"  id="">
+                                <select class="form-control form-control-sm" id="">
                                     @foreach ($this->listaDetalle($venta->id_venta) as $item)
-                                        <option value="" selected>{{$item->nombre_detalle}} (S/ {{$item->precio_unitario_detalle}} x {{$item->cantidad_detalle}}) = S/ {{$item->precio_total_detalle}}</option>
+                                        <option value="" selected>{{ $item->nombre_detalle }} (S/
+                                            {{ $item->precio_unitario_detalle }} x {{ $item->cantidad_detalle }}) = S/
+                                            {{ $item->precio_total_detalle }}</option>
                                     @endforeach
                                 </select>
                             </td>
-                            <td>{{DateUtil::getFecha($venta->created_at)}} - {{DateUtil::getHora($venta->created_at)}}</td>
+                            <td>{{ DateUtil::getFecha($venta->created_at) }} -
+                                {{ DateUtil::getHora($venta->created_at) }}</td>
                             <td class="text-center">
-                                <button  wire:click='delete_venta({{$item->id_venta}})'
-                                class="btn btn-outline-secondary btn-sm rounded-circle">
-                                <i class="fa fa-times" aria-hidden="true"></i></button></td>
+                                <button wire:click='print({{ $venta->id_venta }})'
+                                    class="btn btn-outline-secondary btn-sm rounded-circle">
+                                    <i class="fa fa-print" aria-hidden="true"></i></button>
+                                <button wire:click='delete_venta({{ $venta->id_venta }})'
+                                    class="btn btn-outline-secondary btn-sm rounded-circle">
+                                    <i class="fa fa-times" aria-hidden="true"></i></button>
+                            </td>
                         </tr>
                     @endforeach
 

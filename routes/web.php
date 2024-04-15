@@ -9,6 +9,7 @@ use App\Http\Controllers\laboratorioController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\logoutController;
 use App\Http\Controllers\pacienteController;
+use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\productolabController;
 use App\Http\Controllers\recetaController;
 use App\Http\Controllers\userController;
@@ -77,5 +78,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('contrato', [contratoController::class, 'index'])->name('contrato');
 
     //VENTAS
-    Route::get('venta', [ventaController::class, 'index'])->name('venta');
+    Route::get('venta', [ventaController::class, 'index'])->name('venta');;
+
+    //VENTAS
+    Route::get('perfil', [PerfilController::class, 'index'])->name('perfil');
 });

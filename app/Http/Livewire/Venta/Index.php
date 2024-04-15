@@ -22,7 +22,9 @@ class Index extends Component
 
     use WithPagination;
     protected $paginationTheme = "bootstrap";
-    public $search;
+    public $search,
+        $fecha_inicio_venta_search,
+        $fecha_fin_venta_search;
     public $view = "create";
     public $show;
     public $table;
@@ -88,7 +90,7 @@ class Index extends Component
     {
         $this->carbon = new Carbon();
         $this->table = true;
-        $this->show = 4;
+        $this->show = 6;
         $this->tipo_productos = TipoProducto::where('estado', true)->get();
         $this->empresa = Empresa::find(auth()->user()->id_empresa);
     }
@@ -114,10 +116,27 @@ class Index extends Component
                 ->orwhere('nombres_paciente', 'LIKE', '%' . $this->search . '%')
                 ->orwhere('dni_paciente', 'LIKE', '%' . $this->search . '%');
         });
+
+        $lista_ventas->where(function ($query) {
+            if ($this->fecha_inicio_venta_search && !$this->fecha_fin_venta_search) {
+                return $query
+
+                    ->where('ventas.created_at', '>=', '' . $this->fecha_inicio_venta_search . '');
+            }
+            if ($this->fecha_fin_venta_search && !$this->fecha_inicio_venta_search) {
+                return $query
+
+                    ->where('ventas.created_at', '<=', '' . $this->fecha_fin_venta_search . '');
+            }
+            if ($this->fecha_inicio_venta_search && $this->fecha_fin_venta_search) {
+                return $query
+
+                    ->where('ventas.created_at', '>=', '' . $this->fecha_inicio_venta_search . '')
+                    ->where('ventas.created_at', '<=', '' . $this->fecha_fin_venta_search . '');
+            }
+        });
+
         $lista =  $lista_ventas->paginate($this->show);
-
-
-
 
         return view('livewire.venta.index', compact('lista'));
     }
@@ -508,6 +527,47 @@ class Index extends Component
         $this->dispatchBrowserEvent(
             'close-modal-delete',
             []
+        );
+    }
+
+    public function print($id_venta)
+    {
+        $venta = Venta::find($id_venta);
+        $data_venta = [
+            'id_venta'  => $id_venta,
+            'sub_total_venta' => $venta->sub_total_venta,
+            'igv_venta' => $venta->igv_venta,
+            'total_venta' => $venta->total_venta,
+        ];
+        $data_detalle_venta = [];
+
+        $detalle = DetalleVenta::where('id_venta', $id_venta)->get();
+        foreach ($detalle as $key => $detalle_venta) {
+            # code...
+
+            array_push(
+                $data_detalle_venta,
+                array(
+                    'id_tipo_producto' => $detalle_venta->id_tipo_producto,
+                    'nombre_detalle' => $detalle_venta->nombre_detalle,
+                    'cantidad_detalle' => $detalle_venta->cantidad_detalle,
+                    'unidad_detalle' => $detalle_venta->unidad_detalle,
+                    'precio_unitario_detalle' => $detalle_venta->precio_unitario_detalle,
+                    'precio_total_detalle' => $detalle_venta->precio_total_detalle,
+                )
+            );
+        }
+        $empresa = Empresa::find(auth()->user()->id_empresa);
+        $paciente = Paciente::find($venta->id_paciente);
+        date_default_timezone_set('America/Lima');
+        $date = Carbon::now();
+        $customPaper = array(0, 0, 204, 650);
+        $writer = base64_encode(QrCode::format('svg')->size(70)->generate($empresa->pagina_empresa));
+        $pdfContent = Pdf::loadView('livewire.venta.print.invoice',  compact('date', 'empresa', 'data_venta', 'data_detalle_venta', 'writer', 'paciente'))
+            ->setPaper($customPaper)->output();
+        return response()->streamDownload(
+            fn () => print($pdfContent),
+            "venta_" .  time() . ".pdf"
         );
     }
 }

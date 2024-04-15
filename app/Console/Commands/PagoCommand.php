@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Mail\AvisoPagoInterno;
+use App\Mail\AvisoPagoInternoMail;
 use App\Mail\PagoMail;
 use App\Mail\RecetaMail;
 use App\Models\Contrato;
@@ -52,17 +54,22 @@ class PagoCommand extends Command
 
         foreach ($detallePagos as $value) {
             # code...
-            $carbon = new Carbon($value->fecha_fin_detalle);
-            if ($carbon->subDays(1) < now() && !$value->notificacion_detalle) {
+            $fecha_fin_cuota = new Carbon($value->fecha_fin_detalle);
+            if (
+                $fecha_fin_cuota->subDays(1) < now()
+                && $value->estado_detalle == config('constants.ESTADO_DETALLE_PAGO_INCOMPLETO')
+                && !$value->notificacion_detalle
+            ) {
                 # code...
                 $contrato = Contrato::join("pagos", "pagos.id_pago", "contratos.id_pago")
-                ->where("pagos.id_pago", $value->id_pago)->first();
+                    ->where("pagos.id_pago", $value->id_pago)->first();
                 $empresa = Empresa::find($value->id_empresa);
                 DetallePago::find($value->id_detalle_pago)->update([
                     'fecha_notificacion_detalle' => now(),
                     'notificacion_detalle' => true
                 ]);
                 Mail::to($empresa->email_empresa)->send(new PagoMail($empresa->id_empresa, $contrato->id_contrato, $value->id_detalle_pago));
+                Mail::to(config('constants.CORREO_NOTIFICACION_PAGO'))->send(new AvisoPagoInternoMail($empresa->id_empresa, $contrato->id_contrato, $value->id_detalle_pago));
             }
         }
     }

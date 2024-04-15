@@ -11,7 +11,8 @@ $(function () {
                 ['Direct Sales', 25],
                 ['Referral Sales', 15],
                 ['Afilliate Sales', 10],
-                ['Indirect Sales', 15]
+                ['Indirect Sales', 15],
+                ['perro Sales', 5],
             ],
 
             type: 'donut',
@@ -35,7 +36,8 @@ $(function () {
                 '#edf2f6',
                 '#5f76e8',
                 '#ff4f70',
-                '#01caf1'
+                '#01caf1',
+                '#ff4f70',
             ]
         }
     });

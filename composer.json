@@ -39,7 +39,7 @@
             "app/Util/DateUtil.php",
             "app/Util/ParametroUtil.php",
             "app/Util/ContratoUtil.php",
-            "app/Util/QRUtil.php"
+            "app/Util/ReporteUtil.php"
 
         ]
     },

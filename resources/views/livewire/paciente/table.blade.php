@@ -19,6 +19,9 @@
                         Nombres
                     </th>
                     <th class="border-0 font-14 font-weight-medium text-muted">
+                        Fecha
+                    </th>
+                    <th class="border-0 font-14 font-weight-medium text-muted">
                         Estado
                     </th>
                     <th class="border-0 font-14 font-weight-medium text-muted text-center">
@@ -41,8 +44,8 @@
                                         <h5 class="text-dark mb-0 font-16 font-weight-medium">
                                             {{ $pacientes->nombres_paciente }}
                                         </h5>
-                                        <br>
-                                        <div class="container">
+                                        <hr>
+                                        <div class="container pt-1">
                                             <span class="text-muted font-14">
                                                 <i class="fa fa-credit-card"></i> {{ $pacientes->dni_paciente }}
                                             </span><br>

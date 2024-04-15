@@ -78,8 +78,7 @@
                 <!-- ============================================================== -->
                 <!-- footer -->
                 <!-- ============================================================== -->
-                <footer class="footer text-center text-muted">
-                    @yield('plantilla.footer')
+                <footer class="footer">
                 </footer>
                 <!-- ============================================================== -->
                 <!-- End footer -->
@@ -92,6 +91,7 @@
                     })
                 </script>
             </div>
+            @yield('plantilla.footer')
         </div>
 
         @include('plantilla.script')

@@ -95,10 +95,6 @@ class Index extends Component
     }
     public function render()
     {
-
-
-
-        
         $lista_contratos = Contrato::select('*')
             ->join('empresas', 'contratos.id_empresa', 'empresas.id_empresa')
             ->where('contratos.estado', true);

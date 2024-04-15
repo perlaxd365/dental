@@ -234,11 +234,11 @@
                                                         style="padding-left: 0px; font-family: Open Sans, Roboto, Helvetina Neue, sans-serif; font-size: 15px; line-height: 0px; color: #555555;">
                                                         <h1
                                                             style="margin: 0 0 10px 0; font-family: Open Sans, Roboto, Helvetina Neue, sans-serif; font-size: 32px; line-height: 42px; color: #333333; font-weight: 600; text-align:center; opacity:0.95">
-                                                            Tu suscripción está por vencer&nbsp;</h1>
+                                                            Suscripción por vencer&nbsp;</h1>
                                                         <p
                                                             style="margin: 0; text-align:center; font-size: 16px; opacity: 0.9; line-height: 1.5; padding-left: 20px; padding-right: 20px; padding-bottom: 20px;">
-                                                            ¡Bienvenido(a) <b>{{$empresa->nombre_comercial_empresa}}</b>! esperamos que te encuentres muy bien<br> 
-                                                            Te hacemos recordar que el día de mañana se vence tu  <b>Pago Mensual</b>, si ya pagaste por favor omite este mensaje &nbsp;
+                                                            Recordarte que <b>{{$empresa->nombre_comercial_empresa}}</b><br> 
+                                                            tiene un pago pendiente el día de <b>Mañana</b>, verifica si ya realizó algún pago&nbsp;
                                                     </td>
                                                 </tr>
 

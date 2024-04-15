@@ -2,17 +2,47 @@
     <!-- *************************************************************** -->
     <!-- Start First Cards -->
     <!-- *************************************************************** -->
-    <div class="card-group">
-        <div class="card border-right">
+
+    <div class="card-group row">
+        <div class="card border-right col-md-4">
             <div class="card-body">
                 <div class="d-flex d-lg-flex d-md-block align-items-center">
                     <div>
                         <div class="d-inline-flex align-items-center">
-                            <h2 class="text-dark mb-1 font-weight-medium">236</h2>
+                            <h2 class="text-dark mb-1 font-weight-medium">Activo <i
+                                    class="fa fa-circle text-success font-12" data-toggle="tooltip" data-placement="top"
+                                    title="In Testing"></i></h2>
                             <span
-                                class="badge bg-primary font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">+18.33%</span>
+                                class="badge bg-secondary font-12 text-white font-weight-medium badge-pill ml-2 d-md-none d-lg-block">Cuotas
+                                ({{ ReporteUtil::totalCuotas(auth()->user()->id_empresa) }})</span>
                         </div>
-                        <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">New Clients</h6>
+                        <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Contrato
+                            ({{ ReporteUtil::totalContratos(auth()->user()->id_empresa) }}) |
+                            Próxima cuota :
+                            &nbsp;({{ ReporteUtil::getCuotaActual(auth()->user()->id_empresa)->fecha_fin_detalle }})
+                        </h6>
+                    </div>
+                    <div class="ml-auto mt-md-3 mt-lg-0">
+                        <span class="opacity-7 text-muted"><i data-feather="file-text"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="card-group row">
+        <div class="card border-right col-md-4">
+            <div class="card-body">
+                <div class="d-flex d-lg-flex d-md-block align-items-center">
+                    <div>
+                        <div class="d-inline-flex align-items-center">
+                            <h2 class="text-dark mb-1 font-weight-medium">
+                                {{ ReporteUtil::totalPacientes(auth()->user()->id_empresa) }}</h2>
+                            <span
+                                class="badge bg-info font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">+{{ ReporteUtil::pacientesMesPasado(auth()->user()->id_empresa) }}%</span>
+                        </div>
+                        <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Nuevos Clientes de este mes
+                        </h6>
                     </div>
                     <div class="ml-auto mt-md-3 mt-lg-0">
                         <span class="opacity-7 text-muted"><i data-feather="user-plus"></i></span>
@@ -20,51 +50,53 @@
                 </div>
             </div>
         </div>
-        <div class="card border-right">
+        <div class="card border-right col-md-4">
             <div class="card-body">
                 <div class="d-flex d-lg-flex d-md-block align-items-center">
                     <div>
                         <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium"><sup
-                                class="set-doller">$</sup>18,306</h2>
-                        <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Earnings of Month
+                                class="set-doller">S/</sup>{{ ReporteUtil::totalVentas(auth()->user()->id_empresa) }}
+                        </h2>
+                        <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Ventas de este mes
                         </h6>
                     </div>
                     <div class="ml-auto mt-md-3 mt-lg-0">
-                        <span class="opacity-7 text-muted"><i data-feather="dollar-sign"></i></span>
+                        <span class="opacity-7 text-muted">
+                            <h3>S/</h3>
+                        </span>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="card border-right">
+        <div class="card col-md-4">
             <div class="card-body">
                 <div class="d-flex d-lg-flex d-md-block align-items-center">
                     <div>
-                        <div class="d-inline-flex align-items-center">
-                            <h2 class="text-dark mb-1 font-weight-medium">1538</h2>
-                            <span
-                                class="badge bg-danger font-12 text-white font-weight-medium badge-pill ml-2 d-md-none d-lg-block">-18.33%</span>
-                        </div>
-                        <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">New Projects</h6>
+                        <h2 class="text-dark mb-1 font-weight-medium">
+                            {{ ReporteUtil::totalCitas(auth()->user()->id_empresa) }}</h2>
+                        <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Citas de este mes</h6>
                     </div>
                     <div class="ml-auto mt-md-3 mt-lg-0">
-                        <span class="opacity-7 text-muted"><i data-feather="file-plus"></i></span>
+                        <span class="opacity-7 text-muted"><i data-feather="calendar"></i></span>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="card">
+        <div class="card col-md-4">
             <div class="card-body">
                 <div class="d-flex d-lg-flex d-md-block align-items-center">
                     <div>
-                        <h2 class="text-dark mb-1 font-weight-medium">864</h2>
-                        <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Projects</h6>
+                        <h2 class="text-dark mb-1 font-weight-medium">
+                            {{ ReporteUtil::totalRecetas(auth()->user()->id_empresa) }}</h2>
+                        <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Recetas de este mes</h6>
                     </div>
                     <div class="ml-auto mt-md-3 mt-lg-0">
-                        <span class="opacity-7 text-muted"><i data-feather="globe"></i></span>
+                        <span class="opacity-7 text-muted"><i data-feather="calendar"></i></span>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
     <!-- *************************************************************** -->
     <!-- End First Cards -->
@@ -73,108 +105,88 @@
     <!-- Start Sales Charts Section -->
     <!-- *************************************************************** -->
     <div class="row">
-        <div class="col-lg-4 col-md-12">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Total Sales</h4>
-                    <div id="campaign-v2" class="mt-2" style="height:283px; width:100%;"></div>
-                    <ul class="list-style-none mb-0">
-                        <li>
-                            <i class="fas fa-circle text-primary font-10 mr-2"></i>
-                            <span class="text-muted">Direct Sales</span>
-                            <span class="text-dark float-right font-weight-medium">$2346</span>
-                        </li>
-                        <li class="mt-3">
-                            <i class="fas fa-circle text-danger font-10 mr-2"></i>
-                            <span class="text-muted">Referral Sales</span>
-                            <span class="text-dark float-right font-weight-medium">$2108</span>
-                        </li>
-                        <li class="mt-3">
-                            <i class="fas fa-circle text-cyan font-10 mr-2"></i>
-                            <span class="text-muted">Affiliate Sales</span>
-                            <span class="text-dark float-right font-weight-medium">$1204</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-12">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Net Income</h4>
-                    <div class="net-income mt-4 position-relative" style="height:294px;"></div>
-                    <ul class="list-inline text-center mt-5 mb-2">
-                        <li class="list-inline-item text-muted font-italic">Sales for this month</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-12">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title mb-4">Earning by Location</h4>
-                    <div class="" style="height:180px">
-                        <div id="visitbylocate" style="height:100%"></div>
-                    </div>
-                    <div class="row mb-3 align-items-center mt-1 mt-5">
-                        <div class="col-4 text-right">
-                            <span class="text-muted font-14">India</span>
-                        </div>
-                        <div class="col-5">
-                            <div class="progress" style="height: 5px;">
-                                <div class="progress-bar bg-primary" role="progressbar" style="width: 100%"
-                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                        <div class="col-3 text-right">
-                            <span class="mb-0 font-14 text-dark font-weight-medium">28%</span>
-                        </div>
-                    </div>
-                    <div class="row mb-3 align-items-center">
-                        <div class="col-4 text-right">
-                            <span class="text-muted font-14">UK</span>
-                        </div>
-                        <div class="col-5">
-                            <div class="progress" style="height: 5px;">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 74%"
-                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                        <div class="col-3 text-right">
-                            <span class="mb-0 font-14 text-dark font-weight-medium">21%</span>
-                        </div>
-                    </div>
-                    <div class="row mb-3 align-items-center">
-                        <div class="col-4 text-right">
-                            <span class="text-muted font-14">USA</span>
-                        </div>
-                        <div class="col-5">
-                            <div class="progress" style="height: 5px;">
-                                <div class="progress-bar bg-cyan" role="progressbar" style="width: 60%"
-                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                        <div class="col-3 text-right">
-                            <span class="mb-0 font-14 text-dark font-weight-medium">18%</span>
-                        </div>
-                    </div>
-                    <div class="row align-items-center">
-                        <div class="col-4 text-right">
-                            <span class="text-muted font-14">China</span>
-                        </div>
-                        <div class="col-5">
-                            <div class="progress" style="height: 5px;">
-                                <div class="progress-bar bg-success" role="progressbar" style="width: 50%"
-                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                        <div class="col-3 text-right">
-                            <span class="mb-0 font-14 text-dark font-weight-medium">12%</span>
-                        </div>
+        <link href="https//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css" rel="stylesheet" type="text/css" />
+        <link href='http://fonts.googleapis.com/css?family=Oxygen:300' rel='stylesheet' type='text/css'>
+        <meta charset="utf-8">
+        <title>Chartist.js - Simple line chart</title>
+
+        </head>
+
+        <body>
+            <div class="col-lg-12 col-md-12">
+                <div class="card" id="line-container">
+                    <div class="card-body table-responsive" >
+                        <h4 class="card-title">Net Income</h4>
+                        <div class="reporte-anual mt-4 position-relative" id="line-chart" style="height:294px;"></div>
+                        <ul class="list-inline text-center mt-5 mb-2">
+                            <li class="list-inline-item text-muted font-italic">Sales for this month</li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </div>
+<style>
+    #line-chart{
+    background-color: rgb(55, 71, 79);
+    width: 800px;
+    height: 350px;
+    font-family: Lato, Helvetica-Neue, monospace;
+}
+.ct-series-a .ct-line{
+  stroke: #00a79d;
+}
+.ct-series-b .ct-line{
+  stroke: #1c75bc;
+}
+.ct-series-c .ct-line{
+  stroke: #92278f;
+}
+.ct-series-a .ct-point {
+  stroke: #00a79d;
+}
+.ct-series-b .ct-point {
+  stroke: #1c75bc;
+}
+.ct-series-c .ct-point {
+  stroke: #92278f;
+}
+.ct-label{
+  color: white;
+}
+</style>
+            <?php
+            $datos = ReporteUtil::getVentasAnuales(auth()->user()->id_empresa);
+            ?>
+            <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+            <script>
+                var datos = <?php echo json_encode($datos); ?>;
+                var meses = [];
+                Object.keys(datos).forEach(function(key) {
+                    meses.push(datos[key].Mes);
+                })
+                console.log(meses)
+                var totales = [];
+                Object.keys(datos).forEach(function(key) {
+                    totales.push(datos[key].Total);
+                })
+
+                // THIS IS WHERE THE ERROR OCCURS
+                new Chartist.Bar('.reporte-anual', {
+                    labels: meses,
+                    series: [
+                        totales,
+                    ]
+                }, {
+                    width: 500,
+                    height: 300,
+
+                    axisY: {
+                        labelInterpolationFnc: function(value) {
+                            return "S/" + (value);
+                        }
+                    },
+                });
+                
+            </script>
     </div>
     <!-- *************************************************************** -->
     <!-- End Sales Charts Section -->

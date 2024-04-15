@@ -46,6 +46,7 @@ class Index extends Component
         $this->pais_paciente = "Perú";
         $this->table = true;
         $this->estado = true;
+        $this->mayor_edad_paciente = true;
         $this->show = 5;
     }
 

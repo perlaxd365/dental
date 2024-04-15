@@ -9,53 +9,6 @@
                             <div class="row gutters">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 
-                                    <div class="form-row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="validationDefault01">
-                                                Seleccionar Paciente&nbsp;
-                                                <a data-toggle="modal" data-target=".bd-example-modal-lg"
-                                                    href="javascript:void(0)">[Agregar]</a>
-                                            </label>
-                                            <br>
-                                            <div wire:ignore>
-                                                <select wire:model="id_paciente" name="id_paciente"
-                                                    class="form-control select2" id="select2">
-                                                    <option value="">Seleccionar</option>
-                                                    @foreach ($pacientes as $paciente)
-                                                        <option value="{{ $paciente->id_paciente }}">
-                                                            {{ $paciente->nombres_paciente }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            @error('id_paciente')
-                                                <small class="text-danger">{{ $message }}</small>
-                                            @enderror
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="validationDefault01">
-                                                Seleccionar Receta
-                                            </label>
-                                            <br>
-                                            <div>
-                                                <select wire:model="id_receta" class="form-control">
-                                                    <option value="">Sin Receta</option>
-                                                    @foreach ($recetas as $receta)
-                                                        <option value="{{ $receta->id_receta }}">
-                                                            Dip Lejos: ({{ $receta->dip_lejos_rec }}) -
-                                                            Dip Cerca: ({{ $receta->dip_cerca_rec }}) -
-                                                            Naso Pupilar: ({{ $receta->naso_pupilar_od_rec }}) -
-                                                            OI: ({{ $receta->oi_rec }})
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="inputZip3">Ingresar IGV</label>
-                                            <input wire:model="igv_venta" type="number" class="form-control"
-                                                id="inputZip3" placeholder="0">
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                             <!-- Row end -->
@@ -72,6 +25,54 @@
                                         {{ $empresa->direccion_empresa }}<br>
                                         {{ $empresa->ruc_empresa }}.<br>
                                     </address>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationDefault01">
+                                        Seleccionar Paciente&nbsp;
+                                        <a data-toggle="modal" data-target=".bd-example-modal-lg"
+                                            href="javascript:void(0)">[Agregar]</a>
+                                    </label>
+                                    <br>
+                                    <div wire:ignore>
+                                        <select wire:model="id_paciente" name="id_paciente"
+                                            class="form-control select2" id="select2">
+                                            <option value="">Seleccionar</option>
+                                            @foreach ($pacientes as $paciente)
+                                                <option value="{{ $paciente->id_paciente }}">
+                                                    {{ $paciente->nombres_paciente }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    @error('id_paciente')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="validationDefault01">
+                                        Seleccionar Receta
+                                    </label>
+                                    <br>
+                                    <div>
+                                        <select wire:model="id_receta" class="form-control">
+                                            <option value="">Sin Receta</option>
+                                            @foreach ($recetas as $receta)
+                                                <option value="{{ $receta->id_receta }}">
+                                                    Dip Lejos: ({{ $receta->dip_lejos_rec }}) -
+                                                    Dip Cerca: ({{ $receta->dip_cerca_rec }}) -
+                                                    Naso Pupilar: ({{ $receta->naso_pupilar_od_rec }}) -
+                                                    OI: ({{ $receta->oi_rec }})
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="inputZip3">Ingresar IGV</label>
+                                    <input wire:model="igv_venta" type="number" class="form-control"
+                                        id="inputZip3" placeholder="0">
                                 </div>
                             </div>
                             
