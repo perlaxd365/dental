@@ -11,8 +11,7 @@ class Kernel extends ConsoleKernel
     /**
      * @var array
      */
-    protected $commands = [
-    ];
+    protected $commands = [];
     /**
      * Define the application's command schedule.
      *
@@ -22,6 +21,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('command:pago')
+            ->everyMinute();
+        $schedule->command('demo:backup')
             ->everyMinute();
     }
 

@@ -11,7 +11,8 @@
             <a href="{{ URL::route('index') }}">
                 <b class="logo-icon">
                     <!-- Dark Logo icon -->
-                    <img src="assets/images/logo-icon.png"  width="50" height="50" alt="homepage" class="dark-logo" />
+                    <img src="assets/images/logo-icon.png" width="50" height="50" alt="homepage"
+                        class="dark-logo" />
                     <!-- Light Logo icon -->
                     <img src="assets/images/logo-icon.png" alt="homepage" class="light-logo" />
                 </b>
@@ -19,7 +20,8 @@
                 <!-- Logo text -->
                 <span class="logo-text">
                     <!-- dark Logo text -->
-                    <img src="assets/images/logo-text.png" width="120" height="75" alt="homepage" class="dark-logo" />
+                    <img src="assets/images/logo-text.png" width="120" height="75" alt="homepage"
+                        class="dark-logo" />
                     <!-- Light Logo text -->
                     <img src="assets/images/logo-light-text.png" class="light-logo" alt="homepage" />
                 </span>
@@ -98,7 +100,8 @@
                                                         {{ $pago->estado_detalle == config('constants.ESTADO_DETALLE_PAGO_COMPLETADO') ? 'Realizado el ' . DateUtil::getFechaSimple($pago->pago_actualizado) : 'A la espera de pago que vence el ' . DateUtil::getFechaSimple($pago->fecha_fin_detalle) }}
                                                     </span>
                                                     <span
-                                                        class="font-12 text-nowrap d-block text-muted"><b>{{ $pago->estado_detalle == config('constants.ESTADO_DETALLE_PAGO_COMPLETADO') ? 'Pago completado' : 'Espera de pago' }}</b></span>
+                                                        class="font-12 text-nowrap d-block text-muted"><b>{{ $pago->estado_detalle == config('constants.ESTADO_DETALLE_PAGO_COMPLETADO') ? 'Pago completado' : 'Espera de pago' }}</b>
+                                                    </span>
                                                 </div>
                                             </a>
                                         @endforeach
@@ -136,8 +139,8 @@
             @endphp
 
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                    aria-expanded="false">
                     <i data-feather="bell" class="svg-icon"></i>
                     <span class="badge badge-primary notify-no rounded-circle">{{ count($citas) }}</span>
                 </a>
@@ -159,7 +162,7 @@
                                                     if (DateUtil::getFechaSimple($cita->fecha_inicio_cita) == DateUtil::getFechaSimple(now())) {
                                                         # code...
                                                         echo 'warning';
-                                                    }else{
+                                                    } else {
                                                         echo 'primary';
                                                     }
                                                     ?>
@@ -223,7 +226,7 @@
                                 <img src="{{ $empresa->logo_empresa }}" alt="user" class="rounded-circle"
                                     width="45" height="45" />
                             </div>
-                            <div class="">
+                            <div class="nav-item d-none d-md-block">
                                 <h5 class="text-dark mb-0 font-16 font-weight-medium">
                                     {{ $empresa->nombre_comercial_empresa }}
                                 </h5>
@@ -239,17 +242,22 @@
             <!-- ============================================================== -->
             <!-- User profile and search -->
             <!-- ============================================================== -->
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown row pr-2">
                 <a class="nav-link dropdown-toggle" id="perfil" href="javascript:void(0)" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
-                    <img src="assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle"
-                        width="40">
-                    <span class="ml-2 d-none d-lg-inline-block">
-                        <span>Hello,</span>
-                        <span class="text-dark">
-                            {{ auth()->user()->name }}
-                        </span> <i data-feather="chevron-down" class="svg-icon"></i></span>
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="assets/images/users/profile-pic.jpg" class="rounded-circle" width="40">
+                    </a>
+
                 </a>
+                <span class="d-none d-md-block nav-link dropdown-toggle" style="cursor: pointer;" data-toggle="dropdown"
+                >
+                    <span>Hello,</span>
+                    <span class="text-dark">
+                        {{ auth()->user()->name }}
+                    </span> <i data-feather="chevron-down" class="svg-icon"></i>
+                </span>
                 <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
                     <a class="dropdown-item" href="{{ route('perfil') }}"><i data-feather="user"
                             class="svg-icon mr-2 ml-1"></i>

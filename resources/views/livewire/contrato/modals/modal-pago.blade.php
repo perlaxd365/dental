@@ -41,7 +41,7 @@
                     @if ($notificacion_detalle)
                         <div class="alert alert-success" role="alert">
                             <i class="fa fa-check-circle text-success" aria-hidden="true"></i>
-                            Se notificó correctamente el {{ $fecha_notificacion_detalle }}
+                            Se notificó correctamente el {{ DateUtil::getFechaSimple($fecha_notificacion_detalle)}} - {{ DateUtil::getHora($fecha_notificacion_detalle)}}
                         </div>
                     @endif
 

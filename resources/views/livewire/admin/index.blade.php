@@ -3,34 +3,114 @@
     <!-- Start First Cards -->
     <!-- *************************************************************** -->
 
+    <style>
+        #rssBlock {
+            left: 0px;
+            height: 80px;
+            background: #FFFFFF;
+            position: absolute;
+            width: 1070px;
+            overflow: hidden;
+        }
+
+        /*remove p*/
+        .cnnContents {
+            width: 100%;
+            padding-top: 20px;
+            margin: 0 auto;
+            font-size: 30px;
+            white-space: nowrap;
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+
+        .marqueeStyle {
+            display: inline-block;
+            /* Apply animation to this element */
+            -webkit-animation: scrolling-left1 20s linear infinite;
+            animation: scrolling-left1 20s linear infinite;
+        }
+
+        .marqueeStyle2 {
+            display: inline-block;
+            /* Apply animation to this element */
+            -webkit-animation: scrolling-left2 20s linear infinite;
+            animation: scrolling-left2 20s linear infinite;
+            animation-delay: 10s;
+        }
+
+        /* scrolling-left is continuous/repeatly text */
+        @keyframes scrolling-left1 {
+            0% {
+                transform: translateX(100%);
+                -webkit-transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+                -webkit-transform: translateX(-100%);
+            }
+        }
+
+        @keyframes scrolling-left2 {
+            0% {
+                transform: translateX(0%);
+                -webkit-transform: translateX(0%);
+            }
+
+            100% {
+                transform: translateX(-200%);
+                -webkit-transform: translateX(-200%);
+            }
+        }
+
+        @-webkit-keyframes scrolling-left1 {
+            0% {
+                -webkit-transform: translateX(100%);
+            }
+
+            100% {
+                -webkit-transform: translateX(-100%);
+            }
+        }
+
+        @-webkit-keyframes scrolling-left2 {
+            0% {
+                -webkit-transform: translateX(0%);
+            }
+
+            100% {
+                -webkit-transform: translateX(-200%);
+            }
+        }
+    </style>
     <div class="card-group row">
         <div class="card border-right col-md-4">
             <a href="{{ URL::route('contrato') }}">
                 <div class="card-body">
                     <div class="d-flex d-lg-flex d-md-block align-items-center">
-                        <div>
-                            <div class="d-inline-flex align-items-center">
+                        <div class="col-md-10" id='rssBlock'>
+                            <div class="d-inline-flex align-items-center cnnContents">
                                 <h2 class="text-dark mb-1 font-weight-medium">Activo <i
                                         class="fa fa-circle text-success font-12" data-toggle="tooltip"
                                         data-placement="top" title="In Testing"></i></h2>
                                 <span
                                     class="badge bg-secondary font-12 text-white font-weight-medium badge-pill ml-2 d-md-none d-lg-block">Cuotas
                                     ({{ ReporteUtil::totalCuotas(auth()->user()->id_empresa) }})</span>
-                            </div>
+                           
+                                </div>
                             @if (ReporteUtil::totalContratos(auth()->user()->id_empresa))
-                                <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Contrato
+                                <h6 class="text-muted font-weight-normal text-truncate marqueeStyle">
+                                    Contrato
                                     ({{ ReporteUtil::totalContratos(auth()->user()->id_empresa) }}) |
                                     Próxima cuota :
-                                    &nbsp;({{ ReporteUtil::getCuotaActual(auth()->user()->id_empresa)->fecha_fin_detalle }})
+                                    &nbsp;<b class="text-info">({{ DateUtil::getFechaSimple(ReporteUtil::getCuotaActual(auth()->user()->id_empresa)->fecha_fin_detalle) }})</b>
                                 </h6>
                             @endif
 
                         </div>
-                        <hr>
-                        <div class="ml-auto mt-md-3 mt-lg-0">
+                        <div class="ml-auto mt-lg-0">
                             <span class="opacity-7 text-muted"><i data-feather="file-text"></i></span>
-
-
                         </div>
                     </div>
                 </div>

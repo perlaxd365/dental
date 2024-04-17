@@ -54,11 +54,11 @@ class Index extends Component
             $this->telefono_paciente = $paciente->telefono_paciente;
 
             //datos de ventas
-            $this->ventas = Venta::where('id_paciente', $id_paciente)->get();
+            $this->ventas = Venta::where('id_paciente', $id_paciente)->where('estado', true)->get();
             //datos de recetas
-            $this->recetas = Receta::where('id_paciente', $id_paciente)->get();
+            $this->recetas = Receta::where('id_paciente', $id_paciente)->where('estado_rec', true)->get();
             //datos de recetas
-            $this->citas = Cita::where('id_paciente', $id_paciente)->get();
+            $this->citas = Cita::where('id_paciente', $id_paciente)->where('estado', true)->get();
         }
     }
 
