@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             "id_tipo_usuario"=>'1',
             "name"=>'Cesar Raul Baca',
             "dni"=>'73888312', 
-            "email"=>'perlaxd365@gmail.com',
+            "email"=>'corporacion@mg.optica-facturito.tech',
             "password"=>bcrypt('12345678'),
             "estado"=>true,
         ])->assignRole('Administrador');

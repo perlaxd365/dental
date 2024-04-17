@@ -35,7 +35,7 @@ return
 
 
         //ESTADOS DE empresa
-        'CORREO_NOTIFICACION_PAGO'     => 'perlaxd365@gmail.com',
+        'CORREO_NOTIFICACION_PAGO'     => 'corporacion@mg.optica-facturito.tech',
         'EMPRESA_ADMIN'     => 1,
 
     ];
