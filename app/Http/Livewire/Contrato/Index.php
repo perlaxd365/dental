@@ -97,6 +97,7 @@ class Index extends Component
     {
         $lista_contratos = Contrato::select('*')
             ->join('empresas', 'contratos.id_empresa', 'empresas.id_empresa')
+            ->join('promos', 'contratos.id_promo', 'promos.id_promo')
             ->where('contratos.estado', true);
 
         //verificamos el permiso si es admin para listar
@@ -222,16 +223,23 @@ class Index extends Component
         for ($i = 1; $i <= $this->meses_contrato; $i++) {
             # code...
             //INICIAMOS EL PAGO DETALLE (CUOTAS) EN VACIO
-
+            $fecha = '';
+            if ($i == 1) {
+                # code...
+                $fecha = $fecha_inicio->format("Y-m-d");
+            }else{
+                $fecha = $fecha_inicio->addMonth(1)->format("Y-m-d");
+            }
             DetallePago::create([
                 'id_pago'                       => $pago->id_pago,
                 'numero_cuota_detalle'          => $i,
-                'fecha_fin_detalle'             => $fecha_inicio->addMonth(1)->format("Y-m-d"),
+                'fecha_fin_detalle'             => $fecha,
                 'estado_detalle'                => config('constants.ESTADO_DETALLE_PAGO_INCOMPLETO'),
                 'estado'                        => true,
-                'id_empresa'                    => auth()->user()->id_empresa
+                'id_empresa'                    => $this->id_empresa
             ]);
         }
+        ContratoUtil::activarUsuarios($this->id_empresa);
         // show alert
         $this->dispatchBrowserEvent(
             'alert',
@@ -492,7 +500,7 @@ class Index extends Component
             //datos de adjunto
             $filename = time() . "." . $this->adjunto_detalle->getClientOriginalExtension();
             //$imagen = $this->logo_empresa->store('public/imagenes');
-            $archivo =  $this->adjunto_detalle->storeAs('detallePagos/' . $this->id_empresa, $filename, 'real_public');
+            $archivo =  $this->adjunto_detalle->storeAs('detallePagos/' . $detalle_pago->id_empresa."/", $filename, 'real_public');
 
             $detalle_pago->update([
                 'id_tipo_pago'                  => $this->id_tipo_pago,

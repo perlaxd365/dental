@@ -1,9 +1,10 @@
 
-<div wire:ignore.self class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+<div wire:ignore.self class="modal fade" id="modalView" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title"><b>Confirmar eliminación</b></h4>
+                <h4 class="modal-title"><b>Detalle de Venta</b></h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -11,19 +12,14 @@
             <div class="modal-body">
                 <div class="form-row">
                     <div class="form-group col-md-12">
-                        <div class="alert alert-danger" role="alert">
-                            <i class="fa fa-info-circle"></i>
-                            Estás seguro de eliminar la venta:
-                        </div>
                         <label for="">Paciente</label>
-
                         <input type="input" class="form-control" disabled wire:model='paciente_delete'>
                         <br>
                         @if ($detalle_delete)
 
                             <div class="container">
                                 <table class="table table-sm table-stripped table-bordered">
-                                    <thead>
+                                    <thead class="thead-dark">
                                         <tr>
                                             <th>Item</th>
                                             <th>Producto</th>
@@ -71,15 +67,9 @@
             <div class="modal-footer">
                 <div class="form-actions">
                     <div class="text-right">
-                        <button wire:click="delete_detalle_venta" wire:loading.attr="disabled" class="btn btn-danger"
-                            type="button"> <i class="fa fa-trash" aria-hidden="true"></i> <i
-                                wire:target="delete_detalle_venta" wire:loading.class="fa fa-spinner fa-spin"
-                                aria-hidden="true">
-                            </i>
-                            Eliminar</button>
-                        <button wire:click="close_modal_delete" wire:loading.attr="disabled" class="btn btn-secondary"
-                            type="button"> <i wire:target="close_modal_delete" wire:loading.class="fa fa-spinner fa-spin"
-                                aria-hidden="true"></i>Cancelar</button>
+                        <button wire:click="close_modal_view" wire:loading.attr="disabled" class="btn btn-secondary"
+                            type="button"> <i wire:target="close_modal_view" wire:loading.class="fa fa-spinner fa-spin"
+                                aria-hidden="true"></i>Salir</button>
                     </div>
                 </div>
             </div>
@@ -88,13 +78,13 @@
 </div>
 
 <script>
-    window.addEventListener('close-modal-delete', event => {
-        $('#modalDelete').modal('hide');
+    window.addEventListener('close-modal-view', event => {
+        $('#modalView').modal('hide');
 
     });
 
-    window.addEventListener('open-modal-delete', event => {
-        $('#modalDelete').modal('show');
+    window.addEventListener('open-modal-view', event => {
+        $('#modalView').modal('show');
 
     });
 </script>

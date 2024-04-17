@@ -8,7 +8,7 @@
         <!-- ============================================================== -->
         <div class="navbar-brand">
             <!-- Logo icon -->
-            <a href="index.html">
+            <a href="{{ URL::route('index') }}">
                 <b class="logo-icon">
                     <!-- Dark Logo icon -->
                     <img src="assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
@@ -25,6 +25,13 @@
                 </span>
             </a>
         </div>
+
+        <style>
+            .scroll {
+                height: 400px;
+                overflow: scroll;
+            }
+        </style>
         <!-- ============================================================== -->
         <!-- End Logo -->
         <!-- ============================================================== -->
@@ -41,32 +48,34 @@
     <div class="navbar-collapse collapse" id="navbarSupportedContent">
         <!-- ============================================================== -->
         <!-- toggle and nav items -->
+
+        @php
+            $pagos = DB::select(
+                'select *, dp.updated_at as pago_actualizado from detalle_pagos  dp
+                        inner join pagos on pagos.id_pago = dp.id_pago
+                        inner join contratos on contratos.id_pago = pagos.id_pago
+                        where contratos.id_empresa = ' .
+                    auth()->user()->id_empresa .
+                    ' 
+                        and contratos.estado_contrato = ' .
+                    config('constants.ESTADO_CONTRATO_ACTIVO'),
+            );
+
+        @endphp
         <!-- ============================================================== -->
         <ul class="navbar-nav float-left mr-auto ml-3 pl-1">
             <!-- Notification -->
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle pl-md-3 position-relative" href="javascript:void(0)" id="bell"
                     role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span><i data-feather="bell" class="svg-icon"></i></span>
-                    @php
-                        $pagos = DB::select(
-                            'select * from detalle_pagos  dp
-                                        inner join pagos on pagos.id_pago = dp.id_pago
-                                        inner join contratos on contratos.id_pago = pagos.id_pago
-                                        where contratos.id_empresa = ' .
-                                auth()->user()->id_empresa .
-                                ' 
-                                        and contratos.estado_contrato = ' .
-                                config('constants.ESTADO_CONTRATO_ACTIVO'),
-                        );
+                    <span><i data-feather="dollar-sign" class="svg-icon"></i></span>
 
-                    @endphp
                     <span class="badge badge-primary notify-no rounded-circle">{{ count($pagos) }}</span>
                 </a>
-                <div class="dropdown-menu dropdown-menu-left mailbox animated bounceInDown">
+                <div class="dropdown-menu dropdown-menu-left mailbox animated bounceInDown scroll">
                     <div class="card">
                         <div class="card-header">
-                            Contrato activo 
+                            Contrato activo
                         </div>
                         <div class="card-body">
                             <ul class="list-style-none">
@@ -77,13 +86,16 @@
                                             <a href="javascript:void(0)"
                                                 class="message-item d-flex align-items-center border-bottom px-3 py-2">
                                                 <div
-                                                    class="btn btn-{{ $pago->estado_detalle == config('constants.ESTADO_DETALLE_PAGO_COMPLETADO') ? 'success' : 'danger' }} rounded-circle btn-circle">
-                                                    <i data-feather="airplay" class="text-white"></i></div>
+                                                    class="btn btn-{{ $pago->estado_detalle == config('constants.ESTADO_DETALLE_PAGO_COMPLETADO') ? 'success' : 'warning' }} rounded-circle btn-circle">
+                                                    <i data-feather="{{ $pago->estado_detalle == config('constants.ESTADO_DETALLE_PAGO_COMPLETADO') ? 'check-circle' : 'info' }}"
+                                                        class="text-white"></i>
+                                                </div>
                                                 <div class="w-75 d-inline-block v-middle pl-2">
                                                     <h6 class="message-title mb-0 mt-1">Cuota de pago
-                                                        ({{ $pago->numero_cuota_detalle }})</h6>
+                                                        ({{ $pago->numero_cuota_detalle }})
+                                                    </h6>
                                                     <span class="font-12 text-nowrap d-block text-muted">
-                                                        {{ $pago->estado_detalle == config('constants.ESTADO_DETALLE_PAGO_COMPLETADO') ? 'Pago completado el ' . $pago->fecha_fin_detalle : 'A la espera de pago que vence el ' . $pago->fecha_fin_detalle }}
+                                                        {{ $pago->estado_detalle == config('constants.ESTADO_DETALLE_PAGO_COMPLETADO') ? 'Realizado el ' . DateUtil::getFechaSimple($pago->pago_actualizado) : 'A la espera de pago que vence el ' . DateUtil::getFechaSimple($pago->fecha_fin_detalle) }}
                                                     </span>
                                                     <span
                                                         class="font-12 text-nowrap d-block text-muted"><b>{{ $pago->estado_detalle == config('constants.ESTADO_DETALLE_PAGO_COMPLETADO') ? 'Pago completado' : 'Espera de pago' }}</b></span>
@@ -107,16 +119,78 @@
             <!-- ============================================================== -->
             <!-- create new -->
             <!-- ============================================================== -->
+            @php
+                $mes_actual = date('m');
+                $citas = DB::select(
+                    'select * from citas ci
+                    inner join pacientes pa on pa.id_paciente = ci.id_paciente
+                    where ci.id_empresa = ' .
+                        auth()->user()->id_empresa .
+                        ' 
+                    and MONTH(ci.fecha_inicio_cita) >= ' .
+                        $mes_actual .
+                        '
+                    order by ci.fecha_inicio_cita asc',
+                );
+
+            @endphp
+
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i data-feather="settings" class="svg-icon"></i>
+                    <i data-feather="bell" class="svg-icon"></i>
+                    <span class="badge badge-primary notify-no rounded-circle">{{ count($citas) }}</span>
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                <div class="dropdown-menu dropdown-menu-left mailbox animated bounceInDown scroll">
+                    <div class="card">
+                        <div class="card-header">
+                            Citas del mes ({{ date('F') }})
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-style-none">
+                                <li>
+                                    <div class="message-center notifications position-relative">
+                                        @foreach ($citas as $cita)
+                                            <!-- Message -->
+                                            <a href="javascript:void(0)"
+                                                class="message-item d-flex align-items-center border-bottom px-3 py-1">
+                                                <div
+                                                    class="btn btn-<?php
+                                                    if (DateUtil::getFechaSimple($cita->fecha_inicio_cita) == DateUtil::getFechaSimple(now())) {
+                                                        # code...
+                                                        echo 'warning';
+                                                    }else{
+                                                        echo 'primary';
+                                                    }
+                                                    ?>
+                                                rounded-circle btn-circle">
+                                                    <i data-feather="calendar" class="text-white"></i>
+                                                </div>
+                                                <div class="w-75 d-inline-block v-middle pl-2">
+                                                    <h6 class="message-title mb-0 mt-1">Cita con
+                                                        <b>{{ $cita->nombres_paciente }}</b>
+                                                    </h6>
+                                                    <span class="font-12 text-nowrap d-block text-muted">
+                                                        Programada para el
+                                                        {{ DateUtil::getFechaSimple($cita->fecha_inicio_cita) }} a las
+                                                        {{ DateUtil::getHora($cita->fecha_inicio_cita) }}
+                                                    </span>
+                                                    <span class="font-12 text-nowrap d-block "><b
+                                                            class="bold">"{{ $cita->descripcion_cita }}"</b></span>
+                                                </div>
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                </li>
+                                <li>
+                                    <a class="nav-link pt-4 text-center text-dark" href="{{ URL::route('cita') }}">
+                                        <strong>Ver todas las citas</strong>
+                                        <i class="fa fa-angle-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </li>
             <li class="nav-item d-none d-md-block">
@@ -166,7 +240,7 @@
             <!-- User profile and search -->
             <!-- ============================================================== -->
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
+                <a class="nav-link dropdown-toggle" id="perfil" href="javascript:void(0)" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                     <img src="assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle"
                         width="40">
@@ -179,7 +253,7 @@
                 <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
                     <a class="dropdown-item" href="{{ route('perfil') }}"><i data-feather="user"
                             class="svg-icon mr-2 ml-1"></i>
-                        My Perfil</a>
+                        Perfil de Empresa</a>
                     <a class="dropdown-item" href="{{ route('contrato') }}"><i data-feather="credit-card"
                             class="svg-icon mr-2 ml-1"></i>
                         Mis contratos</a>

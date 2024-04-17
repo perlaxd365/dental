@@ -116,7 +116,7 @@ class ReporteUtil
         }
         $total_actual = self::totalPacientes($id_empresa);
         $sub = $total_mes_anterior - $total_actual;
-        if ($sub) {
+        if ($sub && $total_mes_anterior) {
             # code...
             $pre = abs($sub) / abs($total_mes_anterior);
             $total = abs($pre) * 100;

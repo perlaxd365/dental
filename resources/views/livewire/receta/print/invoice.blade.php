@@ -158,13 +158,16 @@
                                             title="Source Title">{{ $receta->oi_rec }}</cite></footer>
                                 </blockquote>
                             </td>
-                            <td style="text-align: center;" width="70%">
-                                <blockquote class="blockquote">
-                                    <p class="mb-0">Recomendación:</p>
-                                    <footer class="blockquote-footer"> <cite
-                                            title="Source Title">"{{ $receta->recomendacion_rec }}":</cite></footer>
-                                </blockquote>
-                            </td>
+                            @if ($receta->recomendacion_rec)
+                                <td style="text-align: center;" width="70%">
+                                    <blockquote class="blockquote">
+                                        <p class="mb-0">Recomendación:</p>
+                                        <footer class="blockquote-footer"> <cite
+                                                title="Source Title">"{{ $receta->recomendacion_rec }}":</cite>
+                                        </footer>
+                                    </blockquote>
+                                </td>
+                            @endif
 
                         </tr>
                     </tbody>

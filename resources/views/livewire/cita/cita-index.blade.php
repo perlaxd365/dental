@@ -10,6 +10,9 @@
             }
         }
     </style>
+    
+<link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/1.6.4/fullcalendar.css" rel="stylesheet" type="text/css" />
+<link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/1.6.4/fullcalendar.print.css " rel="stylesheet" type="text/css" media="print" />
     <div class="row">
         <div class="col-md-12">
             <div class="card">

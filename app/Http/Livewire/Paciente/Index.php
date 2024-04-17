@@ -64,7 +64,8 @@ class Index extends Component
         }
         $lista_pacientes->where(function ($query) {
             return $query
-                ->orwhere('nombres_paciente', 'LIKE', '%' . $this->search . '%');
+            ->orwhere('nombres_paciente', 'LIKE', '%' . $this->search . '%')
+            ->orwhere('dni_paciente', 'LIKE', '%' . $this->search . '%');
         });
         $lista =  $lista_pacientes->paginate($this->show);
         return view('livewire.paciente.index', compact('lista'));

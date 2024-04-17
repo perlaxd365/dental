@@ -61,7 +61,7 @@
                                 </div>
                             </td>
 
-                            <td class="border-top-0 text-muted px-2 py-4 font-14">{{ $datos->fecha_receta }}</td>
+                            <td class="border-top-0 text-muted px-2 py-4 font-14">{{ DateUtil::getFechaSimple($datos->fecha_receta)}} - {{DateUtil::getHora($datos->fecha_receta) }}</td>
 
                             <td class="border-top-0 text-muted px-2 py-4 font-14 text-center">
                                 <div class="col text-center">

@@ -11,6 +11,7 @@ use App\Models\TipoUsuario;
 use App\Models\Venta;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -101,7 +102,9 @@ class Index extends Component
 
         $this->permiso = TipoUsuario::find(auth()->user()->id_tipo_usuario);
 
-        $lista_ventas = Venta::select('*')
+        $lista_ventas = Venta::select(DB::raw(
+            "*,ventas.created_at as fecha_venta"
+        ))
             ->join('pacientes', 'ventas.id_paciente', 'pacientes.id_paciente')
             ->join('empresas', 'empresas.id_empresa', 'ventas.id_empresa')
             ->where('ventas.estado', true)
@@ -456,6 +459,7 @@ class Index extends Component
             'sub_total_venta' => $this->sub_total_venta,
             'igv_venta' => $this->igv_venta,
             'total_venta' => $this->total_venta,
+            'fecha_venta' => now(),
         ];
 
         $data_detalle_venta = $this->lista_detalle;
@@ -483,6 +487,7 @@ class Index extends Component
             "venta_" .  time() . ".pdf"
         );
     }
+
     public function delete_venta($id_venta)
     {
         $this->id_venta = $id_venta;
@@ -505,6 +510,8 @@ class Index extends Component
             []
         );
     }
+    
+
     public function delete_detalle_venta()
     {
 
@@ -538,6 +545,7 @@ class Index extends Component
             'sub_total_venta' => $venta->sub_total_venta,
             'igv_venta' => $venta->igv_venta,
             'total_venta' => $venta->total_venta,
+            'fecha_venta' => $venta->created_at
         ];
         $data_detalle_venta = [];
 
@@ -554,6 +562,7 @@ class Index extends Component
                     'unidad_detalle' => $detalle_venta->unidad_detalle,
                     'precio_unitario_detalle' => $detalle_venta->precio_unitario_detalle,
                     'precio_total_detalle' => $detalle_venta->precio_total_detalle,
+                    'precio_total_detalle' => $detalle_venta->precio_total_detalle,
                 )
             );
         }
@@ -568,6 +577,40 @@ class Index extends Component
         return response()->streamDownload(
             fn () => print($pdfContent),
             "venta_" .  time() . ".pdf"
+        );
+    }
+
+    
+    public function view($id_venta)
+    {
+        $this->id_venta = $id_venta;
+        $venta = Venta::select('*')
+            ->join('pacientes', 'ventas.id_paciente', 'pacientes.id_paciente')
+            ->where('ventas.estado', true)
+            ->where('id_venta', $id_venta)
+            ->first();
+
+        $this->paciente_delete = $venta->nombres_paciente;
+        $this->subtotal_delete = $venta->sub_total_venta;
+        $this->igv_delete = $venta->igv_venta;
+        $this->total_delete = $venta->total_venta;
+
+        $this->detalle_delete = $this->listaDetalle($id_venta);
+
+        // show alert
+        $this->dispatchBrowserEvent(
+            'open-modal-view',
+            []
+        );
+    }
+    
+    public function close_modal_view()
+    {
+        $this->id_venta = null;
+        // show alert
+        $this->dispatchBrowserEvent(
+            'close-modal-view',
+            []
         );
     }
 }

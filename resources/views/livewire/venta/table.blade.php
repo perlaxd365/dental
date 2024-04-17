@@ -92,9 +92,12 @@
                                     @endforeach
                                 </select>
                             </td>
-                            <td>{{ DateUtil::getFecha($venta->created_at) }} -
-                                {{ DateUtil::getHora($venta->created_at) }}</td>
+                            <td>{{ DateUtil::getFecha($venta->fecha_venta) }} -
+                                {{ DateUtil::getHora($venta->fecha_venta) }}</td>
                             <td class="text-center">
+                                <button wire:click='view({{ $venta->id_venta }})'
+                                    class="btn btn-outline-secondary btn-sm rounded-circle">
+                                    <i class="fa fa-eye" aria-hidden="true"></i></button>
                                 <button wire:click='print({{ $venta->id_venta }})'
                                     class="btn btn-outline-secondary btn-sm rounded-circle">
                                     <i class="fa fa-print" aria-hidden="true"></i></button>

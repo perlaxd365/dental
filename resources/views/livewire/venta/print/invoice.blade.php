@@ -138,9 +138,10 @@
         <div class="info">
             <h3></h3>
             <p>
-                Razon Social : {{ $empresa->razon_social_empresa }}</br>
-                Dirección : {{ $empresa->direccion_empresa }}</br>
+                RAZÓN SOCIAL : {{ $empresa->razon_social_empresa }}</br>
+                DIRECCIÓN : {{ $empresa->direccion_empresa }}</br>
                 RUC : {{ $empresa->ruc_empresa }}</br>
+                FECHA EMISION: {{DateUtil::getFechaHora($data_venta['fecha_venta'])}}
             </p>
         </div>
     </div>
@@ -148,7 +149,7 @@
         <div class="info">
             <h3></h3>
             <p>
-                Nombres : {{ $paciente->nombres_paciente }}</br>
+                NOMBRES : {{ $paciente->nombres_paciente }}</br>
                 DNI : {{ $paciente->dni_paciente }}</br>
             </p>
         </div>

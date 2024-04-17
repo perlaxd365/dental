@@ -47,7 +47,7 @@
 
                     <div class="alert alert-warning " role="alert">
                         <small><i class="fa fa-clock text-dark" aria-hidden="true"></i> Límite de pago:
-                            {{ $fecha_fin_detalle }}</small>
+                            {{ DateUtil::getFechaSimple($fecha_fin_detalle) }}</small>
                     </div>
                     <div class="form-group">
                         <label for="title" class="col-sm-12 control-label">Nombres Completos</label>

@@ -4,6 +4,7 @@ use App\Http\Controllers\calendarController;
 use App\Http\Controllers\citaController;
 use App\Http\Controllers\contratoController;
 use App\Http\Controllers\empresaController;
+use App\Http\Controllers\historiaController;
 use App\Http\Controllers\indexController;
 use App\Http\Controllers\laboratorioController;
 use Illuminate\Support\Facades\Route;
@@ -78,8 +79,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('contrato', [contratoController::class, 'index'])->name('contrato');
 
     //VENTAS
-    Route::get('venta', [ventaController::class, 'index'])->name('venta');;
+    Route::get('venta', [ventaController::class, 'index'])->name('venta');
 
     //VENTAS
     Route::get('perfil', [PerfilController::class, 'index'])->name('perfil');
+
+    //VENTAS
+    Route::get('historia', [historiaController::class, 'index'])->name('historia');
 });

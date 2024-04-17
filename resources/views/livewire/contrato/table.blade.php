@@ -61,9 +61,6 @@
                             Empresa
                         </th>
                         <th class="border-0 font-14 font-weight-medium text-muted px-2">
-                            Promoción
-                        </th>
-                        <th class="border-0 font-14 font-weight-medium text-muted px-2">
                             Fecha de inicio de contrato
                         </th>
                         <th class="border-0 font-14 font-weight-medium text-muted px-2">
@@ -97,11 +94,11 @@
                                         <span class="text-muted font-14">
                                             {{ $datos->email_empresa }}
                                         </span>
+                                        <span class="text-muted font-14">
+                                            <small><b>{{ $datos->descripcion_promo }}</b></small><br>
+                                        </span>
                                     </div>
                                 </div>
-                            </td>
-                            <td class="border-top-0 text-muted px-2 py-4 font-14">
-                                <b>{{ $datos->promocion_contrato }}</b>
                             </td>
                             <td class="border-top-0 text-muted px-2 py-4 font-14">
                                 {{ DateUtil::getFecha($carbon::parse($datos->fecha_inicio_contrato)) }}
