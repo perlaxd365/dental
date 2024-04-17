@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Historia;
 
+use App\Models\Cita;
 use App\Models\DetalleVenta;
 use App\Models\Empresa;
 use App\Models\Paciente;
@@ -21,6 +22,7 @@ class Index extends Component
     public $pacientes = [];
     public $recetas = [];
     public $ventas = [];
+    public $citas = [];
     public $id_paciente;
     public $view = "create";
 
@@ -43,17 +45,21 @@ class Index extends Component
 
     public function updatingIdPaciente($id_paciente)
     {
-        //datos de paciente
-        $paciente = Paciente::find($id_paciente);
-        $this->nombres_paciente = $paciente->nombres_paciente;
-        $this->dni_paciente = $paciente->dni_paciente;
-        $this->email_paciente = $paciente->email_paciente;
-        $this->telefono_paciente = $paciente->telefono_paciente;
+        if ($id_paciente) {
+            //datos de paciente
+            $paciente = Paciente::find($id_paciente);
+            $this->nombres_paciente = $paciente->nombres_paciente;
+            $this->dni_paciente = $paciente->dni_paciente;
+            $this->email_paciente = $paciente->email_paciente;
+            $this->telefono_paciente = $paciente->telefono_paciente;
 
-        //datos de ventas
-        $this->ventas = Venta::where('id_paciente', $id_paciente)->get();
-        //datos de recetas
-        $this->recetas = Receta::where('id_paciente', $id_paciente)->get();
+            //datos de ventas
+            $this->ventas = Venta::where('id_paciente', $id_paciente)->get();
+            //datos de recetas
+            $this->recetas = Receta::where('id_paciente', $id_paciente)->get();
+            //datos de recetas
+            $this->citas = Cita::where('id_paciente', $id_paciente)->get();
+        }
     }
 
     public function listaDetalle($id_venta)
@@ -129,5 +135,4 @@ class Index extends Component
             "receta_" . $receta->dni_paciente . ".pdf"
         );
     }
-
 }

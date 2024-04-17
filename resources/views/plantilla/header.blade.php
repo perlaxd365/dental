@@ -11,7 +11,7 @@
             <a href="{{ URL::route('index') }}">
                 <b class="logo-icon">
                     <!-- Dark Logo icon -->
-                    <img src="assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+                    <img src="assets/images/logo-icon.png"  width="50" height="50" alt="homepage" class="dark-logo" />
                     <!-- Light Logo icon -->
                     <img src="assets/images/logo-icon.png" alt="homepage" class="light-logo" />
                 </b>
@@ -19,7 +19,7 @@
                 <!-- Logo text -->
                 <span class="logo-text">
                     <!-- dark Logo text -->
-                    <img src="assets/images/logo-text.png" alt="homepage" class="dark-logo" />
+                    <img src="assets/images/logo-text.png" width="120" height="75" alt="homepage" class="dark-logo" />
                     <!-- Light Logo text -->
                     <img src="assets/images/logo-light-text.png" class="light-logo" alt="homepage" />
                 </span>
