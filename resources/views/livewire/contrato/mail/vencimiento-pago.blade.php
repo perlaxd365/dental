@@ -200,13 +200,7 @@
                 width="100%" style="max-width: 600px;">
 
 
-                <!-- 1 Column Text + Button : BEGIN -->
-                <tr>
-                    <td bgcolor="#ffffff">
-
-                        <img rc="{{$empresa_admin->logo_empresa}}"
-                            style="max-width:100%; display:block; max-height: 5.22px; height: 5.22px; ">
-                <tr>
+                   <tr>
                     <td bgcolor="#FFFFFF" align="center" height="100%" valign="top" width="100%">
 
                         <table role="presentation" aria-hidden="true" border="0" cellpadding="0" cellspacing="0"
