@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <img src="{{ Auth::user()->profile_photo_path }}" width="50" height="55" alt="homepage"
+                        <img src="https://optica-facturito.tech/assets/images/logo-icon.png" width="50" height="55" alt="homepage"
                         class="dark-logo" />
                     </a>
                 </div>
