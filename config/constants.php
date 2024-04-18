@@ -35,7 +35,7 @@ return
 
 
         //ESTADOS DE empresa
-        'CORREO_NOTIFICACION_PAGO'     => 'corporacion@mg.optica-facturito.tech',
+        'CORREO_NOTIFICACION_PAGO'     => 'corporacion@optica-facturito.tech',
         'EMPRESA_ADMIN'     => 1,
 
     ];
