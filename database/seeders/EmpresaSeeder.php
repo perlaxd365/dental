@@ -19,7 +19,7 @@ class EmpresaSeeder extends Seeder
         Empresa::create([
             "nombre_comercial_empresa"=>'RPI Solution E.I.R.L.',
             "razon_social_empresa"=>'RPI Solution',
-            "email_empresa"=>'rip.optica@gmail.com',
+            "email_empresa"=>'postmaster@mg.optica-facturito.tech',
             "telefono_empresa"=>'+51 905 455 807',
             "ruc_empresa"=>'2000000023',
             "key_empresa"=>'1234',
