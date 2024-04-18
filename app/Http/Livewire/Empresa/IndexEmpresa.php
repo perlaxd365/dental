@@ -89,7 +89,7 @@ class IndexEmpresa extends Component
 
         $filename = time() . "." . $this->logo_empresa->getClientOriginalExtension();
         //$imagen = $this->logo_empresa->store('public/imagenes');
-        $imagen =  $this->logo_empresa->storeAs('images', $filename, 'real_public');
+        $imagen =  $this->logo_empresa->storeAs('images/'.$this->ruc_empresa, $filename, 'real_public');
 
 
         Empresa::create([
