@@ -180,19 +180,6 @@
             <td>
             <![endif]-->
 
-            <!-- Email Header : BEGIN -->
-            <table role="presentation" aria-hidden="true" cellspacing="0" cellpadding="0" border="0" align="center"
-                width="111px" style="max-width: 600px;">
-                <tr>
-                    <td style="padding: 30px 0; align: center;">
-                        <img src="{{url('/' . $empresa_admin->logo_empresa) }}"  aria-hidden="true" width="111"
-                            height="35" alt="alt_text" border="0" style="height: auto; background: "#";
-                            font-family: Open Sans, Roboto, Helvetina Neue, sans-serif; font-size: 15px; line-height:
-                            20px; color: #555555; min-width: 111px; max-width:111px;">
-                    </td>
-                </tr>
-
-            </table>
             <!-- Email Header : END -->
 
             <!-- Email Body : BEGIN -->
@@ -281,8 +268,8 @@
                                     class="x-gmail-data-detectors">
                                     <!-- <webversion style="color:#353535; text-decoration:underline; font-weight: bold;">View as a Web Page</webversion>
                         <br><br> -->
-                                    Enviado por el equipo de <b>SOPORTE | <a href="http://www.fanatiz.com"
-                                            style="color: #3CA2FF; line-height:1.5em">www.fanatiz.com<a>
+                                    Enviado por el equipo de <b>SOPORTE | <a href="https://wa.me/+51902517849"
+                                            style="color: #3CA2FF; line-height:1.5em">Contactar con Facturito<a>
                                                 <br>
                                                 <!-- <unsubscribe style="color: #353535; text-decoration:underline;">Eliminar Suscripción</unsubscribe> -->
 
