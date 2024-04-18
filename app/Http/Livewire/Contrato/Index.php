@@ -190,7 +190,7 @@ class Index extends Component
 
         $filename = time() . "." . $this->pdf_contrato_ruta_contrato->getClientOriginalExtension();
         //$imagen = $this->logo_empresa->store('public/imagenes');
-        $imagen =  $this->pdf_contrato_ruta_contrato->storeAs('contratos/' . $this->id_empresa, $filename, 'real_public');
+        $imagen =  $this->pdf_contrato_ruta_contrato->storeAs('images/informacion_general/contratos/' . $this->id_empresa, $filename, 'real_public');
 
 
 
@@ -325,7 +325,7 @@ class Index extends Component
             # code...
             $filename = time() . "." . $this->pdf_contrato_ruta_contrato->getClientOriginalExtension();
             //$imagen = $this->logo_empresa->store('public/imagenes');
-            $imagen =  $this->pdf_contrato_ruta_contrato->storeAs('contratos/' . $this->id_empresa, $filename, 'real_public');
+            $imagen =  $this->pdf_contrato_ruta_contrato->storeAs('images/informacion_general/contratos/' . $this->id_empresa, $filename, 'real_public');
             $contrato->update([
                 'id_empresa'                    => $this->id_empresa,
                 'id_promo'                      => $this->id_promo,
@@ -500,7 +500,7 @@ class Index extends Component
             //datos de adjunto
             $filename = time() . "." . $this->adjunto_detalle->getClientOriginalExtension();
             //$imagen = $this->logo_empresa->store('public/imagenes');
-            $archivo =  $this->adjunto_detalle->storeAs('detallePagos/' . $detalle_pago->id_empresa."/", $filename, 'real_public');
+            $archivo =  $this->adjunto_detalle->storeAs('images/informacion_general/detallePagos/' . $detalle_pago->id_empresa."/", $filename, 'real_public');
 
             $detalle_pago->update([
                 'id_tipo_pago'                  => $this->id_tipo_pago,
