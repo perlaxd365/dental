@@ -11,7 +11,7 @@
             <a href="{{ URL::route('index') }}">
                 <b class="logo-icon">
                     <!-- Dark Logo icon -->
-                    <img src="assets/images/logo-icon.png" width="50" height="50" alt="homepage"
+                    <img src="assets/images/logo-icon.png" width="50" height="60" alt="homepage"
                         class="dark-logo" />
                     <!-- Light Logo icon -->
                     <img src="assets/images/logo-icon.png" alt="homepage" class="light-logo" />
@@ -224,7 +224,7 @@
                         <div class="d-flex no-block align-items-center">
                             <div class="mr-3">
                                 <img src="{{ $empresa->logo_empresa }}" alt="user" class="rounded-circle"
-                                    width="45" height="45" />
+                                    width="45" height="50" />
                             </div>
                             <div class="nav-item d-none d-md-block">
                                 <h5 class="text-dark mb-0 font-16 font-weight-medium">
@@ -247,18 +247,21 @@
                     aria-haspopup="true" aria-expanded="false">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="assets/images/users/profile-pic.jpg" class="rounded-circle" width="40">
+                        <img src="{{ auth()->user()->profile_photo_path }}"  class="rounded-circle" width="40" height="40">
                     </a>
 
                 </a>
-                <span class="d-none d-md-block nav-link dropdown-toggle" style="cursor: pointer;" data-toggle="dropdown"
-                >
+                <span class="d-none d-md-block nav-link dropdown-toggle" style="cursor: pointer;"
+                    data-toggle="dropdown">
                     <span>Hello,</span>
                     <span class="text-dark">
                         {{ auth()->user()->name }}
                     </span> <i data-feather="chevron-down" class="svg-icon"></i>
                 </span>
                 <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
+                    <a class="dropdown-item" href="{{ url('/user/profile') }}"><i data-feather="smile"
+                            class="svg-icon mr-2 ml-1"></i>
+                        Perfil de Usuario</a>
                     <a class="dropdown-item" href="{{ route('perfil') }}"><i data-feather="user"
                             class="svg-icon mr-2 ml-1"></i>
                         Perfil de Empresa</a>

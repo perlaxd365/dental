@@ -26,11 +26,12 @@ class EmpresaSeeder extends Seeder
             "key_empresa"=>'1234',
             "direccion_empresa"=>'Urb Garatea Mz H Lote 32',
             "pagina_empresa"=>'www.rpi.com',
-            "logo_empresa"=>'images/rpi.png',
+            "logo_empresa"=>'assets/images/logo-icon.png',
             "tipo_soap_empresa"=>'Demo',
             "envio_soap_empresa"=>'SOAP',
             "estado"=>true
         ]);
+        
         //
         Empresa::create([
             "nombre_comercial_empresa"=>'SHEYLA S.A.C.',
@@ -46,6 +47,6 @@ class EmpresaSeeder extends Seeder
             "tipo_soap_empresa"=>'Demo',
             "envio_soap_empresa"=>'SOAP',
             "estado"=>true
-        ]);
+        ]); 
     }
 }

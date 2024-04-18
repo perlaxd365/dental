@@ -6,7 +6,8 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-jet-application-mark class="block h-9 w-auto" />
+                        <img src="{{ Auth::user()->profile_photo_path }}" width="50" height="55" alt="homepage"
+                        class="dark-logo" />
                     </a>
                 </div>
 

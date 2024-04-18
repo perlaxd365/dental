@@ -45,8 +45,9 @@ Route::middleware([
 Route::group(['middleware' => ['auth']], function () {
     /**
      * Logout Route
-     */
-    Route::get('/', [indexController::class, 'index'])->name('/');
+     *//* 
+    Route::get('/', [indexController::class, 'index'])->name('/'); */
+    Route::redirect('/dashboard', '/index')->name('dashboard');
 
     //USUARIOS
     Route::get('index', [indexController::class, 'index'])->name('index');
@@ -86,4 +87,5 @@ Route::group(['middleware' => ['auth']], function () {
 
     //VENTAS
     Route::get('historia', [historiaController::class, 'index'])->name('historia');
+    //VENTAS
 });
