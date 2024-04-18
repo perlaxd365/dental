@@ -185,7 +185,7 @@
                 width="111px" style="max-width: 600px;">
                 <tr>
                     <td style="padding: 30px 0; align: center;">
-                        <img rc="{{$empresa_admin->logo_empresa}}" aria-hidden="true" width="111"
+                        <img src={{url('/' . $empresa_admin->logo_empresa) }} aria-hidden="true" width="111"
                             height="35" alt="alt_text" border="0" style="height: auto; background: "#";
                             font-family: Open Sans, Roboto, Helvetina Neue, sans-serif; font-size: 15px; line-height:
                             20px; color: #555555; min-width: 111px; max-width:111px;">

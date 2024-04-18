@@ -1,4 +1,6 @@
 
+
+@if (Contratoutil::getContrato(auth()->user()->id_empresa))
 @extends('layout')
 
 @section('title', 'Citas')
@@ -11,3 +13,4 @@
     @livewire('cita.cita-index')
 
 @endsection
+@endif

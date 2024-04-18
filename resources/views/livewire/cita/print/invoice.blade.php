@@ -61,7 +61,7 @@
                                                     <td style="text-align: center;" width="34%">
 
                                                         <img alt="Logo del organismo" src="{{ $empresa->logo_empresa }}"
-                                                            style="height: 150px;" title="Logo del organismo">
+                                                            style="height: 100px;" title="Logo del organismo">
 
                                                     </td>
                                                     <td style="text-align: center;" width="33%">
