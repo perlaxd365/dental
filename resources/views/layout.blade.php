@@ -306,7 +306,7 @@
     <p>Sentimos mucho no seguir contando contigo dentro de nuestro equipo, extrañamos que seas parte de nosotros.
         Nunca es tarde para volver...
         <br>
-        <a href="http://mcause.us/supportticket"><u>Contactar con equipo de soporte</u></a>.
+        <a href="https://wa.me/+51902517849?text=Hola, quisiera continuar con el servicio..."><u>Contactar con equipo de soporte</u></a>.
     </p>
     <a href="{{ route('logout') }}" class="btn btn-outline btn-light text-dark">
         <i data-feather="power" class="fa fa-close"></i>Volver a iniciar sesión</a>
