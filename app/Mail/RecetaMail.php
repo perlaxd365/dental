@@ -41,6 +41,7 @@ class RecetaMail extends Mailable
     {
         //traermos el correo de la empresa
         $empresa = Empresa::find(auth()->user()->id_empresa);
+        dd($empresa->email_empresa);
         return new Envelope(
             from: $empresa->email_empresa,
             subject: 'Receta Médica - ' . $empresa->razon_social,
