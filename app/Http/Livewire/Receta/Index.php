@@ -581,7 +581,7 @@ class Index extends Component
             );
             throw ValidationException::withMessages(['correo_receta_send' => 'Dni ya se encuentra agregado.']);
         }
-        Mail::to($receta->email_paciente)->send(new RecetaMail($receta->id_receta));
+        Mail::to($this->correo_receta_send)->send(new RecetaMail($receta->id_receta));
         $this->closeModalEmail();
         // show alert
         $this->dispatchBrowserEvent(
