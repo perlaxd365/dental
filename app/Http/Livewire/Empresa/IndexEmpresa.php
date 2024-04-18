@@ -22,6 +22,7 @@ class IndexEmpresa extends Component
         $direccion_empresa,
         $pagina_empresa,
         $email_empresa,
+        $email_personal_empresa,
         $tipo_soap_empresa,
         $envio_soap_empresa,
         $estado;
@@ -63,6 +64,7 @@ class IndexEmpresa extends Component
             'ruc_empresa.required' => 'Por favor ingresar el ruc de la empresa',
             'logo_empresa.required' => 'Por añadir el logo de la empresa',
             'email_empresa.required' => 'Por añadir el correo de la empresa',
+            'email_personal_empresa.required' => 'Por añadir el correo de la empresa',
             'telefono_empresa.required' => 'Por añadir el teléfono de la empresa',
             'tipo_soap_empresa.required' => 'Por favor seleccionar tipo de soap',
             'envio_soap_empresa.required' => 'Por favor seleccionar envío de soap',
@@ -76,6 +78,7 @@ class IndexEmpresa extends Component
             'direccion_empresa' => 'required',
             'pagina_empresa' => 'required',
             'email_empresa' => 'required',
+            'email_personal_empresa' => 'required',
             'telefono_empresa' => 'required',
             'tipo_soap_empresa' => 'required',
             'envio_soap_empresa' => 'required',
@@ -97,6 +100,7 @@ class IndexEmpresa extends Component
             'razon_social_empresa' => $this->razon_social_empresa,
             'ruc_empresa'   => $this->ruc_empresa,
             'email_empresa'   => $this->email_empresa,
+            'email_personal_empresa'   => $this->email_personal_empresa,
             'telefono_empresa' => $this->telefono_empresa,
             'logo_empresa' => $imagen,
             'direccion_empresa' => $this->direccion_empresa,
@@ -124,6 +128,7 @@ class IndexEmpresa extends Component
         $this->razon_social_empresa = "";
         $this->ruc_empresa = "";
         $this->logo_empresa = "";
+        $this->email_personal_empresa = "";
         $this->email_empresa = "";
         $this->telefono_empresa = "";
         $this->key_empresa = "";
@@ -148,6 +153,7 @@ class IndexEmpresa extends Component
         $this->nombre_comercial_empresa = $empresa->nombre_comercial_empresa;
         $this->razon_social_empresa = $empresa->razon_social_empresa;
         $this->email_empresa = $empresa->email_empresa;
+        $this->email_personal_empresa = $empresa->email_personal_empresa;
         $this->telefono_empresa = $empresa->telefono_empresa;
         $this->ruc_empresa = $empresa->ruc_empresa;
         $this->key_empresa = $empresa->key_empresa;
@@ -167,6 +173,7 @@ class IndexEmpresa extends Component
             'razon_social_empresa.required' => 'Por favor introducir razón social',
             'ruc_empresa.required' => 'Por favor ingresar el ruc de la empresa',
             'email_empresa.required' => 'Por añadir el correo de la empresa',
+            'email_personal_empresa.required' => 'Por añadir el correo de personal',
             'telefono_empresa.required' => 'Por añadir el teléfono de la empresa',
             'tipo_soap_empresa.required' => 'Por favor seleccionar tipo de soap',
             'envio_soap_empresa.required' => 'Por favor seleccionar envío de soap',
@@ -180,6 +187,7 @@ class IndexEmpresa extends Component
             'direccion_empresa' => 'required',
             'pagina_empresa' => 'required',
             'email_empresa' => 'required',
+            'email_personal_empresa' => 'required',
             'telefono_empresa' => 'required',
             'tipo_soap_empresa' => 'required',
             'envio_soap_empresa' => 'required',
@@ -203,6 +211,7 @@ class IndexEmpresa extends Component
                 'razon_social_empresa' => $this->razon_social_empresa,
                 'ruc_empresa' => $this->ruc_empresa,
                 'email_empresa' => $this->email_empresa,
+                'email_personal_empresa' => $this->email_personal_empresa,
                 'telefono_empresa' => $this->telefono_empresa,
                 'key_empresa' => $this->key_empresa,
                 'logo_empresa' => $imagen,
@@ -218,6 +227,7 @@ class IndexEmpresa extends Component
                 'razon_social_empresa' => $this->razon_social_empresa,
                 'ruc_empresa' => $this->ruc_empresa,
                 'email_empresa' => $this->email_empresa,
+                'email_personal_empresa' => $this->email_personal_empresa,
                 'telefono_empresa' => $this->telefono_empresa,
                 'key_empresa' => $this->key_empresa,
                 'direccion_empresa' => $this->direccion_empresa,

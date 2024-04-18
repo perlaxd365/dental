@@ -68,7 +68,7 @@ class PagoCommand extends Command
                     'fecha_notificacion_detalle' => now(),
                     'notificacion_detalle' => true
                 ]);
-                Mail::to($empresa->email_empresa)->send(new PagoMail($empresa->id_empresa, $contrato->id_contrato, $value->id_detalle_pago));
+                Mail::to($empresa->email_personal_empresa)->send(new PagoMail($empresa->id_empresa, $contrato->id_contrato, $value->id_detalle_pago));
                 Mail::to(config('constants.CORREO_NOTIFICACION_PAGO'))->send(new AvisoPagoInternoMail($empresa->id_empresa, $contrato->id_contrato, $value->id_detalle_pago));
             }
         }
