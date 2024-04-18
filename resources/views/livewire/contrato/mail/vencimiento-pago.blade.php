@@ -266,8 +266,8 @@
                                     class="x-gmail-data-detectors">
                                     <!-- <webversion style="color:#353535; text-decoration:underline; font-weight: bold;">View as a Web Page</webversion>
                         <br><br> -->
-                                    Enviado por el equipo de <b>SOPORTE | <a href="https://wa.me/+51902517849"
-                                            style="color: #3CA2FF; line-height:1.5em">www.fanatiz.com<a>
+                        Enviado por el equipo de <b>SOPORTE | <a href="https://wa.me/+51902517849"
+                            style="color: #3CA2FF; line-height:1.5em">Contactar con Facturito<a>
                                                 <br>
                                                 <!-- <unsubscribe style="color: #353535; text-decoration:underline;">Eliminar Suscripción</unsubscribe> -->
 
