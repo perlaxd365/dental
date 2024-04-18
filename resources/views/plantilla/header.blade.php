@@ -247,7 +247,7 @@
                     aria-haspopup="true" aria-expanded="false">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" class="h-8 w-8 rounded-full object-cover">
+                        <img src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}"  class="rounded-circle" width="40" height="40">
                     </a>
 
                 </a>
