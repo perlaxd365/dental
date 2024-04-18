@@ -213,7 +213,7 @@
                                         <tr>
 
                                             <td class="icon"style="text-align: center; padding: 30px;">
-                                                <img src="{{$empresa_admin->logo_empresa}}" aria-hidden="true"
+                                                <img src="{{url('/' . $empresa_admin->logo_empresa) }}"  aria-hidden="true"
                                                     width="140" height="auto" alt="alt_text" border="0"
                                                     align="center"
                                                     style="width: 100%; max-width: 140px; background: #; font-family: Open Sans, Roboto, Helvetina Neue, sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
