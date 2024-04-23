@@ -47,7 +47,7 @@
                     <div class="form-group">
                         <label for="desc" class="col-sm-2 control-label">Descripción</label>
                         <div class="col-sm-10">
-                            <input type="text" name="descripcion_cita" class="form-control" id="desc"
+                            <input type="text" autocomplete="off" name="descripcion_cita" class="form-control" id="desc"
                                 placeholder="Descripción de la cita">
                         </div>
                         @error('motivo_cita')

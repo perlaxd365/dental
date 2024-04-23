@@ -1,11 +1,13 @@
-@extends('layout')
+@if (Contratoutil::getContrato(auth()->user()->id_empresa))
+    @extends('layout')
 
-@section('title', 'Venta')
-@section('view', Route::current()->getName())
-@section('icon', 'shopping-cart')
-@section('date', DateUtil::getFecha($carbon::parse(Date::now())))
-@section('content')
+    @section('title', 'Venta')
+    @section('view', Route::current()->getName())
+    @section('icon', 'shopping-cart')
+    @section('date', DateUtil::getFecha($carbon::parse(Date::now())))
+    @section('content')
 
-    @livewire('venta.index')
+        @livewire('venta.index')
 
-@endsection
+    @endsection
+@endif

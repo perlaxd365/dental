@@ -1,3 +1,4 @@
+@if (Contratoutil::getContrato(auth()->user()->id_empresa))
 @extends('layout')
 
 @section('title', 'Paciente')
@@ -9,3 +10,4 @@
     @livewire('paciente.index')
 
 @endsection
+@endif

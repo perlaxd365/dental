@@ -18,7 +18,7 @@
             <div class="col-md-5">
                 <div class="form-group">
                     <label for="start" class="col-sm-12 control-label">Fecha
-                        inicio de contrato</label>
+                        inicio de venta</label>
                     <div class="col-sm-10">
                         <input wire:model="fecha_inicio_venta_search" type="date" class="form-control">
                     </div>
@@ -31,7 +31,7 @@
             <div class="col-md-5">
                 <div class="form-group">
                     <label for="start" class="col-sm-12 control-label">Fecha
-                        fin de contrato</label>
+                        fin de venta</label>
                     <div class="col-sm-10">
                         <input wire:model="fecha_fin_venta_search" type="date" class="form-control">
                     </div>
