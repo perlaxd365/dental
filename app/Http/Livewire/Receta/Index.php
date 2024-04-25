@@ -80,7 +80,8 @@ class Index extends Component
             ->join('ojo_izquierdos', 'recetas.id_ojo_izquierdo', 'ojo_izquierdos.id_ojo_izquierdo')
             ->join('pacientes', 'recetas.id_paciente', 'pacientes.id_paciente')
             ->join('empresas', 'empresas.id_empresa', 'recetas.id_empresa')
-            ->where('recetas.estado_rec', true);
+            ->where('recetas.estado_rec', true)
+            ->orderby('recetas.created_at', 'desc');
 
         //verificamos el permiso si es admin para listar
         $this->permiso = TipoUsuario::find(auth()->user()->id_tipo_usuario);
@@ -273,11 +274,11 @@ class Index extends Component
             'id_paciente'           => $this->id_paciente,
             'id_ojo_derecho'        => $ojo_izquierdo_create->id_ojo_izquierdo,
             'id_ojo_izquierdo'      => $ojo_derecho_create->id_ojo_derecho,
-            'astigmatismo_rec'      => $this->astigmatismo_rec,
-            'hipermetropia_rec'     => $this->hipermetropia_rec,
-            'miopia_rec'            => $this->miopia_rec,
-            'presbicia_rec'         => $this->presbicia_rec,
-            'adicion_rec'         => $this->adicion_rec,
+            'astigmatismo_rec'      => ($this->astigmatismo_rec) ? $this->astigmatismo_rec : 0,
+            'hipermetropia_rec'     => ($this->hipermetropia_rec) ? $this->hipermetropia_rec : 0,
+            'miopia_rec'            => ($this->miopia_rec) ? $this->miopia_rec : 0,
+            'presbicia_rec'         => ($this->presbicia_rec) ? $this->presbicia_rec : 0,
+            'adicion_rec'           => $this->adicion_rec,
             'dip_lejos_rec'         => $this->dip_lejos_rec,
             'dip_cerca_rec'         => $this->dip_cerca_rec,
             'add_cerca_rec'         => $this->add_cerca_rec,
@@ -449,10 +450,10 @@ class Index extends Component
         $receta_update = Receta::find($this->id_receta);
         $receta_update->update([
             'id_paciente'           => $this->id_paciente,
-            'astigmatismo_rec'      => $this->astigmatismo_rec,
-            'hipermetropia_rec'     => $this->hipermetropia_rec,
-            'miopia_rec'            => $this->miopia_rec,
-            'presbicia_rec'         => $this->presbicia_rec,
+            'astigmatismo_rec'      => ($this->astigmatismo_rec) ? $this->astigmatismo_rec : 0,
+            'hipermetropia_rec'     => ($this->hipermetropia_rec) ? $this->hipermetropia_rec : 0,
+            'miopia_rec'            => ($this->miopia_rec) ? $this->miopia_rec : 0,
+            'presbicia_rec'         => ($this->presbicia_rec) ? $this->presbicia_rec : 0,
             'adicion_rec'           => $this->adicion_rec,
             'dip_lejos_rec'         => $this->dip_lejos_rec,
             'dip_cerca_rec'         => $this->dip_cerca_rec,
