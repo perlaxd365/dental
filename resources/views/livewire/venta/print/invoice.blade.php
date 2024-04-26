@@ -141,7 +141,8 @@
                 RAZÓN SOCIAL : {{ $empresa->razon_social_empresa }}</br>
                 DIRECCIÓN : {{ $empresa->direccion_empresa }}</br>
                 RUC : {{ $empresa->ruc_empresa }}</br>
-                FECHA EMISION: {{DateUtil::getFechaHora($data_venta['fecha_venta'])}}
+                FECHA : {{DateUtil::getFechaHora($data_venta['fecha_venta'])}}</br>
+                TELEFONO : {{ $empresa->telefono_empresa }}
             </p>
         </div>
     </div>

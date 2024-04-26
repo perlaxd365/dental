@@ -35,6 +35,8 @@
                                 <li class="text-muted">Ruc: {{ $empresa->ruc_empresa }}</li>
                                 <li class="text-muted"><i class="fas fa-phone"></i>Dirección:
                                     {{ $empresa->direccion_empresa }}</li>
+                                    <li class="text-muted"><i class="fas fa-phone"></i>Teléfono:
+                                        {{ $empresa->telefono_empresa }}</li>
                             </ul>
                         </td>
                         <td style="text-align: center;" width="34%">

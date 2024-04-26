@@ -141,9 +141,9 @@
                                     <tr>
                                         <th scope="row">{{ $key + 1 }}</th>
 
-                                        <td>Receta realizada el : {{ DateUtil::getFechaSimple($receta->fecha_receta) }}
+                                        <td>Receta realizada el : {{ DateUtil::getFechaSimple($receta->created_at) }}
                                             -
-                                            {{ DateUtil::getHora($receta->fecha_receta) }}</td>
+                                            {{ DateUtil::getHora($receta->created_at) }}</td>
                                         <td class=" text-center">
                                             <button title="Descargar"
                                                 wire:click='printReceta({{ $receta->id_receta }})'
