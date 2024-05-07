@@ -16,8 +16,14 @@ class Venta extends Model
         'sub_total_venta',
         'igv_venta',
         'total_venta',
+        'monto_abonado_venta',
+        'monto_restante_venta',
+        'producto_entregado_venta',
+        'pago_completado_venta',
+        'saldo_venta',
         'estado',
         'id_empresa'
     ];
+    
 
 }

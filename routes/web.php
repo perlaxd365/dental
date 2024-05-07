@@ -13,6 +13,7 @@ use App\Http\Controllers\pacienteController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\productolabController;
 use App\Http\Controllers\recetaController;
+use App\Http\Controllers\saldoController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\ventaController;
 use App\Http\Livewire\Admin\Cita;
@@ -82,10 +83,13 @@ Route::group(['middleware' => ['auth']], function () {
     //VENTAS
     Route::get('venta', [ventaController::class, 'index'])->name('venta');
 
-    //VENTAS
+    //PERFIL
     Route::get('perfil', [PerfilController::class, 'index'])->name('perfil');
 
-    //VENTAS
+    //HISTORIA
     Route::get('historia', [historiaController::class, 'index'])->name('historia');
-    //VENTAS
+    
+    //SALDOS
+    Route::get('saldo', [saldoController::class, 'index'])->name('saldo');
+    
 });

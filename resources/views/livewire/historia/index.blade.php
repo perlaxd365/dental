@@ -1,4 +1,65 @@
 <div>
+    <style>
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 28px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        input:checked+.slider {
+            background-color: #14DB00;
+        }
+
+        input:focus+.slider {
+            box-shadow: 0 0 1px #14DB00;
+        }
+
+        input:checked+.slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+    </style>
     <div class="card-group row">
         <div class="col-lg-12 col-md-12">
             <div class="card">
@@ -64,16 +125,17 @@
                     </div>
                 </div>
             </div>
-            @else 
-            
+        @else
             <div class="col-lg-12 col-md-12">
                 <div class="card">
-                        <ul class="list-inline text-center mt-5 ">
-                            <li class="list-inline-item text-muted font-italic">Para mostrar historia por favor selecciona un paciente</li>
-                        </ul>
+                    <ul class="list-inline text-center mt-5 ">
+                        <li class="list-inline-item text-muted font-italic">Para mostrar historia por favor selecciona
+                            un paciente</li>
+                    </ul>
                 </div>
             </div>
         @endif
+
         @if (count($ventas) > 0)
             <div class="col-lg-6 col-md-12">
                 <div class="card">
@@ -123,6 +185,72 @@
                 </div>
             </div>
         @endif
+
+
+        @if (count($pagos) > 0)
+            <div class="col-lg-6 col-md-12">
+                <div class="card">
+                    <div class="card-body table-responsive" id="line-chart">
+                        <h4 class="card-title text-dark text-muted">Historia de Ventas con Saldo</h4>
+                        <table class="table table-sm">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Producto</th>
+                                    <th scope="col">fecha</th>
+                                    <th scope="col">Entregado</th>
+                                    <th scope="col">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($pagos as $key => $venta)
+                                    <tr>
+                                        <th scope="row">{{ $key + 1 }}</th>
+
+                                        <td>
+                                            <select class="form-control form-control-sm" id="">
+                                                @foreach ($this->listaDetalle($venta->id_venta) as $item)
+                                                    <option value="" selected>{{ $item->nombre_detalle }} (S/
+                                                        {{ $item->precio_unitario_detalle }} x
+                                                        {{ $item->cantidad_detalle }}) = S/
+                                                        {{ $item->precio_total_detalle }}</option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                        <td>{{ DateUtil::getFechaSimple($venta->created_at) }}</td>
+                                        <td>
+                                            @if ($venta->producto_entregado_venta)
+                                                <span class="badge badge-pill badge-success"><b>Entregado</b></span>
+                                            @else
+                                                <span class="badge badge-pill badge-warning"><b>A la espera</b></span>
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+                                            <a class="nav-item dropdown">
+                                                <a class="nav-link dropdown-toggle" data-toggle="dropdown"
+                                                    href="#" role="button" aria-haspopup="true"
+                                                    aria-expanded="false">Opciones</a>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="javascript:void()"
+                                                        wire:click='print({{ $venta->id_venta }})'>Imprimir</a>
+                                                    <a class="dropdown-item" href="javascript:void()"
+                                                        wire:click='showPagos({{ $venta->id_venta }})'>Ver pagos</a>
+                                                </div>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+                            </tbody>
+                        </table>
+                        <ul class="list-inline text-center mt-5 mb-2">
+                            <li class="list-inline-item text-muted font-italic">Ventas generales del paciente</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        @endif
+
         @if (count($recetas) > 0)
             <div class="col-lg-6 col-md-12">
                 <div class="card">
@@ -199,6 +327,8 @@
             </div>
         @endif
 
+
+        @include('livewire.historia.modals.modal-pago')
     </div>
 
     <script>
@@ -224,5 +354,16 @@
 
 
         })
+    </script>
+
+    <script>
+        window.addEventListener('open-modal-pagos', event => {
+            $('#modalPagos').modal('show');
+
+        });
+        window.addEventListener('close-modal-pagos', event => {
+            $('#modalPagos').modal('hide');
+
+        });
     </script>
 </div>

@@ -175,6 +175,7 @@
         @include('livewire.venta.modals.modal-detalle')
         @include('livewire.venta.modals.modal-delete')
         @include('livewire.venta.modals.modal-view')
+        @include('livewire.venta.modals.modal-venta')
         
 
     </div>

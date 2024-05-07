@@ -69,7 +69,7 @@ class Index extends Component
     {
         $this->pacientes = Paciente::where('estado', true)
             ->where('id_empresa', auth()->user()->id_empresa)->get();
-        $this->show = 2;
+        $this->show = 6;
         $this->table = true;
         $this->mayor_edad_paciente = true;
     }

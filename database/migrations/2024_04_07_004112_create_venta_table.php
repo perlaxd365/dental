@@ -20,9 +20,12 @@ return new class extends Migration
             $table->decimal('sub_total_venta', 6, 2);
             $table->decimal('igv_venta', 6, 2)->nullable();
             $table->decimal('total_venta', 6, 2);
-            $table->decimal('monto_abonado', 6, 2);
+            $table->decimal('monto_abonado_venta', 6, 2)->nullable();
+            $table->decimal('monto_restante_venta', 6, 2)->nullable();
 
-            $table->boolean('saldo');
+            $table->boolean('producto_entregado_venta')->nullable();
+            $table->boolean('pago_completado_venta')->nullable();
+            $table->boolean('saldo_venta')->nullable();
             $table->boolean('estado');
             $table->string('id_empresa');
             $table->timestamps();

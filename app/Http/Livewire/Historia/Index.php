@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Historia;
 
 use App\Models\Cita;
 use App\Models\DetalleVenta;
+use App\Models\DetalleVentaAbono;
 use App\Models\Empresa;
 use App\Models\Paciente;
 use App\Models\Receta;
@@ -23,6 +24,8 @@ class Index extends Component
     public $recetas = [];
     public $ventas = [];
     public $citas = [];
+    public $pagos = [];
+    public $lista_detalle_pagos = [];
     public $id_paciente;
     public $view = "create";
 
@@ -32,6 +35,9 @@ class Index extends Component
         $email_paciente,
         $telefono_paciente;
 
+    public $producto_entregado_venta;
+    
+    public $pago_completado_venta,$total_venta;
     public function render()
     {
         return view('livewire.historia.index');
@@ -59,6 +65,8 @@ class Index extends Component
             $this->recetas = Receta::where('id_paciente', $id_paciente)->where('estado_rec', true)->get();
             //datos de recetas
             $this->citas = Cita::where('id_paciente', $id_paciente)->where('estado', true)->get();
+            //datos de saldos
+            $this->pagos = Venta::where('id_paciente', $id_paciente)->where('estado', true)->where('saldo_venta', true)->get();
         }
     }
 
@@ -133,6 +141,32 @@ class Index extends Component
         return $pdf = response()->streamDownload(
             fn () => print($pdfContent),
             "receta_" . $receta->dni_paciente . ".pdf"
+        );
+    }
+
+    public function showPagos($id_venta)
+    {
+        $this->lista_detalle_pagos = DetalleVentaAbono::select('*')
+            ->where('estado', true)
+            ->where('id_venta', $id_venta)
+            ->get();
+        //buscamos el monto restante de la venta
+        $venta = Venta::find($id_venta);
+        $this->producto_entregado_venta = $venta->producto_entregado_venta;
+        $this->pago_completado_venta = $venta->pago_completado_venta;
+        $this->total_venta = $venta->total_venta;
+        return $this->dispatchBrowserEvent(
+            'open-modal-pagos',
+            []
+        );
+    }
+
+    public function closeModalPago()
+    {
+        // show alert
+        return $this->dispatchBrowserEvent(
+            'close-modal-pagos',
+            []
         );
     }
 }

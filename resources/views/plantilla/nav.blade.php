@@ -44,6 +44,10 @@
                 data-feather="shopping-cart" class="feather-icon"></i><span class="hide-menu">Ventas
             </span></a>
     </li>
+    <li class="sidebar-item"> <a class="sidebar-link" href="{{ URL::route('saldo') }}" aria-expanded="false"><i
+                data-feather="watch" class="feather-icon"></i><span class="hide-menu">Saldos
+            </span></a>
+    </li>
     @endif
    
 </ul>

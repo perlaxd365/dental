@@ -84,7 +84,7 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="table-responsive">
                                         <table class="table custom-table m-0 table-sm table-stripped">
-                                            <thead>
+                                            <thead class="thead-dark">
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Items</th>
@@ -176,14 +176,11 @@
 
                     @if ($lista_detalle)
                         <div class="custom-actions-btns mb-5">
-                            <button wire:click="store" wire:loading.attr="disabled" class="btn btn-primary"
-                                type="button"> <i class="fa fa-plus-circle"></i> <i wire:target="store"
+                            <button wire:click="showModalFinalizarVenta" wire:loading.attr="disabled" class="btn btn-primary"
+                                type="button"> <i class="fa fa-plus-circle"></i> <i wire:target="showModalFinalizarVenta"
                                     wire:loading.class="fa fa-spinner fa-spin" aria-hidden="true"></i>
                                 Guardar Venta</button>
 
-                            <button wire:click="store_print" wire:loading.attr="disabled" class="btn btn-secondary"
-                                type="button"><i class="fa fa-print"></i>  <i wire:target="store_print" wire:loading.class="fa fa-spinner fa-spin"
-                                    aria-hidden="true"></i> Guardar e imprimir</button>
                         </div>
                     @endif
                 </div>

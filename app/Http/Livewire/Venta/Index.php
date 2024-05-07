@@ -3,9 +3,11 @@
 namespace App\Http\Livewire\Venta;
 
 use App\Models\DetalleVenta;
+use App\Models\DetalleVentaAbono;
 use App\Models\Empresa;
 use App\Models\Paciente;
 use App\Models\Receta;
+use App\Models\TipoPago;
 use App\Models\TipoProducto;
 use App\Models\TipoUsuario;
 use App\Models\Venta;
@@ -38,6 +40,7 @@ class Index extends Component
     public $recetas = [];
     public $lista_detalle = [];
     public $tipo_productos = [];
+    public $tipos_pagos = [];
     //pacientes
 
     //agregar paciente
@@ -87,13 +90,33 @@ class Index extends Component
         $total_delete,
         $detalle_delete;
 
+    // VENTA
+    public $monto_abonado_venta,
+        $monto_restante_venta,
+        $producto_entregado_venta,
+        $pago_completado_venta,
+        $saldo_venta;
+
+    //DETALLE PAGOS VENTA ABONOS
+    public $paciente_fin_venta,
+        $nombre_abono,
+        $tipo_pago_abono,
+        $monto_abono,
+        $show_abono;
+
     public function mount()
     {
         $this->carbon = new Carbon();
         $this->table = true;
         $this->show = 6;
         $this->tipo_productos = TipoProducto::where('estado', true)->get();
+        $this->tipos_pagos = TipoPago::where('estado', true)->get();
         $this->empresa = Empresa::find(auth()->user()->id_empresa);
+        //finalizar venta
+        $this->unidad_detalle = "Unidad";
+        $this->producto_entregado_venta = true;
+        $this->pago_completado_venta = true;
+        $this->show_abono = false;
     }
     public function render()
     {
@@ -390,44 +413,91 @@ class Index extends Component
 
     public function guardar_venta()
     {
-        $messages = [
-            'id_paciente.required' => 'Por favor seleccionar el paciente para la venta',
-        ];
+        try {
+            $messages = [
+                'id_paciente.required' => 'Por favor seleccionar el paciente para la venta',
+            ];
 
-        $rules = [
+            $rules = [
 
-            'id_paciente' => 'required',
+                'id_paciente' => 'required',
 
-        ];
-        $this->validate($rules, $messages);
+            ];
+            $this->validate($rules, $messages);
 
-        $venta = Venta::create([
+            $venta = Venta::create([
 
-            'id_paciente' => $this->id_paciente,
-            'id_receta' => ($this->id_receta) ? $this->id_receta : null,
-            'sub_total_venta' => $this->sub_total_venta,
-            'igv_venta' => ($this->igv_venta) ? $this->igv_venta : null,
-            'total_venta' => $this->total_venta,
-            'estado' => true,
-            'id_empresa' => auth()->user()->id_empresa,
-        ]);
-        $this->id_venta = $venta->id_venta;
-        foreach ($this->lista_detalle as $detalle) {
-            # code...
-
-            DetalleVenta::create([
-                'id_venta' => $venta->id_venta,
-                'id_tipo_producto' => $detalle["id_tipo_producto"],
-                'nombre_detalle' => $detalle["nombre_detalle"],
-                'unidad_detalle' => $detalle["unidad_detalle"],
-                'cantidad_detalle' => $detalle["cantidad_detalle"],
-                'precio_unitario_detalle' => $detalle["precio_unitario_detalle"],
-                'precio_total_detalle' => $detalle["precio_total_detalle"],
-                'id_empresa' => auth()->user()->id_empresa,
-                'estado' => true,
+                'id_paciente'               => $this->id_paciente,
+                'id_receta'                 => ($this->id_receta) ? $this->id_receta : null,
+                'sub_total_venta'           => $this->sub_total_venta,
+                'igv_venta'                 => ($this->igv_venta) ? $this->igv_venta : null,
+                'total_venta'               => $this->total_venta,
+                'monto_abonado_venta'       => ($this->monto_abono) ? $this->monto_abono : 0,
+                'monto_restante_venta'      => $this->monto_restante_venta,
+                'producto_entregado_venta'  => $this->producto_entregado_venta,
+                'pago_completado_venta'     => $this->pago_completado_venta,
+                'saldo_venta'               => ($this->pago_completado_venta) ? false : true,
+                'estado'                    => true,
+                'id_empresa'                => auth()->user()->id_empresa
             ]);
+            $this->id_venta = $venta->id_venta;
+            foreach ($this->lista_detalle as $detalle) {
+                # code...
+
+                DetalleVenta::create([
+                    'id_venta' => $venta->id_venta,
+                    'id_tipo_producto' => $detalle["id_tipo_producto"],
+                    'nombre_detalle' => $detalle["nombre_detalle"],
+                    'unidad_detalle' => $detalle["unidad_detalle"],
+                    'cantidad_detalle' => $detalle["cantidad_detalle"],
+                    'precio_unitario_detalle' => $detalle["precio_unitario_detalle"],
+                    'precio_total_detalle' => $detalle["precio_total_detalle"],
+                    'id_empresa' => auth()->user()->id_empresa,
+                    'estado' => true,
+                ]);
+            }
+
+            if ($this->show_abono) {
+                $messages2 = [
+                    'nombre_abono.required' => 'Por favor ingresar nombre',
+                    'tipo_pago_abono.required' => 'Por favor seleccionar el tipo de pago',
+                    'monto_abono.required' => 'Por favor ingresar el monto abonado',
+                ];
+
+                $rules2 = [
+
+                    'id_paciente' => 'required',
+                    'tipo_pago_abono' => 'required',
+                    'monto_abono' => 'required',
+
+                ];
+                $ver = $this->validate($rules2, $messages2);
+             
+                DetalleVentaAbono::create([
+                    'id_venta' => $venta->id_venta,
+                    'nombre_abono' =>  $this->nombre_abono,
+                    'monto_abono' => $this->monto_abono,
+                    'tipo_pago_abono' => $this->tipo_pago_abono,
+                    'id_empresa' => auth()->user()->id_empresa,
+                    'estado' => true,
+                ]);
+                $this->closeModalFinalizarVenta();
+                DB::commit();
+            } else {
+                DB::commit();
+            }
+
+            $this->closeModalFinalizarVenta();
+        } catch (\Throwable $th) {
+            //throw $th;
+            Venta::find($venta->id_venta)->update(['estado' => false]);
+
+            DB::rollBack();
+
+            throw $th;
         }
     }
+
     public function store()
     {
         if (!$this->lista_detalle) {
@@ -445,7 +515,7 @@ class Index extends Component
         // show alert
         $this->dispatchBrowserEvent(
             'alert',
-            ['type' => 'success', 'title' => 'Se guardó al paciente correctamente', 'message' => 'Exito']
+            ['type' => 'success', 'title' => 'Se registró la venta correctamente', 'message' => 'Exito']
         );
     }
 
@@ -510,7 +580,7 @@ class Index extends Component
             []
         );
     }
-    
+
 
     public function delete_detalle_venta()
     {
@@ -580,7 +650,7 @@ class Index extends Component
         );
     }
 
-    
+
     public function view($id_venta)
     {
         $this->id_venta = $id_venta;
@@ -603,7 +673,7 @@ class Index extends Component
             []
         );
     }
-    
+
     public function close_modal_view()
     {
         $this->id_venta = null;
@@ -612,5 +682,65 @@ class Index extends Component
             'close-modal-view',
             []
         );
+    }
+
+
+    public function showModalFinalizarVenta()
+    {
+        $messages = [
+            'id_paciente.required' => 'Por favor seleccionar paciente',
+        ];
+
+        $rules = [
+
+            'id_paciente' => 'required',
+
+        ];
+        $this->validate($rules, $messages);
+
+
+        $paciente = Paciente::find($this->id_paciente);
+        $this->paciente_fin_venta = $paciente->nombres_paciente;
+        $this->nombre_abono       = $paciente->nombres_paciente;
+
+
+        // show alert
+        $this->dispatchBrowserEvent(
+            'open-modal-finalizar-venta',
+            []
+        );
+    }
+
+    public function closeModalFinalizarVenta()
+    {
+
+        // show alert
+        $this->dispatchBrowserEvent(
+            'close-modal-finalizar-venta',
+            []
+        );
+    }
+
+    public function updatingPagocompletadoventa($completo_pago)
+    {
+        if (!$completo_pago) {
+            # si no completo el pago se despliega el pago a cuenta...
+            $this->show_abono = true;
+        } else {
+            $this->show_abono = false;
+        }
+    }
+
+    public function updatingMontoabono($monto)
+    {
+
+        if ($monto != '') {
+            # code...
+            $this->monto_restante_venta = $this->total_venta - $monto;
+        }
+        if ($monto > $this->total_venta) {
+            # code...
+            $this->monto_restante_venta = 0;
+        }
     }
 }
